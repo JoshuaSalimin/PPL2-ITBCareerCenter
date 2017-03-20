@@ -1,7 +1,6 @@
 .DS_Store
 /bin
 /log
-/db
 /public/files
 .idea/
 
