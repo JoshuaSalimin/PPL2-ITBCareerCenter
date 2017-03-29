@@ -1,19 +1,43 @@
 <!DOCTYPE html>
 
 <html>
-  <head>
-    <title>{{.title}}</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" href="/public/css/bootstrap-3.3.6.min.css">
-    <link rel="shortcut icon" type="image/png" href="/public/img/favicon.png">
-    <script src="/public/js/jquery-2.2.4.min.js"></script>
-    <script src="/public/js/bootstrap-3.3.6.min.js"></script>
-    {{range .moreStyles}}
-      <link rel="stylesheet" type="text/css" href="/public/{{.}}">
-    {{end}}
-    {{range .moreScripts}}
-      <script src="/public/{{.}}" type="text/javascript" charset="utf-8"></script>
-    {{end}}
-  </head>
-  <body>
+	<head>
+		<title>{{.title}}</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<!--[if lte IE 8]><script src="/public/assets/js/ie/html5shiv.js"></script><![endif]-->
+		<link rel="stylesheet" href="/public/assets/css/main.css" />
+		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
+		<!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
+	</head>
+	<body>
+		<div id="page-wrapper">
+
+			<!-- Header -->
+				<div id="header">	
+
+					<!-- Logo -->
+						<!-- <h1><a href="index.html" id="logo">ITB Career Center</a></h1>
+						<h2>LEMBAGA KEMAHASISWAAN</h2>
+						<hr>
+						<h2>ENTREPRENEURSHIP</h2> -->
+						<a href="/"><img src="/public/images/banneritb.jpg"></a>
+				</div>
+
+		<!-- Scripts -->
+			<script src="/public/assets/js/jquery.min.js"></script>
+			<script src="/public/assets/js/jquery.dropotron.min.js"></script>
+			<script src="/public/assets/js/skel.min.js"></script>
+			<script src="/public/assets/js/util.js"></script>
+			<!--[if lte IE 8]><script src="/public/assets/js/ie/respond.min.js"></script><![endif]-->
+			<script src="/public/assets/js/main.js"></script>
+			    <link rel="shortcut icon" type="image/png" href="/public/img/favicon.png">
+			{{range .moreStyles}}
+			  <link rel="stylesheet" type="text/css" href="/public/{{.}}">
+			{{end}}
+			{{range .moreScripts}}
+			  <script src="/public/{{.}}" type="text/javascript" charset="utf-8"></script>
+			{{end}}
+		</div>
+	</body>
+</html>

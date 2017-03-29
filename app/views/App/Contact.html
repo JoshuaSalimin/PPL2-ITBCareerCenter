@@ -1,0 +1,85 @@
+{{set . "title" "ITB Career Center Entrepreneurship Contact"}}
+
+<!-- Header -->
+{{template "header.html" .}}
+<header>
+</header>
+
+<!-- Content -->
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<!--[if lte IE 8]><script src="/public/assets/js/ie/html5shiv.js"></script><![endif]-->
+		<link rel="stylesheet" href="/public/assets/css/main.css" />
+		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
+		<!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
+	</head>
+	<body>
+		<div id="page-wrapper">
+			<!-- Nav -->
+				<div id="header">
+					<nav id="nav">
+						<ul>
+							<li><a href="/">Home</a></li>
+							<li><a href="/News">News</a></li>
+							<li><a href="/Articles">Articles</a></li>
+							<li><a href="/Files">Files</a></li>
+							<li><a href="/Photos">Photo Gallery</a></li>
+							<li><a href="/Videos">Videos</a></li>
+							<li><a href="/Profiles">Profiles</a></li>
+							<li><a href="/About">About</a></li>
+							<li class="current"><a href="/Contact">Contact</a></li>
+							<li><a href="/Login">Login</a></li>
+						</ul>
+					</nav>
+				</div>
+			
+			<!-- Main -->
+				<section class="wrapper style1">
+					<div class="container">
+						<div id="content">
+
+							<!-- Content -->
+
+								<article>
+									<header>
+										<h2 style="color:Blue">Contact</h2>
+									</header>
+
+
+									<p>Bila Anda membutuhkan informasi mengenai program-program wirausaha mahasiswa dari ITB Career Center, hubungi kami melalui telepon, email, atau akun media sosial kami. </p>
+									<br>
+									<p><b>Alamat</b></p>
+									<p>GKU Timur Lt. Dasar, Kampus ITB <br> Jl. Ganesa 10, Bandung, 40132 <br> Email:career@itb.ac.id <br> Telp/Fax: (62-22) 250 9177</p>
+									<p><b>Bergabunglah dengan akun media sosial kami!</b></p>
+									<p>FB Page&ensp;&ensp;&nbsp;: itb.career.center <br> Twitter&ensp;&ensp;&ensp;&nbsp;: @ITBCareerCenter <br>YouTube&ensp;&nbsp;&nbsp;: ITBCareerCenter <br>Google+&emsp;: ITB CareerCenter <br>LinkedIn&emsp;: ITB Career Center <br>Instagram&ensp;: @itbcareercenter <br>Line&nbsp;&ensp;&ensp;&ensp;&ensp;&ensp;&nbsp;: @itbcareercenter</p>
+								</article>
+
+						</div>
+					</div>
+				</section>
+
+		<!-- Scripts -->
+			<script src="/public/assets/js/jquery.min.js"></script>
+			<script src="/public/assets/js/jquery.dropotron.min.js"></script>
+			<script src="/public/assets/js/skel.min.js"></script>
+			<script src="/public/assets/js/util.js"></script>
+			<!--[if lte IE 8]><script src="/public/assets/js/ie/respond.min.js"></script><![endif]-->
+			<script src="/public/assets/js/main.js"></script>
+			    <link rel="shortcut icon" type="image/png" href="/public/img/favicon.png">
+			{{range .moreStyles}}
+			  <link rel="stylesheet" type="text/css" href="/public/{{.}}">
+			{{end}}
+			{{range .moreScripts}}
+			  <script src="/public/{{.}}" type="text/javascript" charset="utf-8"></script>
+			{{end}}
+		</div>
+	</body>
+</html>
+
+<!-- Footer -->
+{{template "footer.html" .}}
+<footer>
+</footer>
