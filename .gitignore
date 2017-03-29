@@ -1,11 +1,3 @@
-.DS_Store
-/bin
-/log
-/public/files
-.idea/
-
-# ignore compiled app group
-/public/assets/*/app-*
-
-# ignore fragmenta.eu analytics file 
-src/app/assets/scripts/eu-google-analytics.js
+test-results/
+tmp/
+routes/

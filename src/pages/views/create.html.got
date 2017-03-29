@@ -1,4 +1,0 @@
-<section class="padded">
-<h1>Create Page</h1>
-{{ template "pages/views/form.html.got" . }}
-</section>
