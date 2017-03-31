@@ -1,85 +1,56 @@
 {{set . "title" "ITB Career Center Entrepreneurship About"}}
 
+<!-- Content -->
+<!DOCTYPE html>
 <!-- Header -->
 {{template "header.html" .}}
 <header>
 </header>
-
-<!-- Content -->
-<!DOCTYPE html>
-<html>
-	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<!--[if lte IE 8]><script src="/public/assets/js/ie/html5shiv.js"></script><![endif]-->
-		<link rel="stylesheet" href="/public/assets/css/main.css" />
-		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
-		<!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
-	</head>
-	<body>
-		<div id="page-wrapper">
-			<!-- Nav -->
-				<div id="header">
-					<nav id="nav">
-						<ul>
-							<li><a href="/">Home</a></li>
-							<li><a href="/News">News</a></li>
-							<li><a href="/Articles">Articles</a></li>
-							<li><a href="/Files">Files</a></li>
-							<li><a href="/Photos">Photo Gallery</a></li>
-							<li><a href="/Videos">Videos</a></li>
-							<li><a href="/Profiles">Profiles</a></li>
-							<li class="current"><a href="/About">About</a></li>
-							<li><a href="/Contact">Contact</a></li>
-							<li><a href="/Login">Login</a></li>
-						</ul>
-					</nav>
-				</div>
-			
-			<!-- Main -->
-				<section class="wrapper style1">
-					<div class="container">
-						<div id="content">
-
-							<!-- Content -->
-
-								<article>
-									<header>
-										<h2 style="color:Blue">Entrepreneurship</h2>
-									</header>
-
-									<span class="image featured"><img src="/public/images/aboutus.png" alt="" /></span>
-
-									<p>Selamat datang di halaman Entrepreneurship ITB Career Center.</p>
-
-									<p>Halaman ini adalah sarana berbagi informasi mengenai program-program kewirausahaan bagi mahasiswa ITB dan alumni, serta media komunikasi bagi publik. 
-									Untuk info lebih lengkap mengenai program wirausaha mahasiswa terbaru, event, dan dokumentasi kegiatan wirausaha yang diselenggarakan oleh ITB Career Center, 
-									silahkan masuk ke menu yang terdapat di sisi kiri laman.</p>
-								</article>
-
-						</div>
-					</div>
-				</section>
-
-		<!-- Scripts -->
-			<script src="/public/assets/js/jquery.min.js"></script>
-			<script src="/public/assets/js/jquery.dropotron.min.js"></script>
-			<script src="/public/assets/js/skel.min.js"></script>
-			<script src="/public/assets/js/util.js"></script>
-			<!--[if lte IE 8]><script src="/public/assets/js/ie/respond.min.js"></script><![endif]-->
-			<script src="/public/assets/js/main.js"></script>
-			    <link rel="shortcut icon" type="image/png" href="/public/img/favicon.png">
-			{{range .moreStyles}}
-			  <link rel="stylesheet" type="text/css" href="/public/{{.}}">
-			{{end}}
-			{{range .moreScripts}}
-			  <script src="/public/{{.}}" type="text/javascript" charset="utf-8"></script>
-			{{end}}
+	<div id="page-wrapper">
+	<!-- Nav -->
+		<div id="header">
+			<nav id="nav">
+				<ul>
+					<li><a href="/">Home</a></li>
+					<li><a href="/News">News</a></li>
+					<li><a href="/Articles">Articles</a></li>
+					<li><a href="/Files">Files</a></li>
+					<li><a href="/Photos">Photo Gallery</a></li>
+					<li><a href="/Videos">Videos</a></li>
+					<li><a href="/Profiles">Profiles</a></li>
+					<li class="current"><a href="/About">About</a></li>
+					<li><a href="/Contact">Contact</a></li>
+					<li><a href="/Login">Login</a></li>
+				</ul>
+			</nav>
 		</div>
-	</body>
-</html>
+	
+	<!-- Main -->
+		<section class="wrapper style1">
+			<div class="container">
+				<div id="content">
 
+					<!-- Content -->
+
+						<article>
+							<header>
+								<h2 style="color:Blue">Entrepreneurship</h2>
+							</header>
+
+							<span class="image featured"><img src="/public/images/aboutus.png" alt="" /></span>
+
+							<p>Selamat datang di halaman Entrepreneurship ITB Career Center.</p>
+
+							<p>Halaman ini adalah sarana berbagi informasi mengenai program-program kewirausahaan bagi mahasiswa ITB dan alumni, serta media komunikasi bagi publik. 
+							Untuk info lebih lengkap mengenai program wirausaha mahasiswa terbaru, event, dan dokumentasi kegiatan wirausaha yang diselenggarakan oleh ITB Career Center, 
+							silahkan masuk ke menu yang terdapat di sisi kiri laman.</p>
+						</article>
+
+				</div>
+			</div>
+		</section>
+	</div>
 <!-- Footer -->
 {{template "footer.html" .}}
 <footer>
-</footer>
+			</footer>
