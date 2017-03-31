@@ -2,6 +2,7 @@ package controllers
 
 import (
 	"github.com/revel/revel"
+	"fmt"
 )
 
 type App struct {
@@ -61,4 +62,13 @@ func (c App) Login() revel.Result {
 func (c App) ListProfiles() revel.Result {
 	profiles := true
 	return c.Render(profiles)
+}
+
+func (c App) EditProfiles(myName1 string) revel.Result {
+	fmt.Printf(myName1)
+	return c.Redirect(App.Profiles)
+}
+
+func (c App) ProfilesForm() revel.Result {
+	return c.Render()
 }
