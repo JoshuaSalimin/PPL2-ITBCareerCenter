@@ -9,41 +9,51 @@ type App struct {
 }
 
 func (c App) Index() revel.Result {
-	return c.Render()
+	home := true
+	return c.Render(home)
 }
 
 func (c App) News() revel.Result {
-	return c.Render()
+	news := true
+	return c.Render(news)
 }
 
 func (c App) Articles() revel.Result {
-	return c.Render()
+	articles := true
+	return c.Render(articles)
 }
 
 func (c App) Files() revel.Result {
-	return c.Render()
+	files := true
+	return c.Render(files)
 }
 
 func (c App) Photos() revel.Result {
-	return c.Render()
+	photos := true
+	return c.Render(photos)
 }
 
 func (c App) Videos() revel.Result {
-	return c.Render()
+	videos := true
+	return c.Render(videos)
 }
 
 func (c App) Profiles() revel.Result {
-	return c.Render()
+	profiles := true
+	return c.Render(profiles)
 }
 
 func (c App) About() revel.Result {
-	return c.Render()
+	about := true
+	return c.Render(about)
 }
 
 func (c App) Contact() revel.Result {
-	return c.Render()
+	contact := true
+	return c.Render(contact)
 }
 
 func (c App) Login() revel.Result {
-	return c.Render()
+	login := true
+	return c.Render(login)
 }

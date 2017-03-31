@@ -1,158 +1,128 @@
 {{set . "title" "ITB Career Center Entrepreneurship"}}
-{{template "header.html" .}}
+{{set . "home" "true"}}
 
 <!-- Header -->
-<header>
-</header>
-
-<html>
-	<body>
-		<div id="page-wrapper">
-			<!-- Nav -->
-					<div id="header">
-						<nav id="nav">
-							<ul>
-								<li class="current"><a href="/">Home</a></li>
-								<li><a href="/News">News</a></li>
-								<li><a href="/Articles">Articles</a></li>
-								<li><a href="/Files">Files</a></li>
-								<li><a href="/Photos">Photo Gallery</a></li>
-								<li><a href="/Videos">Videos</a></li>
-								<li><a href="/Profiles">Profiles</a></li>
-								<li><a href="/About">About</a></li>
-								<li><a href="/Contact">Contact</a></li>
-								<li><a href="/Login">Login</a></li>
-							</ul>
-						</nav>
-					</div>
-
-			<!-- Banner -->
+{{template "header.html" .}}
+	<div id="page-wrapper">
+	<!-- Nav -->
+	{{template "nav.html" .}}
+		<!-- Banner -->
 <!-- 				<section id="banner">
-					<header>
-						<h2>Arcana: <em>A responsive site template freebie by <a href="http://html5up.net">HTML5 UP</a></em></h2>
-						<a href="#" class="button">Learn More</a>
+				<header>
+					<h2>Arcana: <em>A responsive site template freebie by <a href="http://html5up.net">HTML5 UP</a></em></h2>
+					<a href="#" class="button">Learn More</a>
+				</header>
+			</section>
+-->
+		<!-- Highlights -->
+			<section class="wrapper style1">
+				<div class="container">
+					<div class="row 200%">
+						<section class="4u 12u(narrower)">
+							<div class="box highlight">
+								<!-- <i class="icon major fa-paper-plane"></i> -->
+								<img src="/public/images/idea-icon.png" width="150" height="150">
+								<h3>Opportunity to Grow</h3>
+								<p align="justify">Get the chance to learn how to develop your idea for business. Our course 
+								will take you how to prepare your business. Starting from idea, 
+								researching your idea, prepare the business plan, assembling your team and managing the business.</p>
+							</div>
+						</section>
+						<section class="4u 12u(narrower)">
+							<div class="box highlight">
+								<!-- <i class="icon major fa-pencil"></i> -->
+								<img src="/public/images/mentor-icon.png" width="150" height="150">
+								<h3>Experienced Mentor</h3>
+								<p align="justify">We bring together experienced enterpreneur to be your mentor. Learn from their 
+								problems, solutions, and mindset to bring the business together. You can also enrich your network 
+								with them and have a chance to collaborate with each other.</p>
+							</div>
+						</section>
+						<section class="4u 12u(narrower)">
+							<div class="box highlight">
+								<!-- <i class="icon major fa-wrench"></i> -->
+								<img src="/public/images/fund-icon.png" width="150" height="150">
+								<h3>Get Funded</h3>
+								<p align="justify">Have a problems with money for your ideas? We provide continuous funding support 
+								to our participants on our events. Furthermore, we also have an event for demonstrate your business 
+								to funders for more advanced investment.</p>
+							</div>
+						</section>
+					</div>
+				</div>
+			</section>
+
+		<!-- Gigantic Heading -->
+			<section class="wrapper style2">
+				<div class="container">
+					<header class="major">
+						<h2>Have Some Overview from Our Alumnus</h2>
+						<p>With a much smaller subtitle hanging out just below it</p>
 					</header>
-				</section>
- -->
-			<!-- Highlights -->
-				<section class="wrapper style1">
-					<div class="container">
-						<div class="row 200%">
-							<section class="4u 12u(narrower)">
-								<div class="box highlight">
-									<!-- <i class="icon major fa-paper-plane"></i> -->
-									<img src="/public/images/idea-icon.png" width="150" height="150">
-									<h3>Opportunity to Grow</h3>
-									<p align="justify">Get the chance to learn how to develop your idea for business. Our course 
-									will take you how to prepare your business. Starting from idea, 
-									researching your idea, prepare the business plan, assembling your team and managing the business.</p>
-								</div>
-							</section>
-							<section class="4u 12u(narrower)">
-								<div class="box highlight">
-									<!-- <i class="icon major fa-pencil"></i> -->
-									<img src="/public/images/mentor-icon.png" width="150" height="150">
-									<h3>Experienced Mentor</h3>
-									<p align="justify">We bring together experienced enterpreneur to be your mentor. Learn from their 
-									problems, solutions, and mindset to bring the business together. You can also enrich your network 
-									with them and have a chance to collaborate with each other.</p>
-								</div>
-							</section>
-							<section class="4u 12u(narrower)">
-								<div class="box highlight">
-									<!-- <i class="icon major fa-wrench"></i> -->
-									<img src="/public/images/fund-icon.png" width="150" height="150">
-									<h3>Get Funded</h3>
-									<p align="justify">Have a problems with money for your ideas? We provide continuous funding support 
-									to our participants on our events. Furthermore, we also have an event for demonstrate your business 
-									to funders for more advanced investment.</p>
-								</div>
-							</section>
-						</div>
-					</div>
-				</section>
+				</div>
+			</section>
 
-			<!-- Gigantic Heading -->
-				<section class="wrapper style2">
-					<div class="container">
-						<header class="major">
-							<h2>Have Some Overview from Our Alumnus</h2>
-							<p>With a much smaller subtitle hanging out just below it</p>
-						</header>
+		<!-- Posts -->
+			<section class="wrapper style1">
+				<div class="container">
+					<div class="row">
+						<section class="6u 12u(narrower)">
+							<div class="box post">
+								<a href="#" class="image left"><img src="/public/images/pic01.jpg" alt="" /></a>
+								<div class="inner">
+									<h3>The First Thing</h3>
+									<p>Duis neque nisi, dapibus sed mattis et quis, nibh. Sed et dapibus nisl amet mattis, sed a rutrum accumsan sed. Suspendisse eu.</p>
+								</div>
+							</div>
+						</section>
+						<section class="6u 12u(narrower)">
+							<div class="box post">
+								<a href="#" class="image left"><img src="/public/images/pic02.jpg" alt="" /></a>
+								<div class="inner">
+									<h3>The Second Thing</h3>
+									<p>Duis neque nisi, dapibus sed mattis et quis, nibh. Sed et dapibus nisl amet mattis, sed a rutrum accumsan sed. Suspendisse eu.</p>
+								</div>
+							</div>
+						</section>
 					</div>
-				</section>
+					<div class="row">
+						<section class="6u 12u(narrower)">
+							<div class="box post">
+								<a href="#" class="image left"><img src="/public/images/pic03.jpg" alt="" /></a>
+								<div class="inner">
+									<h3>The Third Thing</h3>
+									<p>Duis neque nisi, dapibus sed mattis et quis, nibh. Sed et dapibus nisl amet mattis, sed a rutrum accumsan sed. Suspendisse eu.</p>
+								</div>
+							</div>
+						</section>
+						<section class="6u 12u(narrower)">
+							<div class="box post">
+								<a href="#" class="image left"><img src="/public/images/pic04.jpg" alt="" /></a>
+								<div class="inner">
+									<h3>The Fourth Thing</h3>
+									<p>Duis neque nisi, dapibus sed mattis et quis, nibh. Sed et dapibus nisl amet mattis, sed a rutrum accumsan sed. Suspendisse eu.</p>
+								</div>
+							</div>
+						</section>
+					</div>
+				</div>
+			</section>
 
-			<!-- Posts -->
- 				<section class="wrapper style1">
-					<div class="container">
-						<div class="row">
-							<section class="6u 12u(narrower)">
-								<div class="box post">
-									<a href="#" class="image left"><img src="/public/images/pic01.jpg" alt="" /></a>
-									<div class="inner">
-										<h3>The First Thing</h3>
-										<p>Duis neque nisi, dapibus sed mattis et quis, nibh. Sed et dapibus nisl amet mattis, sed a rutrum accumsan sed. Suspendisse eu.</p>
-									</div>
-								</div>
-							</section>
-							<section class="6u 12u(narrower)">
-								<div class="box post">
-									<a href="#" class="image left"><img src="/public/images/pic02.jpg" alt="" /></a>
-									<div class="inner">
-										<h3>The Second Thing</h3>
-										<p>Duis neque nisi, dapibus sed mattis et quis, nibh. Sed et dapibus nisl amet mattis, sed a rutrum accumsan sed. Suspendisse eu.</p>
-									</div>
-								</div>
-							</section>
-						</div>
-						<div class="row">
-							<section class="6u 12u(narrower)">
-								<div class="box post">
-									<a href="#" class="image left"><img src="/public/images/pic03.jpg" alt="" /></a>
-									<div class="inner">
-										<h3>The Third Thing</h3>
-										<p>Duis neque nisi, dapibus sed mattis et quis, nibh. Sed et dapibus nisl amet mattis, sed a rutrum accumsan sed. Suspendisse eu.</p>
-									</div>
-								</div>
-							</section>
-							<section class="6u 12u(narrower)">
-								<div class="box post">
-									<a href="#" class="image left"><img src="/public/images/pic04.jpg" alt="" /></a>
-									<div class="inner">
-										<h3>The Fourth Thing</h3>
-										<p>Duis neque nisi, dapibus sed mattis et quis, nibh. Sed et dapibus nisl amet mattis, sed a rutrum accumsan sed. Suspendisse eu.</p>
-									</div>
-								</div>
-							</section>
-						</div>
-					</div>
-				</section>
-
-			<!-- CTA -->
-				<section id="cta" class="wrapper style3">
-					<div class="container">
-						<header>
-							<h2>See Full List of Our Graduates' Businesses</h2>
-							<a href="#" class="button">Explore!</a>
-						</header>
-					</div>
-				</section>
-			
-			<!-- Footer -->
-				{{template "footer.html" .}}
-				<footer>
-				</footer>
-			
+		<!-- CTA -->
+			<section id="cta" class="wrapper style3">
+				<div class="container">
+					<header>
+						<h2>See Full List of Our Graduates' Businesses</h2>
+						<a href="#" class="button">Explore!</a>
+					</header>
+				</div>
+			</section>
 		</div>
+<!-- Footer -->
+{{template "footer.html" .}}
+			
+	
 
-		<!-- Scripts -->
-			<script src="/public/assets/js/jquery.min.js"></script>
-			<script src="/public/assets/js/jquery.dropotron.min.js"></script>
-			<script src="/public/assets/js/skel.min.js"></script>
-			<script src="/public/assets/js/util.js"></script>
-			<!--[if lte IE 8]><script src="/public/assets/js/ie/respond.min.js"></script><![endif]-->
-			<script src="/public/assets/js/main.js"></script>
 
-	</body>
-</html>
+
 
