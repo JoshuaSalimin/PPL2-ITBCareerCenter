@@ -4,19 +4,7 @@
 {{template "header.html" .}}
 <header>
 </header>
-
-<!-- Content -->
-<!DOCTYPE html>
-<html>
-	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<!--[if lte IE 8]><script src="/public/assets/js/ie/html5shiv.js"></script><![endif]-->
-		<link rel="stylesheet" href="/public/assets/css/main.css" />
-		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
-		<!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
-	</head>
-	<body>
+	<!-- Content -->
 		<div id="page-wrapper">
 			<!-- Nav -->
 				<div id="header">
@@ -60,25 +48,7 @@
 						</div>
 					</div>
 				</section>
-
-		<!-- Scripts -->
-			<script src="/public/assets/js/jquery.min.js"></script>
-			<script src="/public/assets/js/jquery.dropotron.min.js"></script>
-			<script src="/public/assets/js/skel.min.js"></script>
-			<script src="/public/assets/js/util.js"></script>
-			<!--[if lte IE 8]><script src="/public/assets/js/ie/respond.min.js"></script><![endif]-->
-			<script src="/public/assets/js/main.js"></script>
-			    <link rel="shortcut icon" type="image/png" href="/public/img/favicon.png">
-			{{range .moreStyles}}
-			  <link rel="stylesheet" type="text/css" href="/public/{{.}}">
-			{{end}}
-			{{range .moreScripts}}
-			  <script src="/public/{{.}}" type="text/javascript" charset="utf-8"></script>
-			{{end}}
 		</div>
-	</body>
-</html>
-
 <!-- Footer -->
 {{template "footer.html" .}}
 <footer>
