@@ -57,3 +57,8 @@ func (c App) Login() revel.Result {
 	login := true
 	return c.Render(login)
 }
+
+func (c App) ListProfiles() revel.Result {
+	profiles := true
+	return c.Render(profiles)
+}
