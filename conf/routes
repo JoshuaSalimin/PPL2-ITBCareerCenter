@@ -17,6 +17,7 @@ GET 	/Profiles								App.Profiles
 GET 	/About									App.About
 GET 	/Contact								App.Contact
 GET 	/Login									App.Login
+GET		/ListProfiles							App.ListProfiles
 
 # Ignore favicon requests
 GET     /favicon.ico                            404
