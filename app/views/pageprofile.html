@@ -15,8 +15,18 @@
 								<div class="row">
 									<h3>Perusahaan Kami</h3>
 									<!-- for gambarnya -->
+									<!-- {{range $index, $element := .results}}
+									<tr class="{{if even $index}}light-row{{else}}dark-row{{end}}">
+										...
+									</tr>
+									{{end}} -->
 									<span class="image featured"><img src="/public/images/banner.jpg" alt="" /></span>
 									<p>{{.DeskripsiPerusahaan}}</p>
+								</div>
+								<div class="row">
+									<h3>Video Perusahaan Kami</h3>
+									<!-- video -->
+									<span class="image featured"><img src="/public/images/banner.jpg" alt="" /></span>
 								</div>
 								<div class="row">
 									<h3>Produk Kami</h3>
