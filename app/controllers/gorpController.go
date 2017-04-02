@@ -7,15 +7,15 @@ import (
 )
 
 var (
-	DBm *gorp.DbMap
+	Dbm *gorp.DbMap
 )
 
-type gorpController struct {
+type GorpController struct {
     *revel.Controller
     Txn *gorp.Transaction
 }
 
-func (c *gorpController) Begin() revel.Result {
+func (c *GorpController) Begin() revel.Result {
     txn, err := Dbm.Begin()
     if err != nil {
         panic(err)
@@ -24,7 +24,7 @@ func (c *gorpController) Begin() revel.Result {
     return nil
 }
 
-func (c *gorpController) Commit() revel.Result {
+func (c *GorpController) Commit() revel.Result {
     if c.Txn == nil {
         return nil
     }
@@ -35,7 +35,7 @@ func (c *gorpController) Commit() revel.Result {
     return nil
 }
 
-func (c *gorpController) Rollback() revel.Result {
+func (c *GorpController) Rollback() revel.Result {
     if c.Txn == nil {
         return nil
     }

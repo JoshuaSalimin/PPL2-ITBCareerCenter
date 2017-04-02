@@ -7,13 +7,14 @@ import (
     _ "github.com/go-sql-driver/mysql"
     "fmt"
     "strings"
+    "PPL2-ITBCareerCenter/app/models"
 )
 
 func init(){
 	revel.OnAppStart(InitDb)	
-    revel.InterceptMethod((*gorpController).Begin, revel.BEFORE)
-    revel.InterceptMethod((*gorpController).Commit, revel.AFTER)
-    revel.InterceptMethod((*gorpController).Rollback, revel.FINALLY)
+    revel.InterceptMethod((*GorpController).Begin, revel.BEFORE)
+    revel.InterceptMethod((*GorpController).Commit, revel.AFTER)
+    revel.InterceptMethod((*GorpController).Rollback, revel.FINALLY)
 }
 
 func getParamString(param string, defaultValue string) string {
@@ -63,9 +64,9 @@ var InitDb func() = func(){
     }
 }
 
-func defineUserTable	(dbm *gorp.DbMap){
+func defineUserTable(dbm *gorp.DbMap){
     // set "id" as primary key and autoincrement
-    t := dbm.AddTable(models.users{}).SetKeys(true, "username") 
+    t := dbm.AddTable(models.Users{}).SetKeys(true, "username") 
     // e.g. VARCHAR(25)
     t.ColMap("name").SetMaxSize(25)
 }
