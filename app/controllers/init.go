@@ -34,7 +34,7 @@ func getConnectionString() string {
     port := getParamString("db.port", "3306")
     user := getParamString("db.user", "")
     pass := getParamString("db.password", "")
-    dbname := getParamString("db.name", "auction")
+    dbname := getParamString("db.name", "career_center")
     protocol := getParamString("db.protocol", "tcp")
     dbargs := getParamString("dbargs", " ")
 
