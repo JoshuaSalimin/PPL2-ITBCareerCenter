@@ -62,11 +62,16 @@ var InitDb func() = func(){
     if err := Dbm.CreateTablesIfNotExists(); err != nil {
         revel.ERROR.Fatal(err)
     }
+    addUsers(Dbm)
+
 }
 
 func defineUserTable(dbm *gorp.DbMap){
     // set "id" as primary key and autoincrement
-    t := dbm.AddTable(models.Users{}).SetKeys(true, "username") 
+    t := dbm.AddTable(models.Users{}).SetKeys(true, "id") 
     // e.g. VARCHAR(25)
     t.ColMap("name").SetMaxSize(25)
 }
+
+
+
