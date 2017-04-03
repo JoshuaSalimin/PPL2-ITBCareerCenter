@@ -2,6 +2,7 @@ package controllers
 
 import (
     "strconv"
+    "log"
 )
 
 func parseUintOrDefault(intStr string, _default uint64) uint64 {
@@ -17,5 +18,11 @@ func parseIntOrDefault(intStr string, _default int64) int64 {
         return _default
     } else {
         return value
+    }
+}
+
+func checkErr(err error, msg string) {
+    if err != nil {
+        log.Fatalln(msg, err)
     }
 }

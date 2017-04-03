@@ -1,19 +1,18 @@
 package models 
 
 import (
-    "github.com/revel/revel"
+    // "github.com/go-gorp/gorp"
     //"regexp"
+
 )
 
 type Users struct {
-	Id 				int64 	`db:"id" json:"id"`
-	Username		string 	`db:"username" json:"username"`
-    Name            string  `db:"name" json:"name"`
-    Password        string  `db:"password" json:"password"`
-    Role            int64  	`db:"role" json:"role"`
-
+	UserId 			int64 	`db:"userid"`
+	Username		string 	`db:"username"`
+    Name            string  `db:"name"`
+    Password        string  `db:"password"`
+    Role            int  	`db:"role"`
+    CreatedAt		int64	`db:"users_created_at"`
+    ShowProfile		bool 	`db:"show_profile"`
 }
 
-func (u *Users) Validate(v *revel.Validation) {
-	// Validation not implemented yet
-}

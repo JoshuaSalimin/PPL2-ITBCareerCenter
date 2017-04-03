@@ -8,6 +8,7 @@ import (
     "fmt"
     "strings"
     "PPL2-ITBCareerCenter/app/models"
+    // "time"
 )
 
 func init(){
@@ -59,19 +60,25 @@ var InitDb func() = func(){
     // Defines the table for use by GORP
     // This is a function we will create soon.
     defineUserTable(Dbm)
+    definePostTable(Dbm)
     if err := Dbm.CreateTablesIfNotExists(); err != nil {
         revel.ERROR.Fatal(err)
     }
-    addUsers(Dbm)
-
 }
+
 
 func defineUserTable(dbm *gorp.DbMap){
     // set "id" as primary key and autoincrement
-    t := dbm.AddTable(models.Users{}).SetKeys(true, "id") 
+    t := dbm.AddTable(models.Users{}).SetKeys(true, "userid") 
     // e.g. VARCHAR(25)
     t.ColMap("name").SetMaxSize(25)
 }
+
+func definePostTable(dbm *gorp.DbMap){
+    // set "id" as primary key and autoincrement
+    dbm.AddTable(models.Post{}).SetKeys(true, "postid") 
+}
+
 
 
 
