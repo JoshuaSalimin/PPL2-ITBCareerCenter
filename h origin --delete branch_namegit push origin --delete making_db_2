@@ -1,0 +1,48 @@
+* [33mc5e20fe[m Add Table User and Table Post
+* [33m0e8585a[m Connect DB and Add Admin
+* [33m5a7cd2b[m Still failed
+* [33mb474871[m App died bla bla bla
+* [33m676a2fd[m Initialize GORP, still failed (2)
+* [33mb388967[m Initialize GORP, still failed
+[31m|[m * [33m09226c3[m I
+[31m|[m [32m|[m * [33m1d7cbb8[m Initialize
+[31m|[m [32m|[m[31m/[m  
+[31m|[m[31m/[m[32m|[m   
+[31m|[m [32m|[m *   [33mf2a3c16[m WIP on making_db_2: 0aabc85 (2)
+[31m|[m [32m|[m [32m|[m[35m\[m  
+[31m|[m [32m|[m[32m/[m [35m/[m  
+[31m|[m [32m|[m * [33m90a413c[m index on making_db_2: 0aabc85 (2)
+[31m|[m [32m|[m[32m/[m  
+[31m|[m * [33m0aabc85[m (2)
+[31m|[m * [33mac3d8da[m Inizialize
+[31m|[m[31m/[m  
+* [33m61a9cd8[m integrasi html static kmrn ke revel
+* [33m295bf1d[m change framework and first init
+[35m|[m * [33m4c4e3be[m change font color
+[35m|[m *   [33mad68207[m Merge branch 'joshua' of https://github.com/JoshuaSalimin/PPL2-ITBCareerCenter into joshua
+[35m|[m [1;31m|[m[1;32m\[m  
+[35m|[m [1;31m|[m * [33m51af1ee[m Fix minor stuff
+[35m|[m * [1;32m|[m [33me80b51b[m Add profile picture
+[35m|[m [1;32m|[m[1;32m/[m  
+[35m|[m * [33m10445b5[m Change pointer color
+[35m|[m *   [33mcff4785[m Merge branch 'joshua' of https://github.com/JoshuaSalimin/PPL2-ITBCareerCenter into joshua
+[35m|[m [1;33m|[m[1;34m\[m  
+[35m|[m [1;33m|[m *   [33m0f9e044[m Merge branch 'joshua' of https://github.com/JoshuaSalimin/PPL2-ITBCareerCenter into joshua
+[35m|[m [1;33m|[m [1;35m|[m[1;36m\[m  
+[35m|[m [1;33m|[m * [1;36m|[m [33mc0af019[m Added review and modified home
+[35m|[m * [1;36m|[m [1;36m|[m [33m523ef8d[m Add profile list
+[35m|[m [1;36m|[m [1;36m|[m[1;36m/[m  
+[35m|[m [1;36m|[m[1;36m/[m[1;36m|[m   
+[35m|[m * [1;36m|[m   [33m310a063[m Merge branch 'joshua' of https://github.com/JoshuaSalimin/PPL2-ITBCareerCenter into joshua
+[35m|[m [31m|[m[1;36m\[m [1;36m\[m  
+[35m|[m [31m|[m [1;36m|[m[1;36m/[m  
+[35m|[m [31m|[m * [33m6248646[m Modified home frontend
+[35m|[m [31m|[m * [33m6aab4d4[m footer, contact, dan about page
+[35m|[m * [32m|[m [33me4bd033[m Add profile
+[35m|[m [32m|[m[32m/[m  
+[35m|[m * [33mec869a9[m nav bar
+[35m|[m * [33mbef7397[m add template html
+[35m|[m[35m/[m  
+* [33ma4b4456[m Add DB migration
+* [33me263906[m Add secrets
+* [33m69bf299[m Initial Commit
