@@ -72,3 +72,9 @@ func (c App) EditProfiles(myName1 string) revel.Result {
 func (c App) ProfilesForm() revel.Result {
 	return c.Render()
 }
+
+func (c App) ProfilePage(id int) revel.Result {
+	profiles := true
+	//user := SelectUsersByUserid(Dbm,id)
+	return c.Render(id, profiles)
+}

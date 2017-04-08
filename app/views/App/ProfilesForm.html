@@ -5,22 +5,7 @@
 <!-- Content -->
 	<div id="page-wrapper">
 		<!-- Nav -->
-			<div id="header">
-				<nav id="nav">
-					<ul>
-						<li><a href="/">Home</a></li>
-						<li><a href="/News">News</a></li>
-						<li><a href="/Articles">Articles</a></li>
-						<li class="current"><a href="/Files">Files</a></li>
-						<li><a href="/Photos">Photo Gallery</a></li>
-						<li><a href="/Videos">Videos</a></li>
-						<li><a href="/Profiles">Profiles</a></li>
-						<li><a href="/About">About</a></li>
-						<li><a href="/Contact">Contact</a></li>
-						<li><a href="/Login">Login</a></li>
-					</ul>
-				</nav>
-			</div>
+		{{template "nav.html" .}}
 		<!-- Main -->
 		<div id="page-wrapper">
 			<!-- Main -->
@@ -29,23 +14,51 @@
 						<div id="content">
 							<form action="/EditProfiles" method="POST">
 							    {{with $field := field "myName1" .}}
-							    	<strong>Name:</strong>
+							    	<strong>Name Perusahaan</strong>
 							        <input type="text" name="{{$field.Name}}" value="{{$field.Flash}}"/><br/>
 							    {{end}}
 							    {{with $field := field "myName2" .}}
-							    	<strong>Name:</strong>
+							    	<strong>Foto Perusahaan</strong>
 							        <input type="text" name="{{$field.Name}}" value="{{$field.Flash}}"/><br/>
 							    {{end}}
 							    {{with $field := field "myName3" .}}
-							    	<strong>Name:</strong>
+							    	<strong>Deskripsi Perusahaan</strong>
 							        <input type="text" name="{{$field.Name}}" value="{{$field.Flash}}"/><br/>
 							    {{end}}
 							    {{with $field := field "myName4" .}}
-							    	<strong>Name:</strong>
+							    	<strong>Link Video Perusahaan</strong>
 							        <input type="text" name="{{$field.Name}}" value="{{$field.Flash}}"/><br/>
 							    {{end}}
 							    {{with $field := field "myName5" .}}
-							    	<strong>Name:</strong>
+							    	<strong>Foto Produk</strong>
+							        <input type="text" name="{{$field.Name}}" value="{{$field.Flash}}"/><br/>
+							    {{end}}
+								{{with $field := field "myName6" .}}
+							    	<strong>Visi</strong>
+							        <input type="text" name="{{$field.Name}}" value="{{$field.Flash}}"/><br/>
+							    {{end}}
+								{{with $field := field "myName7" .}}
+							    	<strong>Misi</strong>
+							        <input type="text" name="{{$field.Name}}" value="{{$field.Flash}}"/><br/>
+							    {{end}}
+								{{with $field := field "myName8" .}}
+							    	<strong>Social Media</strong>
+							        <input type="text" name="{{$field.Name}}" value="{{$field.Flash}}"/><br/>
+							    {{end}}
+								{{with $field := field "myName9" .}}
+							    	<strong>Contact</strong>
+							        <input type="text" name="{{$field.Name}}" value="{{$field.Flash}}"/><br/>
+							    {{end}}
+								{{with $field := field "myName10" .}}
+							    	<strong>Nama PMW</strong>
+							        <input type="text" name="{{$field.Name}}" value="{{$field.Flash}}"/><br/>
+							    {{end}}
+								{{with $field := field "myName11" .}}
+							    	<strong>Jurusan</strong>
+							        <input type="text" name="{{$field.Name}}" value="{{$field.Flash}}"/><br/>
+							    {{end}}
+								{{with $field := field "myName12" .}}
+							    	<strong>Angkatan</strong>
 							        <input type="text" name="{{$field.Name}}" value="{{$field.Flash}}"/><br/>
 							    {{end}}
 							    <input type="submit" value="Say hello!" />

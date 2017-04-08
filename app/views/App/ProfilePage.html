@@ -1,0 +1,22 @@
+{{set . "title" "ITB Career Center Entrepreneurship Profiles"}}
+	
+{{set . "NamaPerusahaan" .id}}
+{{set . "DeskripsiPerusahaan" "We are good hehe"}}
+{{set . "VisiMisi" "Mencari Wanita Sejati"}}
+{{set . "SocialMedia" "Facebook: TonyTony"}}
+{{set . "ContactUs" "081210123456"}}
+{{set . "NameFounder" "Tony"}}
+{{set . "Jurusan" "Teknik Informatika"}}
+{{set . "Angkatan" "PMW 2014"}}
+
+<!-- Header -->
+{{template "header.html" .}}
+<!-- Content -->
+	<div id="page-wrapper">
+	<!-- Nav -->
+		{{template "nav.html" .}}
+	<!-- Main -->
+		{{template "pageprofile.html" .}}
+	</div>
+<!-- Footer -->
+{{template "footer.html" .}}
