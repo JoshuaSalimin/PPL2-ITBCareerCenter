@@ -1,0 +1,53 @@
+{{set . "news" .news}}
+
+<!-- Header -->
+{{template "header.html" .}}
+<!-- Content -->
+	<div id="page-wrapper">
+		<!-- Nav -->
+			<div id="header">
+				<nav id="nav">
+					<ul>
+						<li><a href="/">Home</a></li>
+						<li><a href="/News">News</a></li>
+						<li><a href="/Articles">Articles</a></li>
+						<li class="current"><a href="/Files">Files</a></li>
+						<li><a href="/Photos">Photo Gallery</a></li>
+						<li><a href="/Videos">Videos</a></li>
+						<li><a href="/Profiles">Profiles</a></li>
+						<li><a href="/About">About</a></li>
+						<li><a href="/Contact">Contact</a></li>
+						<li><a href="/Login">Login</a></li>
+					</ul>
+				</nav>
+			</div>
+		<!-- Main -->
+		<div id="page-wrapper">
+			<!-- Main -->
+				<section class="wrapper style1">
+					<div class="container">
+						<table id="content">
+							<tr>
+								<td width="10%">Id</td>
+								<td width="50%">Title</td>
+								<td width="30%">Created At</td>
+								<td width="5%"></td>
+								<td width="5%"></td>
+							</tr>
+							{{range .news}}
+							<tr>
+								<td>{{.NewsId}}</td>
+								<td>{{.NewsTitle}}</td>
+								<td>{{.CreatedAt}}</td>
+								<td><i class="material-icons">mode_edit</i></td>
+								<td><i class="fa fa-trash-o" style="color:red" aria-hidden="true"></i></td>								
+							</tr>
+							{{end}}
+						</table>
+					</div>
+				</section>
+		</div>
+	</div>
+<!-- Footer -->
+{{template "footer.html" .}}
+

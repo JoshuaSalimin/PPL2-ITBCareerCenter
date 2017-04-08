@@ -19,7 +19,8 @@ func (c News) Form() revel.Result {
 }
 
 func (c News) List() revel.Result {
-    return c.Render()
+    news := SelectAllNews(Dbm);
+    return c.Render(news);
 }
 
 func (c News) Add() revel.Result {       
@@ -51,7 +52,7 @@ func InsertNews(dbm *gorp.DbMap, p models.News) bool{
 func SelectAllNews(dbm *gorp.DbMap) []models.News {
 	var p []models.News
 
-    _, err := dbm.Select(&p, "SELECT * FROM news")
+    _, err := dbm.Select(&p, "SELECT * FROM News")
     checkErr(err, "Select failed")
     log.Println("All rows:")
     for x, p := range p {
