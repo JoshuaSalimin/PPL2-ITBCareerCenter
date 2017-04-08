@@ -5,6 +5,9 @@
 					<div class="container">
 						<div id="content">
 								<button class="button"><a href="/ProfilesForm">Edit this Page</a></button>
+							{{if .authorized}}
+								<button class="button">Edit this Page</button>
+							{{end}}
 							<!-- Content -->
 							<article>
 								<header style="text-align: center;">

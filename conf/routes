@@ -29,3 +29,9 @@ GET     /public/*filepath                       Static.Serve("public")
 
 # Catch all
 *       /:controller/:action                    :controller.:action
+
+# GET     /item/:id   UserCtrl.Get
+# POST    /item       UserCtrl.Add
+# PUT     /item/:id   UserCtrl.Update
+# DELETE  /item/:id   UserCtrl.Delete
+# GET     /items      UserCtrl.List
