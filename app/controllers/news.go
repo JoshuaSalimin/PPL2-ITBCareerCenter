@@ -2,11 +2,12 @@ package controllers
 
 import (
 	"github.com/revel/revel"
-    "PPL2-ITBCareerCenter/app/models"
+    models "PPL2-ITBCareerCenter/app/models"
     // "github.com/revel/revel"
     // "encoding/json"
     "github.com/go-gorp/gorp"
     "log"
+    "time"
 )
 
 type News struct {
@@ -21,20 +22,15 @@ func (c News) List() revel.Result {
     return c.Render()
 }
 
-func (c News) Add() revel.Result {
-    err := c.Request().ParseForm();
-    if(err != nil){
-        c.Redirect(News.Form);
-    };    
-    
-    innews = News{
-        NewsId : 0.
-        NewsTitle : c.Request.Form["newsritle"],
-        Content : c.Request.Form["newscontent"],
+func (c News) Add() revel.Result {       
+    innews := models.News{
+        NewsId : 0,
+        NewsTitle : c.Request.Form.Get("newstitle"),
+        Content : c.Request.Form.Get("newscontent"),
         CreatedAt : time.Now().UnixNano(),
         UpdatedAt : time.Now().UnixNano(), 
     }
-    success = InsertNews(Dbm, innews);
+    success := InsertNews(Dbm, innews);
     if (success){
         return c.Redirect(News.List);
     }else{
@@ -42,12 +38,13 @@ func (c News) Add() revel.Result {
     }
 }
 
-func InsertNews(dbm *gorp.DbMap, p models.News) int{
-    err := dbm.Insert(&p)
-    if(checkErr(err, "Insert failed")){
-        return 0;
+func InsertNews(dbm *gorp.DbMap, p models.News) bool{
+    err := dbm.Insert(&p)    
+    checkErr(err, "Insert failed")    
+    if(err == nil){
+        return true;
     }else{
-        return 1;
+        return false;
     }
 }
 
