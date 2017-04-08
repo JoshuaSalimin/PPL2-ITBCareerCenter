@@ -5,22 +5,18 @@ import (
     // "github.com/revel/revel"
     // "encoding/json"
     "github.com/go-gorp/gorp"
-    "time"
+    // "time"
     "log"
 )
 
+
+
 func createUsersAdmin(dbm *gorp.DbMap){
     // set "userid" as primary key and autoincrement
-	admin := &models.Users{
-		UserId: 1,
-		Username: "admin",
-		Name: "admin",
-		Password: "password",
-		Role: 1,
-		CreatedAt: time.Now().UnixNano(),
-		ShowProfile: false,
-	}
-    dbm.Insert(admin)
+    var admin models.Users
+	admin = models.CreateDefaultUser("admin");
+    log.Println("u :", admin)
+    dbm.Insert(&admin)
 }
 
 func createUsers(dbm *gorp.DbMap, u models.Users){

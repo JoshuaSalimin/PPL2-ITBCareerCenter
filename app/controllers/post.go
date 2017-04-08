@@ -5,27 +5,21 @@ import (
     // "github.com/revel/revel"
     // "encoding/json"
     "github.com/go-gorp/gorp"
-    "time"
     "log"
 )
 
+
+
 func createPostAdmin(dbm *gorp.DbMap){
     // set "postid" as primary key and autoincrement
-	adminPost := &models.Post{
-        PostId: 0,     
-        UserId: 0,     
-        MediaType: "Photo",  
-        PathFile: "Path",   
-        CreatedAt: time.Now().UnixNano(),
-	}
-    dbm.Insert(adminPost)
+	adminPost := models.CreateDefaultPost("Admin Post")
+    dbm.Insert(&adminPost)
 }
 
 func createPost(dbm *gorp.DbMap, p models.Post){
     err := dbm.Insert(&p)
     checkErr(err, "Insert failed")
 }
-
 
 func selectAllPost(dbm *gorp.DbMap) []models.Post {
 	var p []models.Post
