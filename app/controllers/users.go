@@ -37,9 +37,30 @@ func SelectAllUsers(dbm *gorp.DbMap) []models.Users {
     return u 	
 }
 
+func SelectLatestUsersInRange(dbm *gorp.DbMap, start int, count int) []models.Users {
+    var u []models.Users
+
+    _, err := dbm.Select(&u, "SELECT * FROM users ORDER BY users_created_at DESC LIMIT ?, ? ", start, count)
+    checkErr(err, "Select failed")
+    log.Println("User Range rows:")
+    for x, p := range u {
+        log.Printf("    %d: %v\n", x, p)
+    }
+    return u    
+}
+
+
+func CountUsers(dbm *gorp.DbMap) int {
+    count, err := dbm.SelectInt("SELECT COUNT(*) FROM users")
+    checkErr(err, "Select failed")
+    log.Println("User count:", count)
+    return int(count)
+}
+
+
 func SelectUsersByUserid(dbm *gorp.DbMap, userid int) models.Users {
 	var u models.Users
-    err := dbm.SelectOne(&u, "SELECT * FROM users WHERE userid=?", userid)
+    err := dbm.SelectOne(&u, "SELECT * FROM Users WHERE userid=?", userid)
     checkErr(err, "SelectOne failed")
     log.Println("u :", u)
     return u

@@ -4,7 +4,9 @@
 	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
 */
 
-(function($) {
+require(['skel', 'jquery', 'util'], 
+function(skel, $) {
+
 
 	skel.breakpoints({
 		wide: '(max-width: 1680px)',
@@ -83,4 +85,4 @@
 
 	});
 
-})(jQuery);
+});

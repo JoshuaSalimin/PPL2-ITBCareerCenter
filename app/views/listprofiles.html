@@ -2,108 +2,36 @@
 <!-- kasih for -->
 	<section class="wrapper style1">
 		<div class="container">
-			<div class="row">
-				<section class="6u 12u(narrower)">
-					<div class="box post">
-						<a href="#" class="image left"><img src="/public/images/pic01.jpg" alt="" /></a>
-						<div class="inner">
-							<h3>TTONYS</h3>
-							<p>Tony</p>
-						</div>
-					</div>
-				</section>
-				<section class="6u 12u(narrower)">
-					<div class="box post">
-						<a href="#" class="image left"><img src="/public/images/pic02.jpg" alt="" /></a>
-						<div class="inner">
-							<h3>The Second Thing</h3>
-							<p>Duis neque nisi, dapibus sed mattis et quis, nibh. Sed et dapibus nisl amet mattis, sed a rutrum accumsan sed. Suspendisse eu.</p>
-						</div>
-					</div>
-				</section>
-			</div>
-			<div class="row">
-				<section class="6u 12u(narrower)">
-					<div class="box post">
-						<a href="#" class="image left"><img src="/public/images/pic03.jpg" alt="" /></a>
-						<div class="inner">
-							<h3>The Third Thing</h3>
-							<p>Duis neque nisi, dapibus sed mattis et quis, nibh. Sed et dapibus nisl amet mattis, sed a rutrum accumsan sed. Suspendisse eu.</p>
-						</div>
-					</div>
-				</section>
-				<section class="6u 12u(narrower)">
-					<div class="box post">
-						<a href="#" class="image left"><img src="/public/images/pic04.jpg" alt="" /></a>
-						<div class="inner">
-							<h3>The Fourth Thing</h3>
-							<p>Duis neque nisi, dapibus sed mattis et quis, nibh. Sed et dapibus nisl amet mattis, sed a rutrum accumsan sed. Suspendisse eu.</p>
-						</div>
-					</div>
-				</section>
-			</div>
-						<div class="row">
-				<section class="6u 12u(narrower)">
-					<div class="box post">
-						<a href="#" class="image left"><img src="/public/images/pic03.jpg" alt="" /></a>
-						<div class="inner">
-							<h3>The Third Thing</h3>
-							<p>Duis neque nisi, dapibus sed mattis et quis, nibh. Sed et dapibus nisl amet mattis, sed a rutrum accumsan sed. Suspendisse eu.</p>
-						</div>
-					</div>
-				</section>
-				<section class="6u 12u(narrower)">
-					<div class="box post">
-						<a href="#" class="image left"><img src="/public/images/pic04.jpg" alt="" /></a>
-						<div class="inner">
-							<h3>The Fourth Thing</h3>
-							<p>Duis neque nisi, dapibus sed mattis et quis, nibh. Sed et dapibus nisl amet mattis, sed a rutrum accumsan sed. Suspendisse eu.</p>
-						</div>
-					</div>
-				</section>
-			</div>
-						<div class="row">
-				<section class="6u 12u(narrower)">
-					<div class="box post">
-						<a href="#" class="image left"><img src="/public/images/pic03.jpg" alt="" /></a>
-						<div class="inner">
-							<h3>The Third Thing</h3>
-							<p>Duis neque nisi, dapibus sed mattis et quis, nibh. Sed et dapibus nisl amet mattis, sed a rutrum accumsan sed. Suspendisse eu.</p>
-						</div>
-					</div>
-				</section>
-				<section class="6u 12u(narrower)">
-					<div class="box post">
-						<a href="#" class="image left"><img src="/public/images/pic04.jpg" alt="" /></a>
-						<div class="inner">
-							<h3>The Fourth Thing</h3>
-							<p>Duis neque nisi, dapibus sed mattis et quis, nibh. Sed et dapibus nisl amet mattis, sed a rutrum accumsan sed. Suspendisse eu.</p>
-						</div>
-					</div>
-				</section>
-			</div>
-						<div class="row">
-				<section class="6u 12u(narrower)">
-					<div class="box post">
-						<a href="#" class="image left"><img src="/public/images/pic03.jpg" alt="" /></a>
-						<div class="inner">
-							<h3>The Third Thing</h3>
-							<p>Duis neque nisi, dapibus sed mattis et quis, nibh. Sed et dapibus nisl amet mattis, sed a rutrum accumsan sed. Suspendisse eu.</p>
-						</div>
-					</div>
-				</section>
-				<section class="6u 12u(narrower)">
-					<div class="box post">
-						<a href="#" class="image left"><img src="/public/images/pic04.jpg" alt="" /></a>
-						<div class="inner">
-							<h3>The Fourth Thing</h3>
-							<p>Duis neque nisi, dapibus sed mattis et quis, nibh. Sed et dapibus nisl amet mattis, sed a rutrum accumsan sed. Suspendisse eu.</p>
-						</div>
-					</div>
-				</section>
-			</div>	
-			<button class="button" style="float: right;">Next</button>
-			<button class="button" style="float: right;">Prev</button>
+			{{ range $key, $value := .users }}
+			   {{if even $key}}<div class="row">{{end}}
+					<section class="6u 12u(narrower)">
+						<a href="" style="color: black;">
+							<div class="box post">
+								<div class="image left"><img src="/public/images/pic02.jpg" alt="" /></div>
+								<div class="inner">
+									<h3>{{ $value.CompanyName }}</h3>
+									<p>{{ printf "%.25s" $value.CompanyDescription }}</p>
+								</div>
+							</div>
+						</a>
+					</section>
+				{{if not (even $key)}}</div>{{end}}
+			{{ end }}
+			{{if not (even (len .users))}}</div>{{end}}
+
+			<ul id="pagination" class="pagination-sm"></ul>
+			<script>
+			require(['jquery', 'pagination'], 
+			function($) {
+				  $('#pagination').pagination({
+			        items: {{.userCount}},
+			        itemsOnPage: {{.numUserPerPage}},
+			        cssStyle: 'pagination',
+			        hrefTextPrefix: "",
+			        currentPage: {{.currentPageNum}}
+			    });
+			});
+			</script>
 		</div>
 		
 	</section>

@@ -38,7 +38,7 @@ func CreateDefaultUser(username string) Users {
         Jurusan         : "DEFAULT_JURUSAN",
         Angkatan        : 0,       
         CreatedAt       : time.Now().UnixNano(), 
-        UpdatedAt       : 0,   
+        UpdatedAt       : time.Now().UnixNano(),   
         ShowProfile     : false,    
         Role            : 0,     
     }

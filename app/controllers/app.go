@@ -59,9 +59,24 @@ func (c App) Login() revel.Result {
 	return c.Render(login)
 }
 
-func (c App) ListProfiles() revel.Result {
+func (c App) ListProfiles(page int) revel.Result {
 	profiles := true
-	return c.Render(profiles)
+	numUserPerPage := 6
+
+	startUserLimit := (page-1)*numUserPerPage
+	endUserLimit := page*numUserPerPage
+
+	userCount := CountUsers(Dbm)
+
+	if (startUserLimit >= userCount) {
+		return c.NotFound("Invalid Page: ", page);
+	}
+
+	endUserLimit = min(userCount, endUserLimit)
+
+	users := SelectLatestUsersInRange(Dbm, startUserLimit, endUserLimit - startUserLimit)
+	currentPageNum := page
+	return c.Render(profiles, page, users, userCount, numUserPerPage, currentPageNum)
 }
 
 func (c App) EditProfiles(myName1 string) revel.Result {
@@ -86,4 +101,5 @@ func (c App) ProfilePage(id int) revel.Result {
 	userContact := SelectAllUserContactByUserId(Dbm, id)
 	userSocialMedia := SelectAllUserSocialMediaByUserID(Dbm, id)
 	return c.Render(id, profiles, namaPerusahaan, deskripsiPerusahaan, visiPerusahaan, misiPerusahaan, namaPemilik, jurusan, angkatanPMW, userContact, userSocialMedia)
+
 }
