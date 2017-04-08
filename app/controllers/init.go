@@ -61,22 +61,71 @@ var InitDb func() = func(){
     // This is a function we will create soon.
     defineUserTable(Dbm)
     definePostTable(Dbm)
-    if err := Dbm.CreateTablesIfNotExists(); err != nil {
-        revel.ERROR.Fatal(err)
-    }
+    defineNewsTable(Dbm)
+    defineUserSocialMediaTable(Dbm)
+    defineUserContactTable(Dbm)
+    err := Dbm.CreateTablesIfNotExists()
+    checkErr(err, "Create Table failed")
+    err = Dbm.CreateIndex();
+    checkErr(err, "Create Index Failed")
+
+
+    // USAGE EXAMPLE --------------
+    // InsertUsersAdmin(Dbm)
+    // InsertPostAdmin(Dbm)
+
+
+    // NewsTemp := models.CreateDefaultNews("News Title Temp")
+    // InsertNews(Dbm, NewsTemp)
+    // UsersSocialMedia := models.CreateDefaultUserSocialMedia()
+    // n := SelectNewsByNewsId(Dbm, 2)
+    // SelectAllNews(Dbm)
+    // UpdateNews(Dbm, n)
+    // DeleteNewsByNewsid(Dbm, 2)
+
+
+    // InsertUserSocialMedia(Dbm, UsersSocialMedia)
+    // UsersContact := models.CreateDefaultUserContact()
+    // sm := SelectUserSocialMediaByUserSocialMediaId(Dbm, 2)
+    // SelectAllUserSocialMedia(Dbm)
+    // UpdateUserSocialMedia(Dbm, sm)
+    // DeleteUserSocialMediaByUserSocialMediaid(Dbm, 2)
+
+
+    // InsertUserContact(Dbm, UsersContact)
+    // u := SelectUserContactByUserContactId(Dbm, 2)
+    // SelectAllUserContact(Dbm)
+    // UpdateUserContact(Dbm, u)
+    // DeleteUserContactByUserContactid(Dbm, 2)
+
+    // ----------------------------------------------
 }
 
 
 func defineUserTable(dbm *gorp.DbMap){
     // set "id" as primary key and autoincrement
-    t := dbm.AddTable(models.Users{}).SetKeys(true, "userid") 
+    t := dbm.AddTable(models.Users{}).SetKeys(true, "userid")
+    //t.AddIndex("username_idx","BTree",[]string{"Username"}).SetUnique(true);
+
     // e.g. VARCHAR(25)
     t.ColMap("name").SetMaxSize(25)
+}
+
+func defineUserSocialMediaTable(dbm *gorp.DbMap) {
+    dbm.AddTable(models.UserSocialMedia{}).SetKeys(true, "socialmediaid")    
+}
+
+func defineUserContactTable(dbm *gorp.DbMap) {
+    dbm.AddTable(models.UserContact{}).SetKeys(true, "contactid")    
 }
 
 func definePostTable(dbm *gorp.DbMap){
     // set "id" as primary key and autoincrement
     dbm.AddTable(models.Post{}).SetKeys(true, "postid") 
+}
+
+func defineNewsTable(dbm *gorp.DbMap) {
+    dbm.AddTable(models.News{}).SetKeys(true, "newsid")    
 }
 
 
