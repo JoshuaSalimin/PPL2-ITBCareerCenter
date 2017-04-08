@@ -5,29 +5,23 @@ import (
     // "github.com/revel/revel"
     // "encoding/json"
     "github.com/go-gorp/gorp"
-    "time"
     "log"
 )
 
-func createPostAdmin(dbm *gorp.DbMap){
+
+
+func InsertPostAdmin(dbm *gorp.DbMap){
     // set "postid" as primary key and autoincrement
-	adminPost := &models.Post{
-        PostId: 0,     
-        UserId: 0,     
-        MediaType: "Photo",  
-        PathFile: "Path",   
-        CreatedAt: time.Now().UnixNano(),
-	}
-    dbm.Insert(adminPost)
+	adminPost := models.CreateDefaultPost("Admin Post")
+    dbm.Insert(&adminPost)
 }
 
-func createPost(dbm *gorp.DbMap, p models.Post){
+func InsertPost(dbm *gorp.DbMap, p models.Post){
     err := dbm.Insert(&p)
     checkErr(err, "Insert failed")
 }
 
-
-func selectAllPost(dbm *gorp.DbMap) []models.Post {
+func SelectAllPost(dbm *gorp.DbMap) []models.Post {
 	var p []models.Post
 
     _, err := dbm.Select(&p, "SELECT * FROM posts")
@@ -39,7 +33,7 @@ func selectAllPost(dbm *gorp.DbMap) []models.Post {
     return p 	
 }
 
-func selectPostByPostId(dbm *gorp.DbMap, postid int) models.Post {
+func SelectPostByPostId(dbm *gorp.DbMap, postid int) models.Post {
 	var p models.Post
     err := dbm.SelectOne(&p, "SELECT * FROM posts WHERE postid=?", postid)
     checkErr(err, "SelectOne failed")
@@ -47,7 +41,7 @@ func selectPostByPostId(dbm *gorp.DbMap, postid int) models.Post {
     return p
 }
 
-func selectPostByUserId(dbm *gorp.DbMap, userid int) models.Post {
+func SelectPostByUserId(dbm *gorp.DbMap, userid int) models.Post {
     var p models.Post
     err := dbm.SelectOne(&p, "SELECT * FROM posts WHERE userid=?", userid)
     checkErr(err, "SelectOne failed")
@@ -55,14 +49,14 @@ func selectPostByUserId(dbm *gorp.DbMap, userid int) models.Post {
     return p
 }
 
-func updatePost(dbm *gorp.DbMap, p models.Post) {
+func UpdatePost(dbm *gorp.DbMap, p models.Post) {
 	count, err := dbm.Update(&p)
 	checkErr(err, "Update failed")	
     log.Println("Rows updated:", count)
 }
 
 
-func deletePostByPostid(dbm *gorp.DbMap, postid int) {
+func DeletePostByPostid(dbm *gorp.DbMap, postid int) {
     _, err := dbm.Exec("DELETE FROM posts WHERE postid=?", postid)
     checkErr(err, "Delete failed")
 }
