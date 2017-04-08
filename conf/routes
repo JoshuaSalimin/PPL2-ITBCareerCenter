@@ -18,6 +18,11 @@ GET 	/About									App.About
 GET 	/Contact								App.Contact
 GET 	/Login									App.Login
 
+#News
+GET      /news/form                             News.Form 
+POST     /news/add                              News.Add
+
+
 # Ignore favicon requests
 GET     /favicon.ico                            404
 
