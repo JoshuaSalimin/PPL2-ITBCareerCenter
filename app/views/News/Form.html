@@ -1,0 +1,53 @@
+{{set . "title" "ITB Career Center Entrepreneurship Files"}}
+
+<!-- Header -->
+{{template "header.html" .}}
+<!-- Content -->
+	<div id="page-wrapper">
+		<!-- Nav -->
+			<div id="header">
+				<nav id="nav">
+					<ul>
+						<li><a href="/">Home</a></li>
+						<li><a href="/News">News</a></li>
+						<li><a href="/Articles">Articles</a></li>
+						<li class="current"><a href="/Files">Files</a></li>
+						<li><a href="/Photos">Photo Gallery</a></li>
+						<li><a href="/Videos">Videos</a></li>
+						<li><a href="/Profiles">Profiles</a></li>
+						<li><a href="/About">About</a></li>
+						<li><a href="/Contact">Contact</a></li>
+						<li><a href="/Login">Login</a></li>
+					</ul>
+				</nav>
+			</div>
+		<!-- Main -->
+		<div id="page-wrapper">
+			<!-- Main -->
+				<section class="wrapper style1">
+					<div class="container">
+						<div id="content">
+							<form action="/news/add" method="POST">
+								<p>
+							    	<strong>Title:</strong><br>
+							        <input type="text" name="title"/><br/>
+						        </p>
+						        <p>
+							        <strong>Content:</strong><br>
+						            <textarea name="newscontent" id="newscontent"></textarea>
+						            <script>
+						            	CKEDITOR.replace('newscontent');
+						            </script>
+					            </p>
+							    <p align="right">
+							    	<input type="submit" value="Post" />
+						    	</p>
+							</form>
+						</div>
+					</div>
+				</section>
+		</div>
+	</div>
+<!-- Footer -->
+{{template "footer.html" .}}
+

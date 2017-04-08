@@ -13,5 +13,6 @@ func (c News) Form() revel.Result {
 }
 
 func (c News) Add() revel.Result {
-	return c.Render()
+
+	return c.Redirect(News.Form)
 }
