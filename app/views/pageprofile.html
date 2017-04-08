@@ -34,15 +34,22 @@
 									<span class="image featured"><img src="/public/images/banner.jpg" alt="" /></span>
 								</div>
 								
-								<h3>Visi dan Misi</h3>
-								<p>{{.VisiMisi}}</p>
+								<h3>Visi Perusahaan</h3>
+								<p>{{.Visi}}</p>
+								<br>
+								<h3>Misi Perusahaan</h3>
+								<p>{{.Misi}}</p>
 								<br>
 								<h3>Our Social Media</h3>
 								<!-- for social media -->
-								<p>{{.SocialMedia}}</p>
+								{{range .userSocialMediaView}}
+								<p>{{.SocialMediaName}} : {{.SocialMediaURL}}</p>
+								{{end}}
 								<br>
 								<h3>Contact Us</h3>
-								<p>{{.ContactUs}}</p>
+								{{range .userContactView}}
+								<p>{{.ContactType}} : {{.Contact}}</p>
+								{{end}}
 								<br>
 								<footer>
 									<h2>Founder</h2>

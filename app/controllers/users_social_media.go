@@ -44,3 +44,15 @@ func DeleteUserSocialMediaByUserSocialMediaid(dbm *gorp.DbMap, socialmediaaid in
     _, err := dbm.Exec("DELETE FROM usersocialmedia WHERE socialmediaid=?", socialmediaaid)
     checkErr(err, "Delete failed")
 }
+
+func SelectAllUserSocialMediaByUserID(dbm *gorp.DbMap, id int) []models.UserSocialMedia {
+    var p []models.UserSocialMedia
+
+    _, err := dbm.Select(&p, "SELECT * FROM usersocialmedia WHERE userid=?", id)
+    checkErr(err, "Select failed")
+    log.Println("All rows:")
+    for x, p := range p {
+        log.Printf("    %d: %v\n", x, p)
+    }
+    return p    
+}
