@@ -11,7 +11,7 @@ import (
 
 
 
-func createUsersAdmin(dbm *gorp.DbMap){
+func InsertUsersAdmin(dbm *gorp.DbMap){
     // set "userid" as primary key and autoincrement
     var admin models.Users
 	admin = models.CreateDefaultUser("admin");
@@ -19,13 +19,13 @@ func createUsersAdmin(dbm *gorp.DbMap){
     dbm.Insert(&admin)
 }
 
-func createUsers(dbm *gorp.DbMap, u models.Users){
+func InsertUsers(dbm *gorp.DbMap, u models.Users){
     err := dbm.Insert(&u)
     checkErr(err, "Insert failed")
 }
 
 
-func selectAllUsers(dbm *gorp.DbMap) []models.Users {
+func SelectAllUsers(dbm *gorp.DbMap) []models.Users {
 	var u []models.Users
 
     _, err := dbm.Select(&u, "SELECT * FROM users")
@@ -37,7 +37,7 @@ func selectAllUsers(dbm *gorp.DbMap) []models.Users {
     return u 	
 }
 
-func selectUsersByUserid(dbm *gorp.DbMap, userid int) models.Users {
+func SelectUsersByUserid(dbm *gorp.DbMap, userid int) models.Users {
 	var u models.Users
     err := dbm.SelectOne(&u, "SELECT * FROM users WHERE userid=?", userid)
     checkErr(err, "SelectOne failed")
@@ -45,14 +45,14 @@ func selectUsersByUserid(dbm *gorp.DbMap, userid int) models.Users {
     return u
 }
 
-func updateUsers(dbm *gorp.DbMap, u models.Users) {
+func UpdateUsers(dbm *gorp.DbMap, u models.Users) {
 	count, err := dbm.Update(&u)
 	checkErr(err, "Update failed")	
     log.Println("Rows updated:", count)
 }
 
 
-func deleteUsersByUserid(dbm *gorp.DbMap, userid int) {
+func DeleteUsersByUserid(dbm *gorp.DbMap, userid int) {
     _, err := dbm.Exec("DELETE FROM users WHERE userid=?", userid)
     checkErr(err, "Delete failed")
 }

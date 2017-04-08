@@ -16,12 +16,12 @@ type News struct {
 }
 
 func CreateDefaultNews(news_title string) News {
-    news_dummy := News{
+	news_dummy := News {
 		NewsId 		: 0,
 		NewsTitle 	: news_title,
 		Content 	: "DEFAULT_CONTENT",
-	    CreatedAt       : time.Now().UnixNano(), 
-	    UpdatedAt		: 0,
+	    CreatedAt   : time.Now().UnixNano(), 
+	    UpdatedAt	: 0,
 	}
     return news_dummy
 }

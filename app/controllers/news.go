@@ -8,12 +8,12 @@ import (
     "log"
 )
 
-func createNews(dbm *gorp.DbMap, p models.News){
+func InsertNews(dbm *gorp.DbMap, p models.News){
     err := dbm.Insert(&p)
     checkErr(err, "Insert failed")
 }
 
-func selectAllNews(dbm *gorp.DbMap) []models.News {
+func SelectAllNews(dbm *gorp.DbMap) []models.News {
 	var p []models.News
 
     _, err := dbm.Select(&p, "SELECT * FROM news")
@@ -25,7 +25,7 @@ func selectAllNews(dbm *gorp.DbMap) []models.News {
     return p 	
 }
 
-func selectNewsByNewsId(dbm *gorp.DbMap, newsid int) models.News {
+func SelectNewsByNewsId(dbm *gorp.DbMap, newsid int) models.News {
 	var p models.News
     err := dbm.SelectOne(&p, "SELECT * FROM news WHERE newsid=?", newsid)
     checkErr(err, "SelectOne failed")
@@ -33,14 +33,14 @@ func selectNewsByNewsId(dbm *gorp.DbMap, newsid int) models.News {
     return p
 }
 
-func updateNews(dbm *gorp.DbMap, p models.News) {
+func UpdateNews(dbm *gorp.DbMap, p models.News) {
 	count, err := dbm.Update(&p)
 	checkErr(err, "Update failed")	
     log.Println("Rows updated:", count)
 }
 
 
-func deleteNewsByNewsid(dbm *gorp.DbMap, newsid int) {
+func DeleteNewsByNewsid(dbm *gorp.DbMap, newsid int) {
     _, err := dbm.Exec("DELETE FROM news WHERE newsid=?", newsid)
     checkErr(err, "Delete failed")
 }

@@ -62,14 +62,43 @@ var InitDb func() = func(){
     defineUserTable(Dbm)
     definePostTable(Dbm)
     defineNewsTable(Dbm)
+    defineUserSocialMediaTable(Dbm)
+    defineUserContactTable(Dbm)
     err := Dbm.CreateTablesIfNotExists()
     checkErr(err, "Create Table failed")
     err = Dbm.CreateIndex();
     checkErr(err, "Create Index Failed")
-    
-    createUsersAdmin(Dbm)
-    createPostAdmin(Dbm)
 
+
+    // USAGE EXAMPLE --------------
+    // InsertUsersAdmin(Dbm)
+    // InsertPostAdmin(Dbm)
+
+
+    // NewsTemp := models.CreateDefaultNews("News Title Temp")
+    // InsertNews(Dbm, NewsTemp)
+    // UsersSocialMedia := models.CreateDefaultUserSocialMedia()
+    // n := SelectNewsByNewsId(Dbm, 2)
+    // SelectAllNews(Dbm)
+    // UpdateNews(Dbm, n)
+    // DeleteNewsByNewsid(Dbm, 2)
+
+
+    // InsertUserSocialMedia(Dbm, UsersSocialMedia)
+    // UsersContact := models.CreateDefaultUserContact()
+    // sm := SelectUserSocialMediaByUserSocialMediaId(Dbm, 2)
+    // SelectAllUserSocialMedia(Dbm)
+    // UpdateUserSocialMedia(Dbm, sm)
+    // DeleteUserSocialMediaByUserSocialMediaid(Dbm, 2)
+
+
+    // InsertUserContact(Dbm, UsersContact)
+    // u := SelectUserContactByUserContactId(Dbm, 2)
+    // SelectAllUserContact(Dbm)
+    // UpdateUserContact(Dbm, u)
+    // DeleteUserContactByUserContactid(Dbm, 2)
+
+    // ----------------------------------------------
 }
 
 
@@ -80,6 +109,14 @@ func defineUserTable(dbm *gorp.DbMap){
 
     // e.g. VARCHAR(25)
     t.ColMap("name").SetMaxSize(25)
+}
+
+func defineUserSocialMediaTable(dbm *gorp.DbMap) {
+    dbm.AddTable(models.UserSocialMedia{}).SetKeys(true, "socialmediaid")    
+}
+
+func defineUserContactTable(dbm *gorp.DbMap) {
+    dbm.AddTable(models.UserContact{}).SetKeys(true, "contactid")    
 }
 
 func definePostTable(dbm *gorp.DbMap){
