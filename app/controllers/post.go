@@ -8,8 +8,6 @@ import (
     "log"
 )
 
-
-
 func InsertPostAdmin(dbm *gorp.DbMap){
     // set "postid" as primary key and autoincrement
 	adminPost := models.CreateDefaultPost("Admin Post")
@@ -54,7 +52,6 @@ func UpdatePost(dbm *gorp.DbMap, p models.Post) {
 	checkErr(err, "Update failed")	
     log.Println("Rows updated:", count)
 }
-
 
 func DeletePostByPostid(dbm *gorp.DbMap, postid int) {
     _, err := dbm.Exec("DELETE FROM posts WHERE postid=?", postid)

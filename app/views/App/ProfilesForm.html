@@ -12,60 +12,60 @@
 				<section class="wrapper style1">
 					<div class="container">
 						<div id="content">
-							<form action="{{url "App.EditProfiles" .user.UserId}}" method="POST">
+							<form action="{{url "App.EditProfiles" .user.UserId}}" method="POST" id="editProfiles">
 								<p>
 									<strong>Nama Perusahaan</strong>
 									<input type="text" name="user.CompanyName" value="{{.user.CompanyName}}">
 								</p>
-							    {{with $field := field "myName1" .}}
-							    	<strong>Name Perusahaan</strong>
-							        <input type="text" name="{{$field.Name}}" value="{{$field.Flash}}"/><br/>
-							    {{end}}
-							    {{with $field := field "myName2" .}}
-							    	<strong>Foto Perusahaan</strong>
-							        <input type="text" name="{{$field.Name}}" value="{{$field.Flash}}"/><br/>
-							    {{end}}
-							    {{with $field := field "myName3" .}}
-							    	<strong>Deskripsi Perusahaan</strong>
-							        <input type="text" name="{{$field.Name}}" value="{{$field.Flash}}"/><br/>
-							    {{end}}
-							    {{with $field := field "myName4" .}}
-							    	<strong>Link Video Perusahaan</strong>
-							        <input type="text" name="{{$field.Name}}" value="{{$field.Flash}}"/><br/>
-							    {{end}}
-							    {{with $field := field "myName5" .}}
-							    	<strong>Foto Produk</strong>
-							        <input type="text" name="{{$field.Name}}" value="{{$field.Flash}}"/><br/>
-							    {{end}}
-								{{with $field := field "myName6" .}}
-							    	<strong>Visi</strong>
-							        <input type="text" name="{{$field.Name}}" value="{{$field.Flash}}"/><br/>
-							    {{end}}
-								{{with $field := field "myName7" .}}
-							    	<strong>Misi</strong>
-							        <input type="text" name="{{$field.Name}}" value="{{$field.Flash}}"/><br/>
-							    {{end}}
-								{{with $field := field "myName8" .}}
-							    	<strong>Social Media</strong>
-							        <input type="text" name="{{$field.Name}}" value="{{$field.Flash}}"/><br/>
-							    {{end}}
-								{{with $field := field "myName9" .}}
-							    	<strong>Contact</strong>
-							        <input type="text" name="{{$field.Name}}" value="{{$field.Flash}}"/><br/>
-							    {{end}}
-								{{with $field := field "myName10" .}}
-							    	<strong>Nama PMW</strong>
-							        <input type="text" name="{{$field.Name}}" value="{{$field.Flash}}"/><br/>
-							    {{end}}
-								{{with $field := field "myName11" .}}
-							    	<strong>Jurusan</strong>
-							        <input type="text" name="{{$field.Name}}" value="{{$field.Flash}}"/><br/>
-							    {{end}}
-								{{with $field := field "myName12" .}}
-							    	<strong>Angkatan</strong>
-							        <input type="text" name="{{$field.Name}}" value="{{$field.Flash}}"/><br/>
-							    {{end}}
-							    <input type="submit" value="Say hello!" />
+							    <p>
+									<strong>Upload Foto Perusahaan</strong>
+									<input type="text">
+								</p>
+								<p>
+									<strong>Deskripsi Perusahaan</strong>
+									<textarea rows="4" cols="50" name="user.CompanyDescription" form="editProfiles">{{.user.CompanyDescription}}</textarea>
+								</p>
+								<p>
+									<strong>Link Video Youtube Perusahaan</strong>
+									<input type="text">
+								</p>
+								<p>
+									<strong>Upload Foto Perusahaan</strong>
+									<input type="text">
+								</p>
+								<p>
+									<strong>Upload Foto Produk Perusahaan</strong>
+									<input type="text">
+								</p>
+								<p>
+									<strong>Visi Perusahaan</strong>
+									<input type="text" name="user.Visi" value="{{.user.Visi}}">
+								</p>
+								<p>
+									<strong>Misi Perusahaan</strong>
+									<input type="text" name="user.Misi" value="{{.user.Misi}}">
+								</p>
+								<p>
+									<strong>Social Media Perusahaan</strong>
+									<input type="text">
+								</p>
+								<p>
+									<strong>Contact Perusahaan</strong>
+									<input type="text">
+								</p>
+								<p>
+									<strong>Nama Pemilik</strong>
+									<input type="text" name="user.Name" value="{{.user.Name}}">
+								</p>
+								<p>
+									<strong>Jurusaan</strong>
+									<input type="text" name="user.Jurusan" value="{{.user.Jurusan}}">
+								</p>
+								<p>
+									<strong>Angkatan PMW</strong>
+									<input type="text" name="user.Angkatan" value="{{.user.Angkatan}}">
+								</p>
+							    <input type="submit" value="Submit" />
 							</form>
 						</div>
 					</div>

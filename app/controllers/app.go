@@ -86,13 +86,20 @@ func (c App) ListProfiles(page int) revel.Result {
 func (c App) EditProfiles(id int, user models.Users) revel.Result {
 	oldUser := SelectUsersByUserid(Dbm, id)
 	oldUser.CompanyName = user.CompanyName
+	oldUser.Name = user.Name
+	oldUser.CompanyDescription = user.CompanyDescription
+	oldUser.Visi = user.Visi
+	oldUser.Misi = user.Misi
+	oldUser.Jurusan = user.Jurusan
+	oldUser.Angkatan = user.Angkatan
 	UpdateUsers(Dbm, oldUser)
 	return c.Redirect("/ProfilePage/%d", id)
 }
 
 func (c App) ProfilesForm(id int) revel.Result {
+	profiles := true
 	user := SelectUsersByUserid(Dbm, id)
-	return c.Render(user)
+	return c.Render(user, profiles)
 }
 
 func (c App) ProfilePage(id int) revel.Result {
@@ -108,6 +115,7 @@ func (c App) ProfilePage(id int) revel.Result {
 	angkatanPMW := user.Angkatan
 	userContact := SelectAllUserContactByUserId(Dbm, id)
 	userSocialMedia := SelectAllUserSocialMediaByUserID(Dbm, id)
-	return c.Render(id, profiles, namaPerusahaan, deskripsiPerusahaan, visiPerusahaan, misiPerusahaan, namaPemilik, jurusan, angkatanPMW, userContact, userSocialMedia, authorized)
-
+	userPost := SelectPostByUserId(Dbm, id)
+	return c.Render(id, profiles, namaPerusahaan, deskripsiPerusahaan, visiPerusahaan, misiPerusahaan, namaPemilik, jurusan, angkatanPMW, userContact, userSocialMedia, authorized, userPost)
 }
+
