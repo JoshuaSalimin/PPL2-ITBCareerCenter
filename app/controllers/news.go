@@ -39,6 +39,13 @@ func (c News) Add() revel.Result {
     }
 }
 
+func (c News) Detail() revel.Result {
+        var id int;
+        c.Params.Bind(&id,"id");
+        news :=  SelectNewsByNewsId(Dbm,id);
+        return c.Render(news);
+}
+
 func InsertNews(dbm *gorp.DbMap, p models.News) bool{
     err := dbm.Insert(&p)    
     checkErr(err, "Insert failed")    
@@ -63,7 +70,7 @@ func SelectAllNews(dbm *gorp.DbMap) []models.News {
 
 func SelectNewsByNewsId(dbm *gorp.DbMap, newsid int) models.News {
 	var p models.News
-    err := dbm.SelectOne(&p, "SELECT * FROM news WHERE newsid=?", newsid)
+    err := dbm.SelectOne(&p, "SELECT * FROM News WHERE newsid=?", newsid)
     checkErr(err, "SelectOne failed")
     log.Println("p :", p)
     return p
@@ -77,6 +84,6 @@ func UpdateNews(dbm *gorp.DbMap, p models.News) {
 
 
 func DeleteNewsByNewsid(dbm *gorp.DbMap, newsid int) {
-    _, err := dbm.Exec("DELETE FROM news WHERE newsid=?", newsid)
+    _, err := dbm.Exec("DELETE FROM News WHERE newsid=?", newsid)
     checkErr(err, "Delete failed")
 }

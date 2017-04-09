@@ -19,9 +19,9 @@ GET 	/Contact								App.Contact
 GET 	/Login									App.Login
 
 #News
-GET      /news/form                             News.Form 
-POST     /news/add                              News.Add
-
+GET      /News/Form                             News.Form 
+POST     /News/Add                              News.Add
+GET      /News/Detail/:id                       News.Detail
 
 # Ignore favicon requests
 GET     /favicon.ico                            404
