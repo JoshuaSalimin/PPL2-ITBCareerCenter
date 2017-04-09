@@ -14,22 +14,40 @@
 									<h2>{{.NamaPerusahaan}}</h2>
 								</header>
 								{{end}}
+								{{if .userImage}}
+								<h3>Perusahaan Kami</h3>
+								{{range .userImage}}
 								<div class="row">
-									<h3>Perusahaan Kami</h3>
-									<span class="image featured"><img src="/public/images/banner.jpg" alt="" /></span>
-									{{if .DeskripsiPerusahaan}}
-									<p>{{.DeskripsiPerusahaan}}</p>
-									{{end}}
+									<span class="image featured"><img align="middle" src="{{.PathFile}}" alt="" /></span>
 								</div>
+								{{end}}
+								<br><br><br>
+								{{end}}
+								{{if .DeskripsiPerusahaan}}
+								<h3>Deskripsi Perusahaan</h3>
+								<p>{{.DeskripsiPerusahaan}}</p>
+								<br>
+									{{end}}
+								{{if .userVideo.PathFile}}
 								<div class="row">
 									<h3>Video Perusahaan Kami</h3>
 									<!-- video -->
-									<span class="image featured"><img src="/public/images/banner.jpg" alt="" /></span>
+									<div align="center" class="container videoWrapper">
+										<iframe width="420" height="315" src="{{.userVideo.PathFile}}" allowfullscreen>
+										</iframe>
+									</div>
 								</div>
+								<br><br><br>
+								{{end}}
+								{{if .userImage}}
+								<h3>Produk Kami</h3>
+								{{range .userImage}}
 								<div class="row">
-									<h3>Produk Kami</h3>
-									<span class="image featured"><img src="/public/images/banner.jpg" alt="" /></span>
+									<span class="image featured"><img align="middle" src="{{.PathFile}}" alt="" /></span>
 								</div>
+								{{end}}
+								<br><br>
+								{{end}}
 								{{if .Visi}}
 								<h3>Visi Perusahaan</h3>
 								<p>{{.Visi}}</p>

@@ -115,7 +115,8 @@ func (c App) ProfilePage(id int) revel.Result {
 	angkatanPMW := user.Angkatan
 	userContact := SelectAllUserContactByUserId(Dbm, id)
 	userSocialMedia := SelectAllUserSocialMediaByUserID(Dbm, id)
-	userPost := SelectPostByUserId(Dbm, id)
-	return c.Render(id, profiles, namaPerusahaan, deskripsiPerusahaan, visiPerusahaan, misiPerusahaan, namaPemilik, jurusan, angkatanPMW, userContact, userSocialMedia, authorized, userPost)
+	userVideo := SelectVideoByUserId(Dbm, id)
+	userImage := SelectUserImage(Dbm, id)
+	return c.Render(id, profiles, namaPerusahaan, deskripsiPerusahaan, visiPerusahaan, misiPerusahaan, namaPemilik, jurusan, angkatanPMW, userContact, userSocialMedia, authorized, userVideo, userImage)
 }
 

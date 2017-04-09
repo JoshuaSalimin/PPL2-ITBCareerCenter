@@ -22,7 +22,7 @@ func InsertPost(dbm *gorp.DbMap, p models.Post){
 func SelectAllPost(dbm *gorp.DbMap) []models.Post {
 	var p []models.Post
 
-    _, err := dbm.Select(&p, "SELECT * FROM posts")
+    _, err := dbm.Select(&p, "SELECT * FROM post")
     checkErr(err, "Select failed")
     log.Println("All rows:")
     for x, p := range p {
@@ -33,7 +33,7 @@ func SelectAllPost(dbm *gorp.DbMap) []models.Post {
 
 func SelectPostByPostId(dbm *gorp.DbMap, postid int) models.Post {
 	var p models.Post
-    err := dbm.SelectOne(&p, "SELECT * FROM posts WHERE postid=?", postid)
+    err := dbm.SelectOne(&p, "SELECT * FROM post WHERE postid=?", postid)
     checkErr(err, "SelectOne failed")
     log.Println("p :", p)
     return p
@@ -41,7 +41,7 @@ func SelectPostByPostId(dbm *gorp.DbMap, postid int) models.Post {
 
 func SelectPostByUserId(dbm *gorp.DbMap, userid int) models.Post {
     var p models.Post
-    err := dbm.SelectOne(&p, "SELECT * FROM posts WHERE userid=?", userid)
+    err := dbm.SelectOne(&p, "SELECT * FROM post WHERE userid=?", userid)
     checkErr(err, "SelectOne failed")
     log.Println("p :", p)
     return p
@@ -54,6 +54,27 @@ func UpdatePost(dbm *gorp.DbMap, p models.Post) {
 }
 
 func DeletePostByPostid(dbm *gorp.DbMap, postid int) {
-    _, err := dbm.Exec("DELETE FROM posts WHERE postid=?", postid)
+    _, err := dbm.Exec("DELETE FROM post WHERE postid=?", postid)
     checkErr(err, "Delete failed")
+}
+
+func SelectUserImage(dbm *gorp.DbMap, id int) []models.Post {
+	var p []models.Post
+	image := "Image"
+    _, err := dbm.Select(&p, "SELECT * FROM post WHERE media_type=? AND userid=?", image, id)
+    checkErr(err, "Select failed")
+    log.Println("All rows:")
+    for x, p := range p {
+        log.Printf("    %d: %v\n", x, p)
+    }
+    return p 	
+}
+
+func SelectVideoByUserId(dbm *gorp.DbMap, userid int) models.Post {
+    var p models.Post
+    video := "Video"
+    err := dbm.SelectOne(&p, "SELECT * FROM post WHERE userid=? AND media_type=?", userid, video)
+    checkErr(err, "SelectOne failed")
+    log.Println("p :", p)
+    return p
 }
