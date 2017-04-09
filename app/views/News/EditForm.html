@@ -30,6 +30,7 @@
 							<form action="/News/EditSubmit" method="POST">
 						    	<strong>Title:</strong><br>
 						    	<input type="hidden" name="newsid" value="{{.news.NewsId}}">
+						    	<input type="hidden" name="newscreated" value="{{.news.CreatedAt}}">
 						        <input type="text" name="newstitle" value="{{.news.NewsTitle}}" /><br/>
 						        <strong>Content:</strong><br>
 					            <textarea name="newscontent" id="newscontent"></textarea>

@@ -25,12 +25,13 @@ func (c News) List() revel.Result {
 }
 
 func (c News) Add() revel.Result {       
+    timecreated := time.Now().UnixNano();
     innews := models.News{
         NewsId : 0,
         NewsTitle : c.Request.Form.Get("newstitle"),
         Content : c.Request.Form.Get("newscontent"),
-        CreatedAt : time.Now().UnixNano(),
-        UpdatedAt : time.Now().UnixNano(), 
+        CreatedAt : timecreated,
+        UpdatedAt : timecreated, 
     }
     success := InsertNews(Dbm, innews);
     if (success){
@@ -66,11 +67,12 @@ func (c News) EditForm() revel.Result {
 
 func (c News) EditSubmit() revel.Result {
     newsid,_ := strconv.ParseInt(c.Request.Form.Get("newsid"),0,64);
+    newscreatedat,_ := strconv.ParseInt(c.Request.Form.Get("newscreated"),0,64);
     innews := models.News{
         NewsId : newsid,
         NewsTitle : c.Request.Form.Get("newstitle"),
         Content : c.Request.Form.Get("newscontent"),
-        CreatedAt : time.Now().UnixNano(),
+        CreatedAt : newscreatedat,
         UpdatedAt : time.Now().UnixNano(), 
     }
     success := UpdateNews(Dbm, innews);
