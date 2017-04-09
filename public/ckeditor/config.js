@@ -38,4 +38,7 @@ CKEDITOR.editorConfig = function( config ) {
 
 	//Enable text alignment
 	config.extraPlugins = 'justify';
+
+	//Enable font
+	config.extraPlugins = 'font';
 };
