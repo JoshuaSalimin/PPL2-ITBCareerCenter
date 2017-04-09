@@ -62,11 +62,15 @@ func (c App) Login() revel.Result {
 func (c App) ListProfiles(page int) revel.Result {
 	profiles := true
 	numUserPerPage := 6
-
+	if (page == 0) {
+		page = 1
+	}
 	startUserLimit := (page-1)*numUserPerPage
 	endUserLimit := page*numUserPerPage
 
 	userCount := CountUsers(Dbm)
+
+	startUserLimit = max(startUserLimit, 0)
 
 	if (startUserLimit >= userCount) {
 		return c.NotFound("Invalid Page: ", page);
