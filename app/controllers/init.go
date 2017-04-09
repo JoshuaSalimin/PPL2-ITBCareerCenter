@@ -64,16 +64,30 @@ var InitDb func() = func(){
     defineNewsTable(Dbm)
     defineUserSocialMediaTable(Dbm)
     defineUserContactTable(Dbm)
+
     err := Dbm.CreateTablesIfNotExists()
     checkErr(err, "Create Table failed")
     err = Dbm.CreateIndex();
     checkErr(err, "Create Index Failed")
+    // content of news must be changed to text instead of varchar(255) because 
+    // varchar(255) is not enough to contain it
+    _, err = Dbm.Exec(" ALTER TABLE news MODIFY content text")
+    checkErr(err, "ALTER TABLE news FAILED")
 
+
+
+    // u := models.CreateDefaultUser("ramos")
+
+    // KEY := []byte("key")
+    // unencryptedPassword := "this is password you will encrypt"
+    // encryptedPassword, err := encrypt(KEY, unencryptedPassword) 
+    // u.Password = encryptedPassword
+
+    // InsertUsers(Dbm, u)
 
     // USAGE EXAMPLE --------------
     // InsertUsersAdmin(Dbm)
     // InsertPostAdmin(Dbm)
-
 
     // NewsTemp := models.CreateDefaultNews("News Title Temp")
     // InsertNews(Dbm, NewsTemp)
@@ -127,7 +141,5 @@ func definePostTable(dbm *gorp.DbMap){
 func defineNewsTable(dbm *gorp.DbMap) {
     dbm.AddTable(models.News{}).SetKeys(true, "newsid")    
 }
-
-
 
 

@@ -56,3 +56,4 @@ func DeleteUsersByUserid(dbm *gorp.DbMap, userid int) {
     _, err := dbm.Exec("DELETE FROM users WHERE userid=?", userid)
     checkErr(err, "Delete failed")
 }
+
