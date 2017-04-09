@@ -18,6 +18,7 @@ type Users struct {
     Misi                    string  `db:"misi"`
     Jurusan                 string  `db:"jurusan"`
     Angkatan                int  `db:"angkatan"`
+    LogoPath				string `db:"logo_path"`
     CreatedAt		        int64	`db:"users_created_at"`
     UpdatedAt		        int64	`db:"users_updated_at"`		
     ShowProfile		        bool 	`db:"show_profile"`  // show profile ato ngga
@@ -37,6 +38,7 @@ func CreateDefaultUser(username string) Users {
         Misi            : "DEFAULT_MISI",
         Jurusan         : "DEFAULT_JURUSAN",
         Angkatan        : 0,       
+        LogoPath 		: "DEFAULT_LOGO_PATH",
         CreatedAt       : time.Now().UnixNano(), 
         UpdatedAt       : 0,   
         ShowProfile     : false,    
@@ -44,4 +46,5 @@ func CreateDefaultUser(username string) Users {
     }
     return user_dummy
 }
+
 
