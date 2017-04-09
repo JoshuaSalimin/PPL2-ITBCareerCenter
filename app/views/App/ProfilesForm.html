@@ -12,7 +12,11 @@
 				<section class="wrapper style1">
 					<div class="container">
 						<div id="content">
-							<form action="/EditProfiles" method="POST">
+							<form action="{{url "App.EditProfiles" .user.UserId}}" method="POST">
+								<p>
+									<strong>Nama Perusahaan</strong>
+									<input type="text" name="user.CompanyName" value="{{.user.CompanyName}}">
+								</p>
 							    {{with $field := field "myName1" .}}
 							    	<strong>Name Perusahaan</strong>
 							        <input type="text" name="{{$field.Name}}" value="{{$field.Flash}}"/><br/>
