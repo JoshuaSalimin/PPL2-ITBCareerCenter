@@ -5,7 +5,7 @@
 			{{ range $key, $user := .users }}
 			   {{if even $key}}<div class="row">{{end}}
 					<section class="6u 12u(narrower)">
-						<a href="ProfilePage/{{ $user.UserId }}" style="color: black;">
+						<a href="/ProfilePage/{{ $user.UserId }}" style="color: black;">
 							<div class="box post">
 								<div class="image left"><img src="/public/images/pic02.jpg" alt="" /></div>
 								<div class="inner">

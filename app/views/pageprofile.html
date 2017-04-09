@@ -3,10 +3,9 @@
 			<!-- Main -->
 				<section class="wrapper style1">
 					<div class="container">
-						<div id="content">
-								
+						<div id="content">					
 							{{if .authorized}}
-								<button class="button"><a href="/ProfilesForm">Edit this Page</a></button>
+								<button class="button"><a href="/ProfilesForm/{{.id}}">Edit this Page</a></button>
 							{{end}}
 							<!-- Content -->
 							<article>

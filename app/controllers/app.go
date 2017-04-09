@@ -2,7 +2,7 @@ package controllers
 
 import (
 	"github.com/revel/revel"
-	"fmt"
+	"PPL2-ITBCareerCenter/app/models"
 )
 
 type App struct {
@@ -83,13 +83,16 @@ func (c App) ListProfiles(page int) revel.Result {
 	return c.Render(profiles, page, users, userCount, numUserPerPage, currentPageNum)
 }
 
-func (c App) EditProfiles(myName1 string) revel.Result {
-	fmt.Printf(myName1)
-	return c.Redirect(App.Profiles)
+func (c App) EditProfiles(id int, user models.Users) revel.Result {
+	oldUser := SelectUsersByUserid(Dbm, id)
+	oldUser.CompanyName = user.CompanyName
+	UpdateUsers(Dbm, oldUser)
+	return c.Redirect("/ProfilePage/%d", id)
 }
 
-func (c App) ProfilesForm() revel.Result {
-	return c.Render()
+func (c App) ProfilesForm(id int) revel.Result {
+	user := SelectUsersByUserid(Dbm, id)
+	return c.Render(user)
 }
 
 func (c App) ProfilePage(id int) revel.Result {
