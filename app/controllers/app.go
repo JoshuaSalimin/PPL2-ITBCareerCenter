@@ -15,7 +15,8 @@ func (c App) Index() revel.Result {
 
 func (c App) News() revel.Result {
 	news := true
-	return c.Render(news)
+    list := SelectAllNews(Dbm);
+    return c.Render(news,list);
 }
 
 func (c App) Articles() revel.Result {
