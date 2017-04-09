@@ -71,8 +71,8 @@ var InitDb func() = func(){
     checkErr(err, "Create Index Failed")
     // content of news must be changed to text instead of varchar(255) because 
     // varchar(255) is not enough to contain it
-    _, err = Dbm.Exec(" ALTER TABLE news MODIFY content text")
-    checkErr(err, "ALTER TABLE news FAILED")
+    _, err = Dbm.Exec(" ALTER TABLE News MODIFY content text")
+    checkErr(err, "ALTER TABLE News FAILED")
 
 
 
