@@ -1,4 +1,4 @@
-{{set . "news" .news}}
+{{set . "title" "ITB Career Center Entrepreneurship Files"}}
 
 <!-- Header -->
 {{template "header.html" .}}
@@ -26,29 +26,20 @@
 			<!-- Main -->
 				<section class="wrapper style1">
 					<div class="container">
-						<table id="content">
-							<tr>
-								<td width="10%">Id</td>
-								<td width="50%">Title</td>
-								<td width="30%">Created At</td>
-								<td width="5%"></td>
-								<td width="5%"></td>
-							</tr>
-							{{range .news}}
-							<tr>
-								<td>{{.NewsId}}</td>
-								<td>{{.NewsTitle}}</td>
-								<td>{{.CreatedAt}}</td>
-								<td><a href="/News/EditForm/{{.NewsId}}"><i class="material-icons">mode_edit</i></a></td>
-								<form action="/News/Delete/" method="POST">
-									<input type="hidden" name="id" id="id" value="{{.NewsId}}">
-									<td><button type="submit" id="submit" class="fabutton">
-										<i class="fa fa-trash-o" style="color:red" aria-hidden="true"></i>
-									</button></td>
-								</form>								
-							</tr>
-							{{end}}
-						</table>
+						<div id="content">
+							<form action="/News/EditSubmit" method="POST">
+						    	<strong>Title:</strong><br>
+						        <input type="text" name="newstitle"/><br/>
+						        <strong>Content:</strong><br>
+					            <textarea name="newscontent" id="newscontent"></textarea>
+					            <script>
+					            	CKEDITOR.replace('newscontent');
+					            </script>
+							    <p align="right">
+							    	<input type="submit" value="Post" />
+						    	</p>
+							</form>
+						</div>
 					</div>
 				</section>
 		</div>

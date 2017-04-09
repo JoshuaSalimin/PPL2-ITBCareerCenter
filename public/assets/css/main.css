@@ -2308,6 +2308,11 @@
 			background-color: #E8C246;			
 		}
 
+		.fabutton {
+		  background: none;
+		  padding: 0px;
+		  border: none;
+		}
 /* Box */
 
 	.box.highlight {

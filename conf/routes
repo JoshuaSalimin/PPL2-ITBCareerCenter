@@ -22,6 +22,9 @@ GET 	/Login									App.Login
 GET      /News/Form                             News.Form 
 POST     /News/Add                              News.Add
 GET      /News/Detail/:id                       News.Detail
+POST     /News/Delete/                          News.Delete
+GET      /News/EditForm/:id                     News.EditForm
+POST     /News/EditSubmit/                   News.EditSubmit
 
 # Ignore favicon requests
 GET     /favicon.ico                            404
