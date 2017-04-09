@@ -9,8 +9,6 @@ import (
     "log"
 )
 
-
-
 func InsertUsersAdmin(dbm *gorp.DbMap){
     // set "userid" as primary key and autoincrement
     var admin models.Users
@@ -49,14 +47,12 @@ func SelectLatestUsersInRange(dbm *gorp.DbMap, start int, count int) []models.Us
     return u    
 }
 
-
 func CountUsers(dbm *gorp.DbMap) int {
     count, err := dbm.SelectInt("SELECT COUNT(*) FROM users")
     checkErr(err, "Select failed")
     log.Println("User count:", count)
     return int(count)
 }
-
 
 func SelectUsersByUserid(dbm *gorp.DbMap, userid int) models.Users {
 	var u models.Users
@@ -71,7 +67,6 @@ func UpdateUsers(dbm *gorp.DbMap, u models.Users) {
 	checkErr(err, "Update failed")	
     log.Println("Rows updated:", count)
 }
-
 
 func DeleteUsersByUserid(dbm *gorp.DbMap, userid int) {
     _, err := dbm.Exec("DELETE FROM users WHERE userid=?", userid)

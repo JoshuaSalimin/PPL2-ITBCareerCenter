@@ -94,6 +94,7 @@ func (c App) ProfilesForm() revel.Result {
 
 func (c App) ProfilePage(id int) revel.Result {
 	profiles := true
+	authorized := false
 	user := SelectUsersByUserid(Dbm, id)
 	namaPerusahaan := user.CompanyName
 	deskripsiPerusahaan := user.CompanyDescription
@@ -104,6 +105,6 @@ func (c App) ProfilePage(id int) revel.Result {
 	angkatanPMW := user.Angkatan
 	userContact := SelectAllUserContactByUserId(Dbm, id)
 	userSocialMedia := SelectAllUserSocialMediaByUserID(Dbm, id)
-	return c.Render(id, profiles, namaPerusahaan, deskripsiPerusahaan, visiPerusahaan, misiPerusahaan, namaPemilik, jurusan, angkatanPMW, userContact, userSocialMedia)
+	return c.Render(id, profiles, namaPerusahaan, deskripsiPerusahaan, visiPerusahaan, misiPerusahaan, namaPemilik, jurusan, angkatanPMW, userContact, userSocialMedia, authorized)
 
 }

@@ -13,12 +13,11 @@ GET 	/Articles								App.Articles
 GET 	/Files									App.Files
 GET 	/Photos									App.Photos
 GET 	/Videos									App.Videos
-GET 	/Profiles								App.Profiles
+GET 	/Profiles								App.ListProfiles
 GET 	/ProfilesForm							App.ProfilesForm
 GET 	/About									App.About
 GET 	/Contact								App.Contact
 GET 	/Login									App.Login
-GET		/ListProfiles							App.ListProfiles
 GET		/ListProfiles/:page						App.ListProfiles
 GET		/ProfilePage/:id						App.ProfilePage
 POST	/EditProfiles							App.EditProfiles

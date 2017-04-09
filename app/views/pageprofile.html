@@ -4,25 +4,23 @@
 				<section class="wrapper style1">
 					<div class="container">
 						<div id="content">
-								<button class="button"><a href="/ProfilesForm">Edit this Page</a></button>
+								
 							{{if .authorized}}
-								<button class="button">Edit this Page</button>
+								<button class="button"><a href="/ProfilesForm">Edit this Page</a></button>
 							{{end}}
 							<!-- Content -->
 							<article>
+								{{if .NamaPerusahaan}}
 								<header style="text-align: center;">
 									<h2>{{.NamaPerusahaan}}</h2>
 								</header>
+								{{end}}
 								<div class="row">
 									<h3>Perusahaan Kami</h3>
-									<!-- for gambarnya -->
-									<!-- {{range $index, $element := .results}}
-									<tr class="{{if even $index}}light-row{{else}}dark-row{{end}}">
-										...
-									</tr>
-									{{end}} -->
 									<span class="image featured"><img src="/public/images/banner.jpg" alt="" /></span>
+									{{if .DeskripsiPerusahaan}}
 									<p>{{.DeskripsiPerusahaan}}</p>
+									{{end}}
 								</div>
 								<div class="row">
 									<h3>Video Perusahaan Kami</h3>
@@ -33,29 +31,40 @@
 									<h3>Produk Kami</h3>
 									<span class="image featured"><img src="/public/images/banner.jpg" alt="" /></span>
 								</div>
-								
+								{{if .Visi}}
 								<h3>Visi Perusahaan</h3>
 								<p>{{.Visi}}</p>
 								<br>
+								{{end}}
+								{{if .Misi}}
 								<h3>Misi Perusahaan</h3>
 								<p>{{.Misi}}</p>
 								<br>
+								{{end}}
+								{{if .userSocialMediaView}}
 								<h3>Our Social Media</h3>
 								<!-- for social media -->
 								{{range .userSocialMediaView}}
 								<p>{{.SocialMediaName}} : {{.SocialMediaURL}}</p>
 								{{end}}
 								<br>
+								{{end}}
+								{{if .userContactView}}
 								<h3>Contact Us</h3>
 								{{range .userContactView}}
 								<p>{{.ContactType}} : {{.Contact}}</p>
 								{{end}}
 								<br>
+								{{end}}
 								<footer>
+									{{if or (or .NameFounder .Jurusan) .Angkatan}} 
 									<h2>Founder</h2>
 									<p>{{.NameFounder}}</p>	
 									<p>{{.Jurusan}}</p>
+									{{if .Angkatan}}
 									<p>{{.Angkatan}}</p>
+									{{end}}
+									{{end}}
 								</footer>
 							</article>
 						</div>
