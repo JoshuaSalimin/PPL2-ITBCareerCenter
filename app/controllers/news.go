@@ -48,9 +48,7 @@ func (c News) Detail() revel.Result {
 }
 
 func (c News) Delete() revel.Result {
-        log.Println(c.Request.Form.Get("id"));
         id,_ := strconv.Atoi(c.Request.Form.Get("id"));
-        log.Println(id);
         success := DeleteNewsByNewsid(Dbm,id);
         if (success){
             return c.Redirect(News.List);
@@ -67,8 +65,9 @@ func (c News) EditForm() revel.Result {
 }
 
 func (c News) EditSubmit() revel.Result {
+    newsid,_ := strconv.ParseInt(c.Request.Form.Get("newsid"),0,64);
     innews := models.News{
-        NewsId : 0,
+        NewsId : newsid,
         NewsTitle : c.Request.Form.Get("newstitle"),
         Content : c.Request.Form.Get("newscontent"),
         CreatedAt : time.Now().UnixNano(),
