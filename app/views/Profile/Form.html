@@ -2,6 +2,19 @@
 {{template "header.html" .}}
 <!-- Content -->
 	<link rel="stylesheet" href="/public/assets/css/fileinput.min.css" />
+	<style>
+	.kv-avatar .file-preview-frame,.kv-avatar .file-preview-frame:hover {
+	    margin: 0;
+	    padding: 0;
+	    border: none;
+	    box-shadow: none;
+	    text-align: center;
+	}
+	.kv-avatar .file-input {
+	    display: table-cell;
+	    max-width: 220px;
+	}
+	</style>
 	<div id="page-wrapper">
 		<!-- Nav -->
 		{{template "nav.html" .}}
@@ -12,9 +25,10 @@
 					<div class="container">
 						<div id="content">
 							
-							<button type="button" class="btn" style="margin-bottom: 1em;">
-								<a href="{{url "Profile.Page" .user.UserId}}" class="icon fa-chevron-left" style="color: black;"> Back</a>
-							</button>
+							<a href="{{url "Profile.Page" .user.UserId}}" style="color: black; border-bottom: none;">
+								<button type="button" class="btn icon fa-chevron-left" style="margin-bottom: 1em;"> Back</button>
+							</a>
+							
 							<form action="{{url "Profile.Edit" .user.UserId}}" method="POST" id="editProfile">
 								<p>
 									<strong>Nama Perusahaan</strong>
@@ -30,7 +44,10 @@
 								</p>
 								<p>
 									<strong>Upload Foto Perusahaan</strong>
-									<input type="text">
+									<div id="kv-avatar-errors-2" class="center-block" style="width:800px;display:none"></div>
+									<div class="kv-avatar" style="width:200px">
+								        <input id="avatar-2" name="avatar-2" type="file" class="file-loading">
+								    </div>
 								</p>
 								<div class="form-group">
 									<label class="control-label">Upload Foto Produk Perusahaan</label>
@@ -83,7 +100,7 @@
 									<strong>Angkatan PMW</strong>
 									<input type="text" name="user.Angkatan" value="{{.user.Angkatan}}">
 								</p>
-							    <input type="submit" value="Save" />
+							    <button type="submit" class="btn btn-primary btn-lg">Save</button>
 							</form>
 						</div>
 					</div>
@@ -141,6 +158,22 @@ function($) {
         showUpload: false,
         showCaption: false
     });
+	$("#avatar-2").fileinput({
+	    overwriteInitial: true,
+	    maxFileSize: 1500,
+	    showClose: false,
+	    showCaption: false,
+	    showBrowse: false,
+	    browseOnZoneClick: true,
+	    removeLabel: '',
+	    removeIcon: '<i class="glyphicon glyphicon-remove"></i>',
+	    removeTitle: 'Cancel or reset changes',
+	    elErrorContainer: '#kv-avatar-errors-2',
+	    msgErrorClass: 'alert alert-block alert-danger',
+	    defaultPreviewContent: '<img src="/public/images/pic02.jpg" alt="Your Avatar" style="width:160px"><h6 class="text-muted">Click to select</h6>',
+	    layoutTemplates: {main2: '{preview} ' + ' {remove} {browse}'},
+	    allowedFileExtensions: ["jpg", "png", "gif"]
+	});
 });
 </script>
 <!-- Footer -->
