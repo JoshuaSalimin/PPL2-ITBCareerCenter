@@ -13,13 +13,29 @@
 				<section class="wrapper style1">
 					<div class="container">
 						<div id="content">
-							<form action="{{url "App.EditProfiles" .user.UserId}}" method="POST" id="editProfiles">
+							<form action="{{url "Profile.Edit" .user.UserId}}" method="POST" id="editProfile">
 								<p>
 									<strong>Nama Perusahaan</strong>
 									<input type="text" name="user.CompanyName" value="{{.user.CompanyName}}">
 								</p>
+							    <p>
+									<strong>Upload Foto Perusahaan</strong>
+									<input type="text">
+								</p>
+								<p>
+									<strong>Deskripsi Perusahaan</strong>
+									<textarea rows="4" cols="50" name="user.CompanyDescription" form="editProfiles">{{.user.CompanyDescription}}</textarea>
+								</p>
+								<p>
+									<strong>Link Video Youtube Perusahaan</strong>
+									<input type="text">
+								</p>
+								<p>
+									<strong>Upload Foto Perusahaan</strong>
+									<input type="text">
+								</p>
 								<div class="form-group">
-									<label class="control-label">Planets and Satellites</label>
+									<label class="control-label">Upload Foto Produk Perusahaan</label>
 									<input id="input-24" name="input24[]" type="file" multiple class="file-loading">
 									<script>
 									require(['jquery', 'fileinput'], 
@@ -37,31 +53,12 @@
 									        deleteUrl: "/site/file-delete",
 									        overwriteInitial: false,
 									        maxFileSize: 100,
-									        initialCaption: "The Moon and the Earth"
+									        showUpload: false,
+									        showCaption: false
 									    });
 									});
 									</script>
 								</div>
-							    <p>
-									<strong>Upload Foto Perusahaan</strong>
-									<input type="text">
-								</p>
-								<p>
-									<strong>Deskripsi Perusahaan</strong>
-									<textarea rows="4" cols="50" name="user.CompanyDescription" form="editProfiles">{{.user.CompanyDescription}}</textarea>
-								</p>
-								<p>
-									<strong>Link Video Youtube Perusahaan</strong>
-									<input type="text">
-								</p>
-								<p>
-									<strong>Upload Foto Perusahaan</strong>
-									<input type="text">
-								</p>
-								<p>
-									<strong>Upload Foto Produk Perusahaan</strong>
-									<input type="text">
-								</p>
 								<p>
 									<strong>Visi Perusahaan</strong>
 									<input type="text" name="user.Visi" value="{{.user.Visi}}">

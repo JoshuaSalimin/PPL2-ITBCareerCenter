@@ -13,14 +13,15 @@ GET 	/Articles								App.Articles
 GET 	/Files									App.Files
 GET 	/Photos									App.Photos
 GET 	/Videos									App.Videos
-GET 	/Profiles								App.ListProfiles
-GET 	/ProfilesForm/:id						App.ProfilesForm
 GET 	/About									App.About
 GET 	/Contact								App.Contact
 GET 	/Login									App.Login
-GET		/ListProfiles/:page						App.ListProfiles
-GET		/ProfilePage/:id						App.ProfilePage
-POST	/EditProfiles/:id						App.EditProfiles
+
+GET		/ListProfiles							Profile.List
+GET		/ListProfiles/:page						Profile.List
+GET		/ProfilePage/:id						Profile.Page
+POST	/EditProfile/:id						Profile.Edit
+GET 	/ProfileForm/:id						Profile.Form
 
 # Ignore favicon requests
 GET     /favicon.ico                            404

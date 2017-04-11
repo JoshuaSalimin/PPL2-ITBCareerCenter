@@ -2,56 +2,36 @@
 	<div id="header">
 		<nav id="nav">
 			<ul>
-				{{if .home}}
-				<li class="current"><a href="/">Home</a></li>
-				{{else}}
-				<li><a href="/">Home</a></li>
-				{{end}}
-				{{if .news}}
-				<li class="current"><a href="/News">News</a></li>
-				{{else}}
-				<li><a href="/News">News</a></li>
-				{{end}}
-				{{if .articles}}
-				<li class="current"><a href="/Articles">Articles</a></li>
-				{{else}}
-				<li><a href="/Articles">Articles</a></li>
-				{{end}}
-				{{if .files}}
-				<li class="current"><a href="/Files">Files</a></li>
-				{{else}}
-				<li><a href="/Files">Files</a></li>
-				{{end}}
-				{{if .photos}}
-				<li class="current"><a href="/Photos">Photo Gallery</a></li>
-				{{else}}
-				<li><a href="/Photos">Photo Gallery</a></li>
-				{{end}}
-				{{if .videos}}
-				<li class="current"><a href="/Videos">Videos</a></li>
-				{{else}}
-				<li><a href="/Videos">Videos</a></li>
-				{{end}}
-				{{if .profiles}}
-				<li class="current"><a href="/Profiles">Profiles</a></li>
-				{{else}}
-				<li><a href="/Profiles">Profiles</a></li>
-				{{end}}
-				{{if .about}}
-				<li class="current"><a href="/About">About</a></li>
-				{{else}}
-				<li><a href="/About">About</a></li>
-				{{end}}
-				{{if .contact}}
-				<li class="current"><a href="/Contact">Contact</a></li>
-				{{else}}
-				<li><a href="/Contact">Contact</a></li>
-				{{end}}
-				{{if .login}}
-				<li class="current"><a href="/Login">Login</a></li>
-				{{else}}
-				<li><a href="/Login">Login</a></li>
-				{{end}}
+				<li {{if .home}}class="current"{{end}}><a href="/">Home</a></li>
+				
+				
+				<li {{if .news}}class="current"{{end}}><a href="/News">News</a></li>
+				
+				
+				<li {{if .articles}}class="current"{{end}}><a href="/Articles">Articles</a></li>
+				
+				
+				<li {{if .files}}class="current"{{end}}><a href="/Files">Files</a></li>
+				
+				
+				<li {{if .photos}}class="current"{{end}}><a href="/Photos">Photo Gallery</a></li>
+				
+				
+				<li {{if .videos}}class="current"{{end}}><a href="/Videos">Videos</a></li>
+				
+				
+				<li {{if .profiles}}class="current"{{end}}><a href="/ListProfiles">Profiles</a></li>
+				
+				
+				<li {{if .about}}class="current"{{end}}><a href="/About">About</a></li>
+				
+				
+				<li {{if .contact}}class="current"{{end}}><a href="/Contact">Contact</a></li>
+				
+				
+				<li {{if .login}}class="current"{{end}}><a href="/Login">Login</a></li>
+				
+				
 				
 				
 			</ul>
