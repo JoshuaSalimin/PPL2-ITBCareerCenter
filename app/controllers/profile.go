@@ -4,6 +4,7 @@ import (
 	"github.com/revel/revel"
 	"PPL2-ITBCareerCenter/app/models"
 	"html"
+	"time"
 )
 
 type Profile struct {
@@ -65,6 +66,7 @@ func (c Profile) Edit(id int, user models.Users, socialMediaTypes []string,  soc
 	oldUser.Misi = user.Misi
 	oldUser.Jurusan = user.Jurusan
 	oldUser.Angkatan = user.Angkatan
+	oldUser.UpdatedAt = time.Now().UnixNano()
 	UpdateUsers(Dbm, oldUser)
 	return c.Redirect("/ProfilePage/%d", id)
 }
@@ -87,9 +89,10 @@ func (c Profile) Page(id int) revel.Result {
 	namaPemilik := user.Name
 	jurusan := user.Jurusan
 	angkatanPMW := user.Angkatan
+	userUpdatedAt := time.Unix(0, user.UpdatedAt)
 	userContact := SelectAllUserContactByUserId(Dbm, id)
 	userSocialMedias := SelectAllUserSocialMediaByUserID(Dbm, id)
 	userVideo := SelectVideoByUserId(Dbm, id)
 	userImage := SelectUserImage(Dbm, id)
-	return c.Render(id, profiles, namaPerusahaan, deskripsiPerusahaan, visiPerusahaan, misiPerusahaan, namaPemilik, jurusan, angkatanPMW, userContact, userSocialMedias, authorized, userVideo, userImage)
+	return c.Render(id, profiles, namaPerusahaan, deskripsiPerusahaan, visiPerusahaan, misiPerusahaan, namaPemilik, jurusan, angkatanPMW, userContact, userSocialMedias, authorized, userVideo, userImage, userUpdatedAt)
 }
