@@ -7,8 +7,8 @@ import (
 )
 
 type UserSocialMedia struct {
-    UserSocialMediaId      int64   `db:"socialmediaid"`
-    UserId                  int64   `db:"userid"`
+    UserSocialMediaId      int   `db:"socialmediaid"`
+    UserId                  int   `db:"userid"`
     SocialMediaName         string  `db:"social_media_name"`
     SocialMediaURL          string  `db:"social_media_url"`
     CreatedAt               int64   `db:"social_media_created_at"`

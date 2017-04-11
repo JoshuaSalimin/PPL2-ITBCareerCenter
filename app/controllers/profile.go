@@ -3,6 +3,7 @@ package controllers
 import (
 	"github.com/revel/revel"
 	"PPL2-ITBCareerCenter/app/models"
+	"html"
 )
 
 type Profile struct {
@@ -33,7 +34,29 @@ func (c Profile) List(page int) revel.Result {
 	return c.Render(profiles, page, users, userCount, numUserPerPage, currentPageNum)
 }
 
-func (c Profile) Edit(id int, user models.Users) revel.Result {
+func (c Profile) Edit(id int, user models.Users, socialMediaTypes []string,  socialMediaURLs []string) revel.Result {
+
+	//Update Social Media
+	oldUserSocialMedias := SelectAllUserSocialMediaByUserID(Dbm, id)
+	for _,oldUserSocialMedia := range oldUserSocialMedias {
+	  DeleteUserSocialMediaByUserSocialMediaid(Dbm, oldUserSocialMedia.UserSocialMediaId)
+	}
+	newUserSocialMedias := make([]models.UserSocialMedia, len(socialMediaTypes))
+	for index, socialMediaType := range socialMediaTypes {
+	  socialMediaType = html.EscapeString(socialMediaType)
+	  newUserSocialMedias[index] = models.CreateDefaultUserSocialMedia()
+	  newUserSocialMedias[index].SocialMediaName = socialMediaType
+	  newUserSocialMedias[index].UserId = id
+	}
+	for index, socialMediaURL := range socialMediaURLs {
+	  socialMediaURL = html.EscapeString(socialMediaURL)
+	  newUserSocialMedias[index].SocialMediaURL = socialMediaURL
+	}
+	for _,newUserSocialMedia := range newUserSocialMedias {
+		InsertUserSocialMedia(Dbm, newUserSocialMedia)
+	}
+
+	//TODO sanitize input
 	oldUser := SelectUsersByUserid(Dbm, id)
 	oldUser.CompanyName = user.CompanyName
 	oldUser.Name = user.Name
@@ -49,7 +72,8 @@ func (c Profile) Edit(id int, user models.Users) revel.Result {
 func (c Profile) Form(id int) revel.Result {
 	profiles := true
 	user := SelectUsersByUserid(Dbm, id)
-	return c.Render(user, profiles)
+	userSocialMedias := SelectAllUserSocialMediaByUserID(Dbm, id)
+	return c.Render(user, profiles, userSocialMedias)
 }
 
 func (c Profile) Page(id int) revel.Result {
@@ -64,8 +88,8 @@ func (c Profile) Page(id int) revel.Result {
 	jurusan := user.Jurusan
 	angkatanPMW := user.Angkatan
 	userContact := SelectAllUserContactByUserId(Dbm, id)
-	userSocialMedia := SelectAllUserSocialMediaByUserID(Dbm, id)
+	userSocialMedias := SelectAllUserSocialMediaByUserID(Dbm, id)
 	userVideo := SelectVideoByUserId(Dbm, id)
 	userImage := SelectUserImage(Dbm, id)
-	return c.Render(id, profiles, namaPerusahaan, deskripsiPerusahaan, visiPerusahaan, misiPerusahaan, namaPemilik, jurusan, angkatanPMW, userContact, userSocialMedia, authorized, userVideo, userImage)
+	return c.Render(id, profiles, namaPerusahaan, deskripsiPerusahaan, visiPerusahaan, misiPerusahaan, namaPemilik, jurusan, angkatanPMW, userContact, userSocialMedias, authorized, userVideo, userImage)
 }

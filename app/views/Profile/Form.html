@@ -1,5 +1,3 @@
-{{set . "title" "ITB Career Center Entrepreneurship Files"}}
-
 <!-- Header -->
 {{template "header.html" .}}
 <!-- Content -->
@@ -13,14 +11,14 @@
 				<section class="wrapper style1">
 					<div class="container">
 						<div id="content">
+							
+							<button type="button" class="btn" style="margin-bottom: 1em;">
+								<a href="{{url "Profile.Page" .user.UserId}}" class="icon fa-chevron-left" style="color: black;"> Back</a>
+							</button>
 							<form action="{{url "Profile.Edit" .user.UserId}}" method="POST" id="editProfile">
 								<p>
 									<strong>Nama Perusahaan</strong>
 									<input type="text" name="user.CompanyName" value="{{.user.CompanyName}}">
-								</p>
-							    <p>
-									<strong>Upload Foto Perusahaan</strong>
-									<input type="text">
 								</p>
 								<p>
 									<strong>Deskripsi Perusahaan</strong>
@@ -37,27 +35,6 @@
 								<div class="form-group">
 									<label class="control-label">Upload Foto Produk Perusahaan</label>
 									<input id="input-24" name="input24[]" type="file" multiple class="file-loading">
-									<script>
-									require(['jquery', 'fileinput'], 
-									function($) {
-									    $("#input-24").fileinput({
-									        initialPreview: [
-									            'http://upload.wikimedia.org/wikipedia/commons/thumb/e/e1/FullMoon2010.jpg/631px-FullMoon2010.jpg',
-									            'http://upload.wikimedia.org/wikipedia/commons/thumb/6/6f/Earth_Eastern_Hemisphere.jpg/600px-Earth_Eastern_Hemisphere.jpg'
-									        ],
-									        initialPreviewAsData: true,
-									        initialPreviewConfig: [
-									            {caption: "Moon.jpg", size: 930321, width: "120px", key: 1},
-									            {caption: "Earth.jpg", size: 1218822, width: "120px", key: 2}
-									        ],
-									        deleteUrl: "/site/file-delete",
-									        overwriteInitial: false,
-									        maxFileSize: 100,
-									        showUpload: false,
-									        showCaption: false
-									    });
-									});
-									</script>
 								</div>
 								<p>
 									<strong>Visi Perusahaan</strong>
@@ -67,10 +44,29 @@
 									<strong>Misi Perusahaan</strong>
 									<input type="text" name="user.Misi" value="{{.user.Misi}}">
 								</p>
-								<p>
+								<div>
 									<strong>Social Media Perusahaan</strong>
-									<input type="text">
-								</p>
+									<br>
+									<button type="button" class="btn btn-success btn-number" style="margin-top: 1em; margin-bottom: 1em;" id="social-media-add">
+					                	<span class="glyphicon glyphicon-plus"></span>
+					              	</button>
+					              	{{ range $_, $userSocialMedia := .userSocialMedias }}
+					              	<div class="form-inline" style="margin-bottom: 1em;">
+					              		<div class="form-group">
+					              			<select name="socialMediaTypes[]" class="form-control" value="Twitter">
+					              				<option value="Facebook" {{if eq $userSocialMedia.SocialMediaName "Facebook"}}selected{{end}}>Facebook</option>
+					              				<option value="Website" {{if eq $userSocialMedia.SocialMediaName "Website"}}selected{{end}}>Website</option>
+					              				<option value="Twitter" {{if eq $userSocialMedia.SocialMediaName "Twitter"}}selected{{end}}>Twitter</option>
+					              				<option value="Google+" {{if eq $userSocialMedia.SocialMediaName "Google+"}}selected{{end}}>Google+</option>
+					              				<option value="LinkedIn" {{if eq $userSocialMedia.SocialMediaName "LinkedIn"}}selected{{end}}>LinkedIn</option>
+					              				<option value="Instagram" {{if eq $userSocialMedia.SocialMediaName "Instagram"}}selected{{end}}>Instagram</option>
+					              			</select>
+					              			<input type="text" name="socialMediaURLs[]" class="form-control" placeholder="Type the URL here" value="{{$userSocialMedia.SocialMediaURL}}">
+					              			<button type="button" class="btn btn-danger btn-number"><span class="glyphicon glyphicon-minus"></span></button>
+					              		</div>
+					              	</div>
+					              	{{end}}
+								</div>
 								<p>
 									<strong>Contact Perusahaan</strong>
 									<input type="text">
@@ -87,13 +83,66 @@
 									<strong>Angkatan PMW</strong>
 									<input type="text" name="user.Angkatan" value="{{.user.Angkatan}}">
 								</p>
-							    <input type="submit" value="Submit" />
+							    <input type="submit" value="Save" />
 							</form>
 						</div>
 					</div>
 				</section>
 		</div>
 	</div>
+
+<script>
+require(['jquery', 'fileinput'], 
+function($) {
+	$("#social-media-add").click(function() {
+		var minusButton = $('<button/>', {type: 'button', class: 'btn btn-danger btn-number'}).append(
+			$('<span/>', {class: 'glyphicon glyphicon-minus'})
+		);
+		minusButton.click(function() {
+			$(this).parent().parent().remove();
+		});
+		$(this).after(
+			$('<div/>', {class: 'form-inline'}).css( 'margin-bottom', '1em' ).append(
+				$('<div/>', {class: 'form-group'}).append(
+					$('<select/>', {name: 'socialMediaTypes[]', class: 'form-control'}).append(
+						$('<option/>', {value: 'Facebook', html: 'Facebook'})
+					). append(
+						$('<option/>', {value: 'Website', html: 'Website'})
+					). append(
+						$('<option/>', {value: 'Twitter', html: 'Twitter'})
+					). append(
+						$('<option/>', {value: 'Google+', html: 'Google+'})
+					). append(
+						$('<option/>', {value: 'LinkedIn', html: 'LinkedIn'})
+					). append(
+						$('<option/>', {value: 'Instagram', html: 'Instagram'})
+					)
+				).append(
+					$('<input/>', {type: 'text', name: 'socialMediaURLs[]', class: 'form-control'}).attr("placeholder", "Type the URL here")
+				).append(
+					minusButton
+				)
+			)
+		);
+	});
+    $("#input-24").fileinput({
+        initialPreview: [
+            'http://upload.wikimedia.org/wikipedia/commons/thumb/e/e1/FullMoon2010.jpg/631px-FullMoon2010.jpg',
+            'http://upload.wikimedia.org/wikipedia/commons/thumb/6/6f/Earth_Eastern_Hemisphere.jpg/600px-Earth_Eastern_Hemisphere.jpg'
+        ],
+        initialPreviewAsData: true,
+        initialPreviewConfig: [
+            {caption: "Moon.jpg", size: 930321, width: "120px", key: 1},
+            {caption: "Earth.jpg", size: 1218822, width: "120px", key: 2}
+        ],
+        deleteUrl: "/site/file-delete",
+        overwriteInitial: false,
+        maxFileSize: 100,
+        showUpload: false,
+        showCaption: false
+    });
+});
+</script>
 <!-- Footer -->
 {{template "footer.html" .}}
 
