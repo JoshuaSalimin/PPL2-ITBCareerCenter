@@ -5,7 +5,7 @@ import (
 "github.com/revel/revel"
     // "encoding/json"
     //"github.com/go-gorp/gorp"
-"log"
+//"log"
 )
 import "strconv"
 
@@ -17,7 +17,7 @@ type tai struct {}
 
 func (c Auth) Login() revel.Result {
 	loginFailedMsg := "Login Failed: "
-	log.Println(getCurrentUserId(c));
+	//log.Println(getCurrentUserId(c));
 
 	uname := c.Params.Form.Get("username")
 	pwd := c.Params.Form.Get("password")
