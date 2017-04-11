@@ -22,7 +22,7 @@ func CreateDefaultUserSocialMedia() UserSocialMedia {
         SocialMediaName: "DEFUALT_SOCIAL_MEDIA_NAME", 
         SocialMediaURL: "DEFAULT_SOCIAL_MEDIA_URL", 
         CreatedAt       : time.Now().UnixNano(), 
-        UpdatedAt       : 0,
+        UpdatedAt       : time.Now().UnixNano(),
     }
     return tmp
 }
