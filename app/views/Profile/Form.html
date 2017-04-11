@@ -79,7 +79,7 @@
 					              				<option value="Instagram" {{if eq $userSocialMedia.SocialMediaName "Instagram"}}selected{{end}}>Instagram</option>
 					              			</select>
 					              			<input type="text" name="socialMediaURLs[]" class="form-control" placeholder="Type the URL here" value="{{$userSocialMedia.SocialMediaURL}}">
-					              			<button type="button" class="btn btn-danger btn-number"><span class="glyphicon glyphicon-minus"></span></button>
+					              			<button type="button" class="btn btn-danger btn-number remove-social"><span class="glyphicon glyphicon-minus"></span></button>
 					              		</div>
 					              	</div>
 					              	{{end}}
@@ -111,13 +111,14 @@
 <script>
 require(['jquery', 'fileinput'], 
 function($) {
+	$(".remove-social").click(function() {
+		$(this).parent().parent().remove();
+	});
 	$("#social-media-add").click(function() {
-		var minusButton = $('<button/>', {type: 'button', class: 'btn btn-danger btn-number'}).append(
+		var minusButton = $('<button/>', {type: 'button', class: 'btn btn-danger btn-number remove-social'}).append(
 			$('<span/>', {class: 'glyphicon glyphicon-minus'})
 		);
-		minusButton.click(function() {
-			$(this).parent().parent().remove();
-		});
+		minusButton
 		$(this).after(
 			$('<div/>', {class: 'form-inline'}).css( 'margin-bottom', '1em' ).append(
 				$('<div/>', {class: 'form-group'}).append(
