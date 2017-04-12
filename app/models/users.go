@@ -40,7 +40,7 @@ func CreateDefaultUser(username string) Users {
         Angkatan        : 0,       
         LogoPath 		: "DEFAULT_LOGO_PATH",
         CreatedAt       : time.Now().UnixNano(), 
-        UpdatedAt       : 0,   
+        UpdatedAt       : time.Now().UnixNano(),   
         ShowProfile     : false,    
         Role            : 0,     
     }

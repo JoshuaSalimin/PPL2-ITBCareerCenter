@@ -1,0 +1,182 @@
+<!-- Header -->
+{{template "header.html" .}}
+<!-- Content -->
+	<link rel="stylesheet" href="/public/assets/css/fileinput.min.css" />
+	<style>
+	.kv-avatar .file-preview-frame,.kv-avatar .file-preview-frame:hover {
+	    margin: 0;
+	    padding: 0;
+	    border: none;
+	    box-shadow: none;
+	    text-align: center;
+	}
+	.kv-avatar .file-input {
+	    display: table-cell;
+	    max-width: 220px;
+	}
+	</style>
+	<div id="page-wrapper">
+		<!-- Nav -->
+		{{template "nav.html" .}}
+		<!-- Main -->
+		<div id="page-wrapper">
+			<!-- Main -->
+				<section class="wrapper style1">
+					<div class="container">
+						<div id="content">
+							
+							<a href="{{url "Profile.Page" .user.UserId}}" style="color: black; border-bottom: none;">
+								<button type="button" class="btn icon fa-chevron-left" style="margin-bottom: 1em;"> Back</button>
+							</a>
+							
+							<form action="{{url "Profile.Edit" .user.UserId}}" method="POST" id="editProfile">
+								<p>
+									<strong>Nama Perusahaan</strong>
+									<input type="text" name="user.CompanyName" value="{{.user.CompanyName}}">
+								</p>
+								<p>
+									<strong>Visi Perusahaan</strong>
+									<input type="text" name="user.Visi" value="{{.user.Visi}}">
+								</p>
+								<p>
+									<strong>Misi Perusahaan</strong>
+									<input type="text" name="user.Misi" value="{{.user.Misi}}">
+								</p>
+								<p>
+									<strong>Deskripsi Perusahaan</strong>
+									<textarea rows="4" cols="50" name="user.CompanyDescription" form="editProfiles">{{.user.CompanyDescription}}</textarea>
+								</p>
+								<p>
+									<strong>Link Video Youtube Perusahaan</strong>
+									<input type="text">
+								</p>
+								<p>
+									<strong>Upload Foto Perusahaan</strong>
+									<div id="kv-avatar-errors-2" class="center-block" style="width:800px;display:none"></div>
+									<div class="kv-avatar" style="width:200px">
+								        <input id="avatar-2" name="avatar-2" type="file" class="file-loading">
+								    </div>
+								</p>
+								<div class="form-group">
+									<label class="control-label">Upload Foto Produk Perusahaan</label>
+									<input id="input-24" name="input24[]" type="file" multiple class="file-loading">
+								</div>
+								<div>
+									<strong>Social Media Perusahaan</strong>
+									<br>
+									<button type="button" class="btn btn-success btn-number" style="margin-top: 1em; margin-bottom: 1em;" id="social-media-add">
+					                	<span class="glyphicon glyphicon-plus"></span>
+					              	</button>
+					              	{{ range $_, $userSocialMedia := .userSocialMedias }}
+					              	<div class="form-inline" style="margin-bottom: 1em;">
+					              		<div class="form-group">
+					              			<select name="socialMediaTypes[]" class="form-control" value="Twitter">
+					              				<option value="Facebook" {{if eq $userSocialMedia.SocialMediaName "Facebook"}}selected{{end}}>Facebook</option>
+					              				<option value="Website" {{if eq $userSocialMedia.SocialMediaName "Website"}}selected{{end}}>Website</option>
+					              				<option value="Twitter" {{if eq $userSocialMedia.SocialMediaName "Twitter"}}selected{{end}}>Twitter</option>
+					              				<option value="Google+" {{if eq $userSocialMedia.SocialMediaName "Google+"}}selected{{end}}>Google+</option>
+					              				<option value="LinkedIn" {{if eq $userSocialMedia.SocialMediaName "LinkedIn"}}selected{{end}}>LinkedIn</option>
+					              				<option value="Instagram" {{if eq $userSocialMedia.SocialMediaName "Instagram"}}selected{{end}}>Instagram</option>
+					              			</select>
+					              			<input type="text" name="socialMediaURLs[]" class="form-control" placeholder="Type the URL here" value="{{$userSocialMedia.SocialMediaURL}}">
+					              			<button type="button" class="btn btn-danger btn-number remove-social"><span class="glyphicon glyphicon-minus"></span></button>
+					              		</div>
+					              	</div>
+					              	{{end}}
+								</div>
+								<p>
+									<strong>Contact Perusahaan</strong>
+									<input type="text">
+								</p>
+								<p>
+									<strong>Nama Pemilik</strong>
+									<input type="text" name="user.Name" value="{{.user.Name}}">
+								</p>
+								<p>
+									<strong>Jurusaan</strong>
+									<input type="text" name="user.Jurusan" value="{{.user.Jurusan}}">
+								</p>
+								<p>
+									<strong>Angkatan PMW</strong>
+									<input type="text" name="user.Angkatan" value="{{.user.Angkatan}}">
+								</p>
+							    <button type="submit" class="btn btn-primary btn-lg">Save</button>
+							</form>
+						</div>
+					</div>
+				</section>
+		</div>
+	</div>
+
+<script>
+require(['jquery', 'fileinput'], 
+function($) {
+	$(".remove-social").click(function() {
+		$(this).parent().parent().remove();
+	});
+	$("#social-media-add").click(function() {
+		var minusButton = $('<button/>', {type: 'button', class: 'btn btn-danger btn-number remove-social'}).append(
+			$('<span/>', {class: 'glyphicon glyphicon-minus'})
+		);
+		minusButton
+		$(this).after(
+			$('<div/>', {class: 'form-inline'}).css( 'margin-bottom', '1em' ).append(
+				$('<div/>', {class: 'form-group'}).append(
+					$('<select/>', {name: 'socialMediaTypes[]', class: 'form-control'}).append(
+						$('<option/>', {value: 'Facebook', html: 'Facebook'})
+					). append(
+						$('<option/>', {value: 'Website', html: 'Website'})
+					). append(
+						$('<option/>', {value: 'Twitter', html: 'Twitter'})
+					). append(
+						$('<option/>', {value: 'Google+', html: 'Google+'})
+					). append(
+						$('<option/>', {value: 'LinkedIn', html: 'LinkedIn'})
+					). append(
+						$('<option/>', {value: 'Instagram', html: 'Instagram'})
+					)
+				).append(
+					$('<input/>', {type: 'text', name: 'socialMediaURLs[]', class: 'form-control'}).attr("placeholder", "Type the URL here")
+				).append(
+					minusButton
+				)
+			)
+		);
+	});
+    $("#input-24").fileinput({
+        initialPreview: [
+            'http://upload.wikimedia.org/wikipedia/commons/thumb/e/e1/FullMoon2010.jpg/631px-FullMoon2010.jpg',
+            'http://upload.wikimedia.org/wikipedia/commons/thumb/6/6f/Earth_Eastern_Hemisphere.jpg/600px-Earth_Eastern_Hemisphere.jpg'
+        ],
+        initialPreviewAsData: true,
+        initialPreviewConfig: [
+            {caption: "Moon.jpg", size: 930321, width: "120px", key: 1},
+            {caption: "Earth.jpg", size: 1218822, width: "120px", key: 2}
+        ],
+        deleteUrl: "/site/file-delete",
+        overwriteInitial: false,
+        maxFileSize: 100,
+        showUpload: false,
+        showCaption: false
+    });
+	$("#avatar-2").fileinput({
+	    overwriteInitial: true,
+	    maxFileSize: 1500,
+	    showClose: false,
+	    showCaption: false,
+	    showBrowse: false,
+	    browseOnZoneClick: true,
+	    removeLabel: '',
+	    removeIcon: '<i class="glyphicon glyphicon-remove"></i>',
+	    removeTitle: 'Cancel or reset changes',
+	    elErrorContainer: '#kv-avatar-errors-2',
+	    msgErrorClass: 'alert alert-block alert-danger',
+	    defaultPreviewContent: '<img src="/public/images/pic02.jpg" alt="Your Avatar" style="width:160px"><h6 class="text-muted">Click to select</h6>',
+	    layoutTemplates: {main2: '{preview} ' + ' {remove} {browse}'},
+	    allowedFileExtensions: ["jpg", "png", "gif"]
+	});
+});
+</script>
+<!-- Footer -->
+{{template "footer.html" .}}
+

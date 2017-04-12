@@ -1882,8 +1882,7 @@
 
 	hr {
 		border-top: solid 1px #e0e0e0;
-		border: 0;
-		margin-bottom: 1.5em;
+		margin-top: 2em;
 	}
 
 	blockquote {
@@ -3164,3 +3163,23 @@
 			}
 
 	}
+	
+	
+.videoWrapper {
+	position: relative;
+	padding-bottom: 56.25%; /* 16:9 */
+	padding-left: 50px;
+	padding-top: 25px;
+	height: 0;
+	width: 100%;
+	margin-top: 50px;
+}
+.videoWrapper iframe {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	padding-left: 4%;s
+}
+

@@ -33,8 +33,22 @@ func parseIntOrDefault(intStr string, _default int64) int64 {
 
 func checkErr(err error, msg string) {
     if err != nil {
-        log.Fatalln(msg, err)
+        log.Println(msg, err)
     }
+}
+
+func min(a, b int) int {
+    if a < b {
+        return a
+    }
+    return b
+}
+
+func max(a, b int) int {
+    if a > b {
+        return a
+    }
+    return b
 }
 
 // func encrypt(key []byte, text string) (string, error) {

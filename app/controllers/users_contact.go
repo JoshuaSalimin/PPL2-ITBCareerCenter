@@ -44,3 +44,15 @@ func DeleteUserContactByUserContactid(dbm *gorp.DbMap, contactid int) {
     _, err := dbm.Exec("DELETE FROM usercontact WHERE contactid=?", contactid)
     checkErr(err, "Delete failed")
 }
+
+func SelectAllUserContactByUserId(dbm *gorp.DbMap, id int) []models.UserContact {
+    var p []models.UserContact
+
+    _, err := dbm.Select(&p, "SELECT * FROM usercontact WHERE userid=?", id)
+    checkErr(err, "Select failed")
+    log.Println("All rows:")
+    for x, p := range p {
+        log.Printf("    %d: %v\n", x, p)
+    }
+    return p    
+}

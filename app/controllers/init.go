@@ -74,16 +74,14 @@ var InitDb func() = func(){
     _, err = Dbm.Exec(" ALTER TABLE News MODIFY content text")
     checkErr(err, "ALTER TABLE News FAILED")
 
-
-
-    // u := models.CreateDefaultUser("ramos")
+    u := models.CreateDefaultUser("ramos")
 
     // KEY := []byte("key")
     // unencryptedPassword := "this is password you will encrypt"
     // encryptedPassword, err := encrypt(KEY, unencryptedPassword) 
     // u.Password = encryptedPassword
 
-    // InsertUsers(Dbm, u)
+    InsertUsers(Dbm, u)
 
     // USAGE EXAMPLE --------------
     // InsertUsersAdmin(Dbm)
@@ -141,5 +139,3 @@ func definePostTable(dbm *gorp.DbMap){
 func defineNewsTable(dbm *gorp.DbMap) {
     dbm.AddTable(models.News{}).SetKeys(true, "newsid")    
 }
-
-

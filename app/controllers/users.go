@@ -9,8 +9,6 @@ import (
 "log"
 )
 
-
-
 func InsertUsersAdmin(dbm *gorp.DbMap){
     // set "userid" as primary key and autoincrement
     var admin models.Users
@@ -28,7 +26,7 @@ func InsertUsers(dbm *gorp.DbMap, u models.Users){
 func SelectAllUsers(dbm *gorp.DbMap) []models.Users {
 	var u []models.Users
 
-    _, err := dbm.Select(&u, "SELECT * FROM users")
+    _, err := dbm.Select(&u, "SELECT * FROM Users")
     checkErr(err, "Select failed")
     log.Println("All rows:")
     for x, p := range u {
@@ -37,9 +35,30 @@ func SelectAllUsers(dbm *gorp.DbMap) []models.Users {
     return u 	
 }
 
-func SelectUserByUserId(dbm *gorp.DbMap, userid int64) models.Users {
-    var u models.Users
-    dbm.SelectOne(&u, "SELECT * FROM users WHERE UserId=?", userid)
+func SelectLatestUsersInRange(dbm *gorp.DbMap, start int, count int) []models.Users {
+    var u []models.Users
+
+    _, err := dbm.Select(&u, "SELECT * FROM Users ORDER BY users_created_at DESC LIMIT ?, ?", start, count)
+    checkErr(err, "Select failed")
+    log.Println("User Range rows:")
+    for x, p := range u {
+        log.Printf("    %d: %v\n", x, p)
+    }
+    return u    
+}
+
+func CountUsers(dbm *gorp.DbMap) int {
+    count, err := dbm.SelectInt("SELECT COUNT(*) FROM Users")
+    checkErr(err, "Select failed")
+    log.Println("User count:", count)
+    return int(count)
+}
+
+func SelectUsersByUserid(dbm *gorp.DbMap, userid int) models.Users {
+	var u models.Users
+    err := dbm.SelectOne(&u, "SELECT * FROM Users WHERE userid=?", userid)
+    checkErr(err, "SelectOne failed")
+    log.Println("u :", u)
     return u
 }
 
@@ -61,9 +80,8 @@ func UpdateUsers(dbm *gorp.DbMap, u models.Users) {
     log.Println("Rows updated:", count)
 }
 
-
 func DeleteUsersByUserid(dbm *gorp.DbMap, userid int) {
-    _, err := dbm.Exec("DELETE FROM users WHERE userid=?", userid)
+    _, err := dbm.Exec("DELETE FROM Users WHERE userid=?", userid)
     checkErr(err, "Delete failed")
 }
 
