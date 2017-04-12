@@ -26,7 +26,7 @@ func InsertUsers(dbm *gorp.DbMap, u models.Users){
 func SelectAllUsers(dbm *gorp.DbMap) []models.Users {
 	var u []models.Users
 
-    _, err := dbm.Select(&u, "SELECT * FROM users")
+    _, err := dbm.Select(&u, "SELECT * FROM Users")
     checkErr(err, "Select failed")
     log.Println("All rows:")
     for x, p := range u {
@@ -38,7 +38,7 @@ func SelectAllUsers(dbm *gorp.DbMap) []models.Users {
 func SelectLatestUsersInRange(dbm *gorp.DbMap, start int, count int) []models.Users {
     var u []models.Users
 
-    _, err := dbm.Select(&u, "SELECT * FROM users ORDER BY users_created_at DESC LIMIT ?, ?", start, count)
+    _, err := dbm.Select(&u, "SELECT * FROM Users ORDER BY users_created_at DESC LIMIT ?, ?", start, count)
     checkErr(err, "Select failed")
     log.Println("User Range rows:")
     for x, p := range u {
@@ -48,7 +48,7 @@ func SelectLatestUsersInRange(dbm *gorp.DbMap, start int, count int) []models.Us
 }
 
 func CountUsers(dbm *gorp.DbMap) int {
-    count, err := dbm.SelectInt("SELECT COUNT(*) FROM users")
+    count, err := dbm.SelectInt("SELECT COUNT(*) FROM Users")
     checkErr(err, "Select failed")
     log.Println("User count:", count)
     return int(count)
@@ -69,7 +69,7 @@ func UpdateUsers(dbm *gorp.DbMap, u models.Users) {
 }
 
 func DeleteUsersByUserid(dbm *gorp.DbMap, userid int) {
-    _, err := dbm.Exec("DELETE FROM users WHERE userid=?", userid)
+    _, err := dbm.Exec("DELETE FROM Users WHERE userid=?", userid)
     checkErr(err, "Delete failed")
 }
 
