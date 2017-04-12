@@ -16,7 +16,10 @@ GET 	/Videos									App.Videos
 GET 	/Profiles								App.Profiles
 GET 	/About									App.About
 GET 	/Contact								App.Contact
+
+#Login
 GET 	/Login									App.Login
+POST	/Login									Auth.Login
 
 #News
 GET      /News/Form                             News.Form 
