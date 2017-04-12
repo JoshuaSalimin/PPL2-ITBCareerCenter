@@ -39,34 +39,20 @@ func SelectAllUsers(dbm *gorp.DbMap) []models.Users {
 
 func SelectUserByUserId(dbm *gorp.DbMap, userid int64) models.Users {
     var u models.Users
-    err := dbm.SelectOne(&u, "SELECT * FROM users WHERE UserId=?", userid)
-    checkErr(err, "SelectOne failed")
-    log.Println("u :", u)
+    dbm.SelectOne(&u, "SELECT * FROM users WHERE UserId=?", userid)
     return u
 }
 
 func SelectUserByUsername(dbm *gorp.DbMap, username string) models.Users {
 	var u models.Users
-    err := dbm.SelectOne(&u, "SELECT * FROM users WHERE Username=?", username)
-    //log.Println("Query: " + "SELECT * FROM users WHERE Username='" + username +"'");
-    if (err != nil) {
-        return u
-    } else {
-        return u
-    }
-    //checkErr(err, "SelectOne failed")
-    //log.Println("u :", u)
+    dbm.SelectOne(&u, "SELECT * FROM users WHERE Username=?", username)
+    return u
 }
 
 func SelectUserByUsernameAndPassword(dbm *gorp.DbMap, username string, password string) models.Users {
     var u models.Users
-    err := dbm.SelectOne(&u, "SELECT * FROM users WHERE Username=? AND Password=?", username, password)
-    //log.Println("Query: " + "SELECT * FROM users WHERE Username='" + username +"'");
-    if (err != nil) {
-        return u
-    } else {
-        return u
-    }
+    dbm.SelectOne(&u, "SELECT * FROM users WHERE Username=? AND Password=?", username, password)
+    return u
 }
 
 func UpdateUsers(dbm *gorp.DbMap, u models.Users) {

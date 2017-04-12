@@ -22,7 +22,11 @@ func (c Auth) Login() revel.Result {
 	uname := c.Params.Form.Get("username")
 	pwd := c.Params.Form.Get("password")
 	user := SelectUserByUsernameAndPassword(Dbm, uname, pwd);
-	if (user.Username == uname) {
+	if (uname == "") {
+		c.Flash.Error(loginFailedMsg + "Username harus diisi");
+		return c.Redirect("/Login")
+	}
+	if (user.Username == uname && user.Password == pwd) {
 		//Saves currently logged in user id in session, NIL OTHERWISE
 		c.Session["cUserId"] = strconv.FormatInt(user.UserId, 10)
 		c.Flash.Success("Login Successful");
