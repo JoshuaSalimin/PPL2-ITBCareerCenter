@@ -2113,7 +2113,7 @@
 		}
 
 	ul.links li {
-		line-height: 1em;
+		line-height: 2em;
 	}
 	
 	ul.contact li{
@@ -2428,7 +2428,7 @@
 						bottom: -0.5em;
 						left: 50%;
 						margin-left: -0.375em;
-						background-color: #37c0fb;
+						background-color: #E8C246;
 						background-image: url("images/bg01.png");
 					}
 

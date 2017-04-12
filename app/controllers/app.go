@@ -19,26 +19,6 @@ func (c App) News() revel.Result {
     return c.Render(news,list);
 }
 
-func (c App) Articles() revel.Result {
-	articles := true
-	return c.Render(articles)
-}
-
-func (c App) Files() revel.Result {
-	files := true
-	return c.Render(files)
-}
-
-func (c App) Photos() revel.Result {
-	photos := true
-	return c.Render(photos)
-}
-
-func (c App) Videos() revel.Result {
-	videos := true
-	return c.Render(videos)
-}
-
 func (c App) Profiles() revel.Result {
 	profiles := true
 	return c.Render(profiles)
