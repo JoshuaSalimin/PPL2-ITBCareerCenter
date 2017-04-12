@@ -16,12 +16,18 @@ GET 	/Videos									App.Videos
 GET 	/About									App.About
 GET 	/Contact								App.Contact
 GET 	/Login									App.Login
-
 GET		/ListProfiles							Profile.List
 GET		/ListProfiles/:page						Profile.List
 GET		/ProfilePage/:id						Profile.Page
 POST	/EditProfile/:id						Profile.Edit
 GET 	/ProfileForm/:id						Profile.Form
+#News
+GET      /News/Form                             News.Form 
+POST     /News/Add                              News.Add
+GET      /News/Detail/:id                       News.Detail
+POST     /News/Delete/                          News.Delete
+GET      /News/EditForm/:id                     News.EditForm
+POST     /News/EditSubmit/                   	News.EditSubmit
 
 # Ignore favicon requests
 GET     /favicon.ico                            404
