@@ -17,6 +17,11 @@
 				{{else}}
 				<li><a href="/Profiles">Profiles</a></li>
 				{{end}}
+				{{if .partner}}
+				<li class="current"><a href="/Partner">Partner</a></li>
+				{{else}}
+				<li><a href="/Partner">Partner</a></li>
+				{{end}}
 				{{if .about}}
 				<li class="current"><a href="/About">About</a></li>
 				{{else}}

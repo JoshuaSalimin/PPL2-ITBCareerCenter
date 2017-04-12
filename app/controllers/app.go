@@ -23,6 +23,11 @@ func (c App) Profiles() revel.Result {
 	return c.Render(profiles)
 }
 
+func (c App) Partner() revel.Result {
+	partner := true
+	return c.Render(partner)
+}
+
 func (c App) About() revel.Result {
 	about := true
 	return c.Render(about)
