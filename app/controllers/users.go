@@ -1,18 +1,18 @@
 package controllers
 
 import (
-    "PPL2-ITBCareerCenter/app/models"
+"PPL2-ITBCareerCenter/app/models"
     // "github.com/revel/revel"
     // "encoding/json"
-    "github.com/go-gorp/gorp"
+"github.com/go-gorp/gorp"
     // "time"
-    "log"
+"log"
 )
 
 func InsertUsersAdmin(dbm *gorp.DbMap){
     // set "userid" as primary key and autoincrement
     var admin models.Users
-	admin = models.CreateDefaultUser("admin");
+    admin = models.CreateDefaultUser("admin");
     log.Println("u :", admin)
     dbm.Insert(&admin)
 }
@@ -59,6 +59,18 @@ func SelectUsersByUserid(dbm *gorp.DbMap, userid int) models.Users {
     err := dbm.SelectOne(&u, "SELECT * FROM Users WHERE userid=?", userid)
     checkErr(err, "SelectOne failed")
     log.Println("u :", u)
+    return u
+}
+
+func SelectUserByUsername(dbm *gorp.DbMap, username string) models.Users {
+	var u models.Users
+    dbm.SelectOne(&u, "SELECT * FROM users WHERE Username=?", username)
+    return u
+}
+
+func SelectUserByUsernameAndPassword(dbm *gorp.DbMap, username string, password string) models.Users {
+    var u models.Users
+    dbm.SelectOne(&u, "SELECT * FROM users WHERE Username=? AND Password=?", username, password)
     return u
 }
 
