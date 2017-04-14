@@ -29,11 +29,6 @@ func (c App) About() revel.Result {
 	return c.Render(about)
 }
 
-func (c App) Contact() revel.Result {
-	contact := true
-	return c.Render(contact)
-}
-
 func (c App) Login() revel.Result {
 	login := true
 	return c.Render(login)

@@ -10,7 +10,11 @@ module:testrunner
 GET     /                                       App.Index
 GET 	/News									App.News
 GET 	/About									App.About
-GET 	/Contact								App.Contact
+
+#Contact
+GET 	/Contact								Contact.Contact
+GET     /EditContact							Contact.EditContact
+POST    /Update									Contact.Update
 
 #Login
 GET 	/Login									App.Login

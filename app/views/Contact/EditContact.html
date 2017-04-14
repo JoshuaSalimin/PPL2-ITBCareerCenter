@@ -1,0 +1,120 @@
+<!-- Header -->
+{{template "header.html" .}}
+<!-- Content -->
+	<link rel="stylesheet" href="/public/assets/css/fileinput.min.css" />
+	<style>
+	.kv-avatar .file-preview-frame,.kv-avatar .file-preview-frame:hover {
+	    margin: 0;
+	    padding: 0;
+	    border: none;
+	    box-shadow: none;
+	    text-align: center;
+	}
+	.kv-avatar .file-input {
+	    display: table-cell;
+	    max-width: 220px;
+	}
+	</style>
+	<div id="page-wrapper">
+		<!-- Nav -->
+		{{template "nav.html" .}}
+		<!-- Main -->
+		<div id="page-wrapper">
+			<!-- Main -->
+				<section class="wrapper style1">
+					<div class="container">
+						<div id="content">
+							
+							<!--
+							<a href="" style="color: black; border-bottom: none;">
+								<button type="button" class="btn icon fa-chevron-left" style="margin-bottom: 1em;"> Back</button>
+							</a>-->
+							<a href="/Contact" style="color: white;"><button class="btn btn-info btn-lg">Back</button></a>
+							<br> <br>
+							<form action="{{url "Contact.Update"}}" method="POST" id="editContact">
+								<p>
+									<strong>Deskripsi</strong>
+									<textarea rows="4" cols="50" name="content.Deskripsi" form="editContact">{{.content.Deskripsi}}</textarea>
+								</p>
+								<p>
+									<strong>Alamat ITB</strong>
+									<input type="text" name="content.AlamatITB" value="{{.content.AlamatITB}}">
+								</p>
+								<p>
+									<strong>Alamat Bandung</strong>
+									<input type="text" name="content.Alamat" value="{{.content.Alamat}}">
+								</p>
+								<p>
+									<strong>Email</strong>
+									<input type="text" name="content.Email" value="{{.content.Email}}">
+								</p>
+								<p>
+									<strong>Telepon</strong>
+									<input type="text" name="content.Telepon" value="{{.content.Telepon}}">
+								</p>
+								<p>
+									<strong>Facebook</strong>
+									<input type="text" name="content.Facebook" value="{{.content.Facebook}}">
+								</p>
+								<p>
+									<strong>Link Facebook</strong>
+									<input type="text" name="content.LinkFacebook" value="{{.content.LinkFacebook}}">
+								</p>
+								<p>
+									<strong>Twitter</strong>
+									<input type="text" name="content.Twitter" value="{{.content.Twitter}}">
+								</p>
+								<p>
+									<strong>Link Twitter</strong>
+									<input type="text" name="content.LinkTwitter" value="{{.content.LinkTwitter}}">
+								</p>
+								<p>
+									<strong>Youtube</strong>
+									<input type="text" name="content.Youtube" value="{{.content.Youtube}}">
+								</p>
+								<p>
+									<strong>Link Youtube</strong>
+									<input type="text" name="content.LinkYoutube" value="{{.content.LinkYoutube}}">
+								</p>
+								<p>
+									<strong>Google Plus</strong>
+									<input type="text" name="content.Google" value="{{.content.Google}}">
+								</p>
+								<p>
+									<strong>Link Google Plus</strong>
+									<input type="text" name="content.LinkGoogle" value="{{.content.LinkGoogle}}">
+								</p>
+								<p>
+									<strong>LinkedIn</strong>
+									<input type="text" name="content.Linkedin" value="{{.content.Linkedin}}">
+								</p>
+								<p>
+									<strong>Link LinkedIn</strong>
+									<input type="text" name="content.LinkLinkedin" value="{{.content.LinkLinkedin}}">
+								</p>
+								<p>
+									<strong>Instagram</strong>
+									<input type="text" name="content.Instagram" value="{{.content.Instagram}}">
+								</p>
+								<p>
+									<strong>Link Instagram</strong>
+									<input type="text" name="content.LinkInstagram" value="{{.content.LinkInstagram}}">
+								</p>
+								<p>
+									<strong>Line</strong>
+									<input type="text" name="content.Line" value="{{.content.Line}}">
+								</p>
+								<p>
+									<strong>Link Line</strong>
+									<input type="text" name="content.LinkLine" value="{{.content.LinkLine}}">
+								</p>
+							    <button type="submit" class="btn btn-primary btn-lg">Save</button>
+							</form>
+						</div>
+					</div>
+				</section>
+		</div>
+	</div>
+<!-- Footer -->
+{{template "footer.html" .}}
+

@@ -1,0 +1,58 @@
+{{set . "title" "ITB Career Center Entrepreneurship Contact"}}
+
+<!-- Header -->
+{{template "header.html" .}}
+
+	<!-- Content -->
+		<div id="page-wrapper">
+	<!-- Nav -->
+		{{template "nav.html" .}}
+			
+			<!-- Main -->
+				<section class="wrapper style1">
+					<div class="container">
+						<div id="content">
+							<!-- Content -->
+							{{if .authorized}}
+								<button class="button"><a href="#">Edit this Page</a></button>
+							{{end}}
+							<a href="/EditContact" style="color: white;"><button class="btn btn-info btn-lg">Edit this Page</button></a>
+							<br><br>
+							<article>
+								<header>
+									<h2 style="color:Blue">Contact</h2>
+								</header>
+
+
+								<p>{{.content.Deskripsi}}</p>
+								<br>
+								<p><b>Alamat</b></p>
+								<p>	{{.content.AlamatITB}}
+									<br> 
+									{{.content.Alamat}} 
+									<br> 
+									Email: {{.content.Email}} 
+									<br> 
+									Telp/Fax: {{.content.Telepon}}
+								</p>
+								<p><b>Bergabunglah dengan akun media sosial kami!</b></p>
+								<p>FB Page&ensp;&ensp;&nbsp;: <a href = "{{.content.LinkFacebook}}">itb.career.center</a> 
+									<br> 
+									Twitter&ensp;&ensp;&ensp;&nbsp;: <a href = "{{.content.LinkTwitter}}">@ITBCareerCenter</a> 
+									<br>
+									YouTube&ensp;&nbsp;&nbsp;: <a href = "{{.content.LinkYoutube}}">ITBCareerCenter</a> 
+									<br>
+									Google+&emsp;: <a href ="{{.content.LinkGoogle}}">ITB CareerCenter</a> 
+									<br>
+									LinkedIn&emsp;: <a href = "{{.content.LinkLinkedin}}">ITB Career Center</a> 
+									<br>
+									Instagram&ensp;: <a href = "{{.content.LinkInstagram}}">@itbcareercenter</a> 
+									<br>
+									Line&nbsp;&ensp;&ensp;&ensp;&ensp;&ensp;&nbsp;: <a href = "{{.content.LinkLine}}">@itbcareercenter</a></p>
+							</article>
+						</div>
+					</div>
+				</section>
+		</div>
+<!-- Footer -->
+{{template "footer.html" .}}
