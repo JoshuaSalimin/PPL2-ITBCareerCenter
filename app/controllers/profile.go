@@ -45,11 +45,10 @@ func (c Profile) List(page int) revel.Result {
 	return c.Render(profiles, page, users, userCount, numUserPerPage, currentPageNum)
 }
 
-func (c Profile) UploadLogo(id int, companylogo []byte) string {
-	c.Validation.MaxSize(companylogo, 2*MB).
+func (c Profile) UploadImage(id int, image []byte, filename string) string {
+	c.Validation.MaxSize(image, 2*MB).
 		Message("File cannot be larger than 2MB")
 
-	filename := c.Params.Files["companylogo"][0].Filename
 	fileExt := filepath.Ext(filename)
 	randFilename := randString() + fileExt
 	relativePath := fmt.Sprintf("/public/images/user/%d/%s", id, randFilename)
@@ -62,7 +61,7 @@ func (c Profile) UploadLogo(id int, companylogo []byte) string {
 	defer dstFile.Close()
 	defer os.Chmod(dstPath, (os.FileMode)(0644))
 
-	dstFile.Write(companylogo)
+	dstFile.Write(image)
 	return relativePath
 }
 
@@ -90,10 +89,9 @@ func (c Profile) UpdateSocialMedia(id int, socialMediaTypes []string,  socialMed
 
 func (c Profile) UpdateVideoPost(id int, videoID string) {
 	oldVideoPost := SelectVideoByUserId(Dbm, id)
-	newVideoPost := models.CreateDefaultPost("Video Youtube")
+	newVideoPost := models.CreateDefaultPost(videoID)
 	newVideoPost.MediaType = "Video"
 	newVideoPost.UserId = int64(id)
-	newVideoPost.PostTitle = videoID
 	newVideoPost.PathFile = "https://www.youtube.com/embed/" + videoID
 	
 	if (oldVideoPost.PathFile != "DEFAULT_PATH_FILE") {
@@ -107,7 +105,8 @@ func (c Profile) Edit(id int, user models.Users, socialMediaTypes []string,  soc
 	//TODO sanitize input
 	oldUser := SelectUsersByUserid(Dbm, id)
 	if (len(companylogo) != 0) {
-		oldUser.LogoPath = c.UploadLogo(id, companylogo)
+		filename := c.Params.Files["companylogo"][0].Filename
+		oldUser.LogoPath = c.UploadImage(id, companylogo, filename)
 	}
 	oldUser.CompanyName = user.CompanyName
 	oldUser.Name = user.Name
@@ -128,19 +127,18 @@ func (c Profile) Edit(id int, user models.Users, socialMediaTypes []string,  soc
 	}
 
 
-	// var productphotos [][]byte
-	// c.Params.Bind(&productphotos, "productphotos")
+	var productphotos [][]byte
+	c.Params.Bind(&productphotos, "productphotos")
 
-	// for i, _ := range productphotos {
-	// 	// contentType := c.Params.Files["productphotos[]"][i].Header.Get("Content-Type")
-	// 	filename := c.Params.Files["productphotos[]"][i].Filename
-	// 	// size := len(productphotos[i])
-
-	// 	c.Validation.MaxSize(productphotos[i], 2*MB).
-	// 		Message("File cannot be larger than 2MB")
-
-	// 	ioutil.WriteFile("tmp/" + filename, productphotos[i], 0644)
-	// }
+	for i, _ := range productphotos {
+		filename := c.Params.Files["productphotos[]"][i].Filename
+		relativePath := c.UploadImage(id, productphotos[i], filename)
+		newImagePost := models.CreateDefaultPost(filename)
+		newImagePost.MediaType = "Image"
+		newImagePost.UserId = int64(id)
+		newImagePost.PathFile = relativePath		
+		InsertPost(Dbm, newImagePost)
+	}
 
 	return c.Redirect("/ProfilePage/%d", id)
 }
@@ -150,7 +148,8 @@ func (c Profile) Form(id int) revel.Result {
 	user := SelectUsersByUserid(Dbm, id)
 	userSocialMedias := SelectAllUserSocialMediaByUserID(Dbm, id)
 	userVideo := SelectVideoByUserId(Dbm, id)
-	return c.Render(user, profiles, userSocialMedias, userVideo)
+	userImages := SelectUserImage(Dbm, id)
+	return c.Render(user, profiles, userSocialMedias, userVideo, userImages)
 }
 
 func (c Profile) Page(id int) revel.Result {
