@@ -47,8 +47,11 @@
 									<textarea rows="4" cols="50" name="user.CompanyDescription" form="editProfiles">{{.user.CompanyDescription}}</textarea>
 								</p>
 								<p>
-									<strong>Link Video Youtube Perusahaan</strong>
-									<input type="text">
+									<strong>URL Video Youtube Perusahaan</strong>
+									<div class="input-group">
+										<span class="input-group-addon" id="basic-addon2">https://www.youtube.com/watch?v=</span>
+										<input name="videoID" value="{{if .userVideo.PathFile}}{{.userVideo.PostTitle}}{{end}}" type="text" class="form-control" placeholder="Video ID (eg. dQw4w9WgXcQ)" aria-describedby="basic-addon2">
+									</div>
 								</p>
 								<p>
 									<strong>Upload Foto Perusahaan</strong>
@@ -119,7 +122,9 @@ function($) {
 			var minusButton = $('<button/>', {type: 'button', class: 'btn btn-danger btn-number remove-social'}).append(
 				$('<span/>', {class: 'glyphicon glyphicon-minus'})
 			);
-			minusButton
+			minusButton.click(function() {
+				$(this).parent().parent().remove();
+			});
 			$(this).after(
 				$('<div/>', {class: 'form-inline'}).css( 'margin-bottom', '1em' ).append(
 					$('<div/>', {class: 'form-group'}).append(

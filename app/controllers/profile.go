@@ -5,7 +5,6 @@ import (
 	"PPL2-ITBCareerCenter/app/models"
 	"html"
 	"time"
-	"log"
 	"os"
 	"fmt"
 	"path/filepath"
@@ -89,10 +88,27 @@ func (c Profile) UpdateSocialMedia(id int, socialMediaTypes []string,  socialMed
 
 }
 
-func (c Profile) Edit(id int, user models.Users, socialMediaTypes []string,  socialMediaURLs []string, companylogo []byte) revel.Result {
+func (c Profile) UpdateVideoPost(id int, videoID string) {
+	oldVideoPost := SelectVideoByUserId(Dbm, id)
+	newVideoPost := models.CreateDefaultPost("Video Youtube")
+	newVideoPost.MediaType = "Video"
+	newVideoPost.UserId = int64(id)
+	newVideoPost.PostTitle = videoID
+	newVideoPost.PathFile = "https://www.youtube.com/embed/" + videoID
+	
+	if (oldVideoPost.PathFile != "DEFAULT_PATH_FILE") {
+		newVideoPost.CreatedAt = oldVideoPost.CreatedAt
+		DeletePostByPostid(Dbm, oldVideoPost.PostId)
+	}
+	InsertPost(Dbm, newVideoPost)
+}
+
+func (c Profile) Edit(id int, user models.Users, socialMediaTypes []string,  socialMediaURLs []string, companylogo []byte, videoID string) revel.Result {
 	//TODO sanitize input
 	oldUser := SelectUsersByUserid(Dbm, id)
-	oldUser.LogoPath = c.UploadLogo(id, companylogo)
+	if (len(companylogo) != 0) {
+		oldUser.LogoPath = c.UploadLogo(id, companylogo)
+	}
 	oldUser.CompanyName = user.CompanyName
 	oldUser.Name = user.Name
 	oldUser.CompanyDescription = user.CompanyDescription
@@ -101,15 +117,19 @@ func (c Profile) Edit(id int, user models.Users, socialMediaTypes []string,  soc
 	oldUser.Jurusan = user.Jurusan
 	oldUser.Angkatan = user.Angkatan
 	oldUser.UpdatedAt = time.Now().UnixNano()
-	c.UpdateSocialMedia(id, socialMediaTypes, socialMediaURLs)
 	UpdateUsers(Dbm, oldUser)
 
-	var productphotos [][]byte
-	c.Params.Bind(&productphotos, "productphotos")
-
-	for k, v := range c.Params.Files { 
-	    log.Println("key[%s] value[%s]\n", k, v)
+	c.UpdateSocialMedia(id, socialMediaTypes, socialMediaURLs)
+	if (videoID != "") {
+		c.UpdateVideoPost(id, videoID)
+	} else {
+		oldVideoPost := SelectVideoByUserId(Dbm, id)
+		DeletePostByPostid(Dbm, oldVideoPost.PostId)
 	}
+
+
+	// var productphotos [][]byte
+	// c.Params.Bind(&productphotos, "productphotos")
 
 	// for i, _ := range productphotos {
 	// 	// contentType := c.Params.Files["productphotos[]"][i].Header.Get("Content-Type")
@@ -129,7 +149,8 @@ func (c Profile) Form(id int) revel.Result {
 	profiles := true
 	user := SelectUsersByUserid(Dbm, id)
 	userSocialMedias := SelectAllUserSocialMediaByUserID(Dbm, id)
-	return c.Render(user, profiles, userSocialMedias)
+	userVideo := SelectVideoByUserId(Dbm, id)
+	return c.Render(user, profiles, userSocialMedias, userVideo)
 }
 
 func (c Profile) Page(id int) revel.Result {
