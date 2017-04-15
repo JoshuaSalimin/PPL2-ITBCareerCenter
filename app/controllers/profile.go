@@ -65,6 +65,13 @@ func (c Profile) UploadImage(id int, image []byte, filename string) string {
 	return relativePath
 }
 
+func (c Profile) DeleteImage() revel.Result {
+	var postID int64
+	c.Params.Bind(&postID, "key")
+	DeletePostByPostid(Dbm, postID)
+	return c.RenderText("{}")
+}
+
 func (c Profile) UpdateSocialMedia(id int, socialMediaTypes []string,  socialMediaURLs []string) {
 	oldUserSocialMedias := SelectAllUserSocialMediaByUserID(Dbm, id)
 	for _,oldUserSocialMedia := range oldUserSocialMedias {
@@ -126,18 +133,19 @@ func (c Profile) Edit(id int, user models.Users, socialMediaTypes []string,  soc
 		DeletePostByPostid(Dbm, oldVideoPost.PostId)
 	}
 
+	if (len(c.Params.Files["productphotos[]"]) != 0) {
+		var productphotos [][]byte
+		c.Params.Bind(&productphotos, "productphotos")
 
-	var productphotos [][]byte
-	c.Params.Bind(&productphotos, "productphotos")
-
-	for i, _ := range productphotos {
-		filename := c.Params.Files["productphotos[]"][i].Filename
-		relativePath := c.UploadImage(id, productphotos[i], filename)
-		newImagePost := models.CreateDefaultPost(filename)
-		newImagePost.MediaType = "Image"
-		newImagePost.UserId = int64(id)
-		newImagePost.PathFile = relativePath		
-		InsertPost(Dbm, newImagePost)
+		for i, _ := range productphotos {
+			filename := c.Params.Files["productphotos[]"][i].Filename
+			relativePath := c.UploadImage(id, productphotos[i], filename)
+			newImagePost := models.CreateDefaultPost(filename)
+			newImagePost.MediaType = "Image"
+			newImagePost.UserId = int64(id)
+			newImagePost.PathFile = relativePath		
+			InsertPost(Dbm, newImagePost)
+		}
 	}
 
 	return c.Redirect("/ProfilePage/%d", id)

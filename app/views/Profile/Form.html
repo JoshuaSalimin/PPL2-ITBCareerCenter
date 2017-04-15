@@ -160,10 +160,10 @@ function($) {
 	        initialPreviewConfig: [
 	        	{{ range $i, $userImage := .userImages }}
 	        		{{if ne $i 0}},{{end}}
-		            {caption: "{{$userImage.PostTitle}}", width: "120px"}
+		            {caption: "{{$userImage.PostTitle}}", width: "120px", key: {{$userImage.PostId}} }
 	            {{end}}
 	        ],
-	        deleteUrl: "/site/file-delete",
+	        deleteUrl: "{{url "Profile.DeleteImage"}}",
 	        overwriteInitial: false,
 	        maxFileSize: 1500,
 	        showUpload: false,
