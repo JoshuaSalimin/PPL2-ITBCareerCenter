@@ -3,7 +3,8 @@ package controllers
 import (
     "strconv"
     "log"
-
+    "math/rand"
+    "encoding/hex"
 
 
     // "crypto/aes"
@@ -49,6 +50,12 @@ func max(a, b int) int {
         return a
     }
     return b
+}
+
+func randString() string {
+    randBytes := make([]byte, 16)
+    rand.Read(randBytes)
+    return hex.EncodeToString(randBytes)
 }
 
 // func encrypt(key []byte, text string) (string, error) {

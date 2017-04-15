@@ -5,11 +5,22 @@ import (
 	"PPL2-ITBCareerCenter/app/models"
 	"html"
 	"time"
+	"log"
+	"os"
+	"fmt"
+	"path/filepath"
 )
 
 type Profile struct {
 	App
 }
+
+const (
+	_      = iota
+	KB int = 1 << (10 * iota)
+	MB
+	GB
+)
 
 func (c Profile) List(page int) revel.Result {
 	profiles := true
@@ -35,9 +46,28 @@ func (c Profile) List(page int) revel.Result {
 	return c.Render(profiles, page, users, userCount, numUserPerPage, currentPageNum)
 }
 
-func (c Profile) Edit(id int, user models.Users, socialMediaTypes []string,  socialMediaURLs []string) revel.Result {
+func (c Profile) UploadLogo(id int, companylogo []byte) string {
+	c.Validation.MaxSize(companylogo, 2*MB).
+		Message("File cannot be larger than 2MB")
 
-	//Update Social Media
+	filename := c.Params.Files["companylogo"][0].Filename
+	fileExt := filepath.Ext(filename)
+	randFilename := randString() + fileExt
+	relativePath := fmt.Sprintf("/public/images/user/%d/%s", id, randFilename)
+	dstPath := fmt.Sprintf("%s/public/images/user/%d", revel.BasePath, id)
+	if _, err := os.Stat(dstPath); os.IsNotExist(err) {
+	    os.Mkdir(dstPath, 0777)
+	}
+	dstPath = dstPath + "/" + randFilename
+	dstFile, _ := os.Create(dstPath)
+	defer dstFile.Close()
+	defer os.Chmod(dstPath, (os.FileMode)(0644))
+
+	dstFile.Write(companylogo)
+	return relativePath
+}
+
+func (c Profile) UpdateSocialMedia(id int, socialMediaTypes []string,  socialMediaURLs []string) {
 	oldUserSocialMedias := SelectAllUserSocialMediaByUserID(Dbm, id)
 	for _,oldUserSocialMedia := range oldUserSocialMedias {
 	  DeleteUserSocialMediaByUserSocialMediaid(Dbm, oldUserSocialMedia.UserSocialMediaId)
@@ -57,8 +87,12 @@ func (c Profile) Edit(id int, user models.Users, socialMediaTypes []string,  soc
 		InsertUserSocialMedia(Dbm, newUserSocialMedia)
 	}
 
+}
+
+func (c Profile) Edit(id int, user models.Users, socialMediaTypes []string,  socialMediaURLs []string, companylogo []byte) revel.Result {
 	//TODO sanitize input
 	oldUser := SelectUsersByUserid(Dbm, id)
+	oldUser.LogoPath = c.UploadLogo(id, companylogo)
 	oldUser.CompanyName = user.CompanyName
 	oldUser.Name = user.Name
 	oldUser.CompanyDescription = user.CompanyDescription
@@ -67,7 +101,27 @@ func (c Profile) Edit(id int, user models.Users, socialMediaTypes []string,  soc
 	oldUser.Jurusan = user.Jurusan
 	oldUser.Angkatan = user.Angkatan
 	oldUser.UpdatedAt = time.Now().UnixNano()
+	c.UpdateSocialMedia(id, socialMediaTypes, socialMediaURLs)
 	UpdateUsers(Dbm, oldUser)
+
+	var productphotos [][]byte
+	c.Params.Bind(&productphotos, "productphotos")
+
+	for k, v := range c.Params.Files { 
+	    log.Println("key[%s] value[%s]\n", k, v)
+	}
+
+	// for i, _ := range productphotos {
+	// 	// contentType := c.Params.Files["productphotos[]"][i].Header.Get("Content-Type")
+	// 	filename := c.Params.Files["productphotos[]"][i].Filename
+	// 	// size := len(productphotos[i])
+
+	// 	c.Validation.MaxSize(productphotos[i], 2*MB).
+	// 		Message("File cannot be larger than 2MB")
+
+	// 	ioutil.WriteFile("tmp/" + filename, productphotos[i], 0644)
+	// }
+
 	return c.Redirect("/ProfilePage/%d", id)
 }
 

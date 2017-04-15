@@ -38,7 +38,7 @@ func CreateDefaultUser(username string) Users {
         Misi            : "DEFAULT_MISI",
         Jurusan         : "DEFAULT_JURUSAN",
         Angkatan        : 0,       
-        LogoPath 		: "DEFAULT_LOGO_PATH",
+        LogoPath 		: "/public/images/defaultUserLogo.jpg",
         CreatedAt       : time.Now().UnixNano(), 
         UpdatedAt       : time.Now().UnixNano(),   
         ShowProfile     : false,    
