@@ -9,7 +9,6 @@ module:testrunner
 
 GET     /                                       App.Index
 GET 	/News									App.News
-GET 	/Contact								App.Contact
 
 #Login
 GET 	/Login									App.Login
@@ -19,6 +18,11 @@ POST	/Login									Auth.Login
 GET 	/About									About.About
 GET     /EditAbout								About.EditAbout
 POST    /SaveAbout                              About.Save
+
+#Contact
+GET     /Contact								Contact.Contact
+GET     /EditContact							Contact.EditContact
+POST    /SaveContact                            Contact.SaveContact
 
 #Profiles
 GET		/ListProfiles							Profile.List

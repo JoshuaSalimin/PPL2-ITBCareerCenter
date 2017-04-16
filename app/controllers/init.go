@@ -65,6 +65,7 @@ var InitDb func() = func(){
     defineUserSocialMediaTable(Dbm)
     defineUserContactTable(Dbm)
     defineAboutTable(Dbm)
+    defineContactTable(Dbm)
 
     err := Dbm.CreateTablesIfNotExists()
     checkErr(err, "Create Table failed")
@@ -79,8 +80,16 @@ var InitDb func() = func(){
         // do nothing
     } else{
         newAbout := models.CreateDefaultAbout()
-        newAbout.AboutID = 1
+        newAbout.AboutID = 0
         InsertAbout(Dbm, newAbout)
+    }
+    countContact := CountContact(Dbm)
+    if(countContact >= 1){
+        // do nothing
+    } else{
+        newContact := models.CreateDefaultContact()
+        newContact.ContactID = 0
+        InsertContact(Dbm, newContact)
     }
 
 
@@ -152,4 +161,8 @@ func defineNewsTable(dbm *gorp.DbMap) {
 
 func defineAboutTable(dbm *gorp.DbMap) {
     dbm.AddTable(models.About{}).SetKeys(true, "aboutid")    
+}
+
+func defineContactTable(dbm *gorp.DbMap) {
+    dbm.AddTable(models.Contact{}).SetKeys(true, "contactid")    
 }
