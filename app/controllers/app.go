@@ -24,11 +24,6 @@ func (c App) Profiles() revel.Result {
 	return c.Render(profiles)
 }
 
-func (c App) About() revel.Result {
-	about := true
-	return c.Render(about)
-}
-
 func (c App) Contact() revel.Result {
 	contact := true
 	return c.Render(contact)

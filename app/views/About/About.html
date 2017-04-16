@@ -14,19 +14,18 @@
 				<div id="content">
 
 					<!-- Content -->
-
+						{{if .authorized}}
+								<a href="#" style="color: white;"><button class="btn btn-info btn-lg">Edit this Page</button></a>
+						{{end}}
+						<a href="/EditAbout" style="color: white;"><button class="btn btn-info btn-lg">Edit this Page</button></a>
+						<br><br>
 						<article>
 							<header>
 								<h2 style="color:Blue">Entrepreneurship</h2>
 							</header>
 
 							<span class="image featured"><img src="/public/images/aboutus.png" alt="" /></span>
-
-							<p>Selamat datang di halaman Entrepreneurship ITB Career Center.</p>
-
-							<p>Halaman ini adalah sarana berbagi informasi mengenai program-program kewirausahaan bagi mahasiswa ITB dan alumni, serta media komunikasi bagi publik. 
-							Untuk info lebih lengkap mengenai program wirausaha mahasiswa terbaru, event, dan dokumentasi kegiatan wirausaha yang diselenggarakan oleh ITB Career Center, 
-							silahkan masuk ke menu yang terdapat di sisi kiri laman.</p>
+							{{raw .contentabout.CkeditorAbout}}
 						</article>
 
 				</div>

@@ -64,6 +64,7 @@ var InitDb func() = func(){
     defineNewsTable(Dbm)
     defineUserSocialMediaTable(Dbm)
     defineUserContactTable(Dbm)
+    defineAboutTable(Dbm)
 
     err := Dbm.CreateTablesIfNotExists()
     checkErr(err, "Create Table failed")
@@ -73,15 +74,24 @@ var InitDb func() = func(){
     // varchar(255) is not enough to contain it
     _, err = Dbm.Exec(" ALTER TABLE News MODIFY content text")
     checkErr(err, "ALTER TABLE News FAILED")
+    countAbout := CountAbout(Dbm)
+    if(countAbout >= 1){
+        // do nothing
+    } else{
+        newAbout := models.CreateDefaultAbout()
+        newAbout.AboutID = 1
+        InsertAbout(Dbm, newAbout)
+    }
 
-    u := models.CreateDefaultUser("ramos")
+
+    //u := models.CreateDefaultUser("ramos")
 
     // KEY := []byte("key")
     // unencryptedPassword := "this is password you will encrypt"
     // encryptedPassword, err := encrypt(KEY, unencryptedPassword) 
     // u.Password = encryptedPassword
 
-    InsertUsers(Dbm, u)
+    //InsertUsers(Dbm, u)
 
     // USAGE EXAMPLE --------------
     // InsertUsersAdmin(Dbm)
@@ -138,4 +148,8 @@ func definePostTable(dbm *gorp.DbMap){
 
 func defineNewsTable(dbm *gorp.DbMap) {
     dbm.AddTable(models.News{}).SetKeys(true, "newsid")    
+}
+
+func defineAboutTable(dbm *gorp.DbMap) {
+    dbm.AddTable(models.About{}).SetKeys(true, "aboutid")    
 }
