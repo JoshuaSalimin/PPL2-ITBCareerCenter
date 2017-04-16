@@ -15,14 +15,14 @@ type About struct {
 
 func (a About) About() revel.Result {
     about := true
-    allabout := SelectAllContact(Dbm)
+    allabout := SelectAllAbout(Dbm)
     contentabout := allabout[0]
     return a.Render(about, contentabout)
 }
 
 func (a About) EditAbout() revel.Result {
     about := true
-    allaboutcontent := SelectAllContact(Dbm)
+    allaboutcontent := SelectAllAbout(Dbm)
     aboutcontent := allaboutcontent[0]
     return a.Render(about, aboutcontent)
 }
@@ -60,11 +60,11 @@ func SelectAboutByAboutID(dbm *gorp.DbMap, id int) models.About {
 func CountAbout(dbm *gorp.DbMap) int {
     count, err := dbm.SelectInt("SELECT COUNT(*) FROM About")
     checkErr(err, "Select failed")
-    log.Println("User count:", count)
+    log.Println("About count:", count)
     return int(count)
 }
 
-func SelectAllContact(dbm *gorp.DbMap) []models.About {
+func SelectAllAbout(dbm *gorp.DbMap) []models.About {
     var a []models.About
 
     _, err := dbm.Select(&a, "SELECT * FROM About")
