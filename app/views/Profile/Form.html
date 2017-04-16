@@ -44,7 +44,11 @@
 								</p>
 								<p>
 									<strong>Deskripsi Perusahaan</strong>
-									<textarea rows="4" cols="50" name="user.CompanyDescription" form="editProfiles">{{.user.CompanyDescription}}</textarea>
+									<textarea name="user.CompanyDescription" id="companyDescription"></textarea>
+						            <script>
+						            	CKEDITOR.replace('companyDescription');
+						            	CKEDITOR.instances['companyDescription'].setData("{{.user.CompanyDescription}}");
+						            </script>
 								</p>
 								<p>
 									<strong>URL Video Youtube Perusahaan</strong>
