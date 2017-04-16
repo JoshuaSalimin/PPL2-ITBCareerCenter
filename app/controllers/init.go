@@ -75,6 +75,8 @@ var InitDb func() = func(){
     // varchar(255) is not enough to contain it
     _, err = Dbm.Exec(" ALTER TABLE News MODIFY content text")
     checkErr(err, "ALTER TABLE News FAILED")
+    _, err = Dbm.Exec("ALTER TABLE users ADD UNIQUE (username);")
+    checkErr(err, "ALTER TABLE users FAILED")
     countAbout := CountAbout(Dbm)
     if(countAbout >= 1){
         // do nothing
