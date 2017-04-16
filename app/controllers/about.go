@@ -3,8 +3,6 @@ package controllers
 import (
     "github.com/revel/revel"
     models "PPL2-ITBCareerCenter/app/models"
-    // "github.com/revel/revel"
-    // "encoding/json"
     "github.com/go-gorp/gorp"
     "log"
     "time"
