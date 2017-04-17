@@ -36,9 +36,6 @@ CKEDITOR.editorConfig = function( config ) {
 	// Simplify the dialog windows.
 	config.removeDialogTabs = 'image:advanced;link:advanced';
 
-	//Enable text alignment
-	config.extraPlugins = 'justify';
-
-	//Enable font
-	config.extraPlugins = 'font';
+	//Enable text alignment and font
+	config.extraPlugins = 'justify,font';
 };
