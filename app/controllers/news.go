@@ -97,7 +97,7 @@ func InsertNews(dbm *gorp.DbMap, p models.News) bool{
 func SelectAllNews(dbm *gorp.DbMap) []models.News {
 	var p []models.News
 
-    _, err := dbm.Select(&p, "SELECT * FROM News")
+    _, err := dbm.Select(&p, "SELECT * FROM News ORDER BY news_updated_at DESC")
     checkErr(err, "Select failed")
     log.Println("All rows:")
     return p 	
