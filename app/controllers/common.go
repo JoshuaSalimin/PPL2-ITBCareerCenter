@@ -3,16 +3,13 @@ package controllers
 import (
     "strconv"
     "log"
-
-
-
-    // "crypto/aes"
-    // "crypto/cipher"
-    // "crypto/rand"
-    // "encoding/base64"
+    "crypto/aes"
+    "crypto/cipher"
+    "crypto/rand"
+    "encoding/base64"
     // "errors"
-    // //"fmt"
-    // "io"
+    "fmt"
+    "io"
 )
 
 func parseUintOrDefault(intStr string, _default uint64) uint64 {
@@ -51,38 +48,52 @@ func max(a, b int) int {
     return b
 }
 
-// func encrypt(key []byte, text string) (string, error) {
+// encrypt string to base64 crypto using AES
+func Encrypt(key []byte, text string) string {
+    // key := []byte(keyText)
+    plaintext := []byte(text)
 
-//     block, err := aes.NewCipher(key)
-//     if err != nil {
-//         return "FAIL", err
-//     }
-//     b := base64.StdEncoding.EncodeToString([]byte(text))
-//     ciphertext := make([]byte, aes.BlockSize+len(b))
-//     iv := ciphertext[:aes.BlockSize]
-//     if _, err := io.ReadFull(rand.Reader, iv); err != nil {
-//         return "FAIL", err
-//     }
-//     cfb := cipher.NewCFBEncrypter(block, iv)
-//     cfb.XORKeyStream(ciphertext[aes.BlockSize:], []byte(b))
-//     return string(ciphertext), nil
-// }
+    block, err := aes.NewCipher(key)
+    if err != nil {
+        panic(err)
+    }
 
-// func decrypt(key []byte, text string) (string, error) {
-//     block, err := aes.NewCipher(key)
-//     if err != nil {
-//         return "FAIL"   , err
-//     }
-//     if len(text) < aes.BlockSize {
-//         return "FAIL", errors.New("ciphertext too short")
-//     }
-//     iv := []byte(text[:aes.BlockSize])
-//     text = text[aes.BlockSize:]
-//     cfb := cipher.NewCFBDecrypter(block, iv)
-//     cfb.XORKeyStream([]byte(text), []byte(text))
-//     data, err := base64.StdEncoding.DecodeString(string(text))
-//     if err != nil {
-//         return "FAIL", err
-//     }
-//     return string(data), nil
-// }
+    // The IV needs to be unique, but not secure. Therefore it's common to
+    // include it at the beginning of the ciphertext.
+    ciphertext := make([]byte, aes.BlockSize+len(plaintext))
+    iv := ciphertext[:aes.BlockSize]
+    if _, err := io.ReadFull(rand.Reader, iv); err != nil {
+        panic(err)
+    }
+
+    stream := cipher.NewCFBEncrypter(block, iv)
+    stream.XORKeyStream(ciphertext[aes.BlockSize:], plaintext)
+
+    // convert to base64
+    return base64.URLEncoding.EncodeToString(ciphertext)
+}
+
+// decrypt from base64 to decrypted string
+func Decrypt(key []byte, cryptoText string) string {
+    ciphertext, _ := base64.URLEncoding.DecodeString(cryptoText)
+
+    block, err := aes.NewCipher(key)
+    if err != nil {
+        panic(err)
+    }
+
+    // The IV needs to be unique, but not secure. Therefore it's common to
+    // include it at the beginning of the ciphertext.
+    if len(ciphertext) < aes.BlockSize {
+        panic("ciphertext too short")
+    }
+    iv := ciphertext[:aes.BlockSize]
+    ciphertext = ciphertext[aes.BlockSize:]
+
+    stream := cipher.NewCFBDecrypter(block, iv)
+
+    // XORKeyStream can work in-place if the two arguments are the same.
+    stream.XORKeyStream(ciphertext, ciphertext)
+
+    return fmt.Sprintf("%s", ciphertext)
+}

@@ -8,7 +8,8 @@ import (
     "fmt"
     "strings"
     "PPL2-ITBCareerCenter/app/models"
-    // "time"
+    "log"
+
 )
 
 func init(){
@@ -132,6 +133,19 @@ var InitDb func() = func(){
     // DeleteUserContactByUserContactid(Dbm, 2)
 
     // ----------------------------------------------
+
+    // Sample of Encryption
+
+    stringAwal := "Halooo"
+    key := []byte("CAREERCENTERITB1")
+    encryptedString := Encrypt(key, stringAwal)
+    log.Println(encryptedString)
+    decryptedString := Decrypt(key, encryptedString)
+    log.Println(decryptedString)
+
+
+
+
 }
 
 
