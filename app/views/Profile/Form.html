@@ -79,7 +79,7 @@
 					              	{{ range $_, $userSocialMedia := .userSocialMedias }}
 					              	<div class="form-inline" style="margin-bottom: 1em;">
 					              		<div class="form-group">
-					              			<select name="socialMediaTypes[]" class="form-control" value="Twitter">
+					              			<select name="socialMediaTypes[]" class="form-control">
 					              				<option value="Facebook" {{if eq $userSocialMedia.SocialMediaName "Facebook"}}selected{{end}}>Facebook</option>
 					              				<option value="Website" {{if eq $userSocialMedia.SocialMediaName "Website"}}selected{{end}}>Website</option>
 					              				<option value="Twitter" {{if eq $userSocialMedia.SocialMediaName "Twitter"}}selected{{end}}>Twitter</option>
@@ -95,7 +95,22 @@
 								</div>
 								<p>
 									<strong>Contact Perusahaan</strong>
-									<input type="text">
+									<br>
+									<button type="button" class="btn btn-success btn-number" style="margin-top: 1em; margin-bottom: 1em;" id="contact-add">
+					                	<span class="glyphicon glyphicon-plus"></span>
+					              	</button>
+					              	{{ range $_, $userContact := .userContacts }}
+					              	<div class="form-inline" style="margin-bottom: 1em;">
+					              		<div class="form-group">
+					              			<select name="contactTypes[]" class="form-control">
+					              				<option value="Email" {{if eq $userContact.ContactType "Email"}}selected{{end}}>Email</option>
+					              				<option value="Phone" {{if eq $userContact.ContactType "Phone"}}selected{{end}}>Phone</option>
+					              			</select>
+					              			<input type="text" name="contactTexts[]" class="form-control" placeholder="Type here" value="{{$userContact.Contact}}">
+					              			<button type="button" class="btn btn-danger btn-number remove-contact"><span class="glyphicon glyphicon-minus"></span></button>
+					              		</div>
+					              	</div>
+					              	{{end}}
 								</p>
 								<p>
 									<strong>Nama Pemilik</strong>
@@ -149,6 +164,33 @@ function($) {
 						)
 					).append(
 						$('<input/>', {type: 'text', name: 'socialMediaURLs[]', class: 'form-control'}).attr("placeholder", "Type the URL here")
+					).append(
+						minusButton
+					)
+				)
+			);
+		});
+
+		$(".remove-contact").click(function() {
+			$(this).parent().parent().remove();
+		});
+		$("#contact-add").click(function() {
+			var minusButton = $('<button/>', {type: 'button', class: 'btn btn-danger btn-number remove-contact'}).append(
+				$('<span/>', {class: 'glyphicon glyphicon-minus'})
+			);
+			minusButton.click(function() {
+				$(this).parent().parent().remove();
+			});
+			$(this).after(
+				$('<div/>', {class: 'form-inline'}).css( 'margin-bottom', '1em' ).append(
+					$('<div/>', {class: 'form-group'}).append(
+						$('<select/>', {name: 'contactTypes[]', class: 'form-control'}).append(
+							$('<option/>', {value: 'Email', html: 'Email'})
+						). append(
+							$('<option/>', {value: 'Phone', html: 'Phone'})
+						)
+					).append(
+						$('<input/>', {type: 'text', name: 'contactTexts[]', class: 'form-control'}).attr("placeholder", "Type here")
 					).append(
 						minusButton
 					)

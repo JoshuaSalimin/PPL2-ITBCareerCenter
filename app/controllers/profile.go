@@ -73,9 +73,9 @@ func (c Profile) DeleteImage() revel.Result {
 }
 
 func (c Profile) UpdateSocialMedia(id int, socialMediaTypes []string,  socialMediaURLs []string) {
-	oldUserSocialMedias := SelectAllUserSocialMediaByUserID(Dbm, id)
+	oldUserSocialMedias := SelectAllUserSocialMediaByUserId(Dbm, id)
 	for _,oldUserSocialMedia := range oldUserSocialMedias {
-	  DeleteUserSocialMediaByUserSocialMediaid(Dbm, oldUserSocialMedia.UserSocialMediaId)
+	  DeleteUserSocialMediaByUserSocialMediaId(Dbm, oldUserSocialMedia.UserSocialMediaId)
 	}
 	newUserSocialMedias := make([]models.UserSocialMedia, len(socialMediaTypes))
 	for index, socialMediaType := range socialMediaTypes {
@@ -94,6 +94,28 @@ func (c Profile) UpdateSocialMedia(id int, socialMediaTypes []string,  socialMed
 
 }
 
+func (c Profile) UpdateContact(id int, contactTypes []string,  contactTexts []string) {
+	oldUserContacts := SelectAllUserContactByUserId(Dbm, id)
+	for _,oldUserContact := range oldUserContacts {
+	  DeleteUserContactByUserContactId(Dbm, oldUserContact.ContactID)
+	}
+	newUserContacts := make([]models.UserContact, len(contactTypes))
+	for index, contactType := range contactTypes {
+	  contactType = html.EscapeString(contactType)
+	  newUserContacts[index] = models.CreateDefaultUserContact()
+	  newUserContacts[index].ContactType = contactType
+	  newUserContacts[index].UserId = int64(id)
+	}
+	for index, contactText := range contactTexts {
+	  contactText = html.EscapeString(contactText)
+	  newUserContacts[index].Contact = contactText
+	}
+	for _,newUserContact := range newUserContacts {
+		InsertUserContact(Dbm, newUserContact)
+	}
+
+}
+
 func (c Profile) UpdateVideoPost(id int, videoID string) {
 	oldVideoPost := SelectVideoByUserId(Dbm, id)
 	newVideoPost := models.CreateDefaultPost(videoID)
@@ -108,7 +130,14 @@ func (c Profile) UpdateVideoPost(id int, videoID string) {
 	InsertPost(Dbm, newVideoPost)
 }
 
-func (c Profile) Edit(id int, user models.Users, socialMediaTypes []string,  socialMediaURLs []string, companylogo []byte, videoID string) revel.Result {
+func (c Profile) Edit(id int,
+	 user models.Users,
+	 socialMediaTypes []string,
+	 socialMediaURLs []string,
+	 contactTypes []string,
+	 contactTexts []string,
+	 companylogo []byte,
+	 videoID string) revel.Result {
 	//TODO sanitize input
 	oldUser := SelectUsersByUserid(Dbm, id)
 	if (len(companylogo) != 0) {
@@ -126,6 +155,7 @@ func (c Profile) Edit(id int, user models.Users, socialMediaTypes []string,  soc
 	UpdateUsers(Dbm, oldUser)
 
 	c.UpdateSocialMedia(id, socialMediaTypes, socialMediaURLs)
+	c.UpdateContact(id, contactTypes, contactTexts)
 	if (videoID != "") {
 		c.UpdateVideoPost(id, videoID)
 	} else {
@@ -133,6 +163,7 @@ func (c Profile) Edit(id int, user models.Users, socialMediaTypes []string,  soc
 		DeletePostByPostid(Dbm, oldVideoPost.PostId)
 	}
 
+	//Update Product Photos
 	if (len(c.Params.Files["productphotos[]"]) != 0) {
 		var productphotos [][]byte
 		c.Params.Bind(&productphotos, "productphotos")
@@ -154,10 +185,11 @@ func (c Profile) Edit(id int, user models.Users, socialMediaTypes []string,  soc
 func (c Profile) Form(id int) revel.Result {
 	profiles := true
 	user := SelectUsersByUserid(Dbm, id)
-	userSocialMedias := SelectAllUserSocialMediaByUserID(Dbm, id)
+	userSocialMedias := SelectAllUserSocialMediaByUserId(Dbm, id)
 	userVideo := SelectVideoByUserId(Dbm, id)
 	userImages := SelectUserImage(Dbm, id)
-	return c.Render(user, profiles, userSocialMedias, userVideo, userImages)
+	userContacts := SelectAllUserContactByUserId(Dbm, id)
+	return c.Render(user, profiles, userSocialMedias, userVideo, userImages, userContacts)
 }
 
 func (c Profile) Page(id int) revel.Result {
@@ -172,9 +204,9 @@ func (c Profile) Page(id int) revel.Result {
 	jurusan := user.Jurusan
 	angkatanPMW := user.Angkatan
 	userUpdatedAt := time.Unix(0, user.UpdatedAt)
-	userContact := SelectAllUserContactByUserId(Dbm, id)
-	userSocialMedias := SelectAllUserSocialMediaByUserID(Dbm, id)
+	userContacts := SelectAllUserContactByUserId(Dbm, id)
+	userSocialMedias := SelectAllUserSocialMediaByUserId(Dbm, id)
 	userVideo := SelectVideoByUserId(Dbm, id)
 	userImage := SelectUserImage(Dbm, id)
-	return c.Render(id, profiles, namaPerusahaan, deskripsiPerusahaan, visiPerusahaan, misiPerusahaan, namaPemilik, jurusan, angkatanPMW, userContact, userSocialMedias, authorized, userVideo, userImage, userUpdatedAt)
+	return c.Render(id, profiles, namaPerusahaan, deskripsiPerusahaan, visiPerusahaan, misiPerusahaan, namaPemilik, jurusan, angkatanPMW, userContacts, userSocialMedias, authorized, userVideo, userImage, userUpdatedAt)
 }

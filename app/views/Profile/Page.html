@@ -7,7 +7,6 @@
 {{set . "NameFounder" .namaPemilik}}
 {{set . "Jurusan" .jurusan}}
 {{set . "Angkatan" .angkatanPMW}}
-{{set . "userContactView" .userContact}}
 {{set . "title" "ITB Career Center Entrepreneurship Page"}}
 
 <!-- Header -->
@@ -93,10 +92,10 @@
 								{{end}}
 								</div>
 								{{end}}
-								{{if .userContactView}}
+								{{if .userContacts}}
 								<h3>Contact Us</h3>
-								{{range .userContactView}}
-								<p>{{.ContactType}} : {{.Contact}}</p>
+								{{range $_, $userContact := .userContacts}}
+									<p>{{$userContact.ContactType}}: {{$userContact.Contact}}</p>
 								{{end}}
 								<br>
 								{{end}}
