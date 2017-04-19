@@ -22,7 +22,7 @@ func CreateDefaultUserContact() UserContact {
         ContactType     : "DEFAULT_CONTACT_TYPE",
         Contact         : "DEFAULT_CONTACT",
         CreatedAt       : time.Now().UnixNano(), 
-        UpdatedAt       : 0,
+        UpdatedAt       : time.Now().UnixNano(),
     }
     return tmp
 }
