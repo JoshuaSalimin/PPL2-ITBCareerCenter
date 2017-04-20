@@ -8,7 +8,7 @@ import (
     "fmt"
     "strings"
     "PPL2-ITBCareerCenter/app/models"
-    "log"
+    // "log"
 
 )
 
@@ -132,25 +132,7 @@ var InitDb func() = func(){
     // UpdateUserContact(Dbm, u)
     // DeleteUserContactByUserContactid(Dbm, 2)
 
-    // ----------------------------------------------
-
-    // Sample of Encryption
-
-    // stringAwal := "Halooo"
-    // key := []byte("CAREERCENTERITB1")
-    // encryptedString := Encrypt(key, stringAwal)
-    // log.Println(encryptedString)
-    // decryptedString := Decrypt(key, encryptedString)
-    // log.Println(decryptedString)
-
-    stringAwal := "Password"
-    encryptedString := EncryptSHA256(stringAwal)
-    log.Println("ES : " + encryptedString)
-
-
-    u := models.CreateDefaultUser("ramos2")
-    u.Password = EncryptSHA256("password")
-    InsertUsers(Dbm, u)
+    // ---------------------------------------------
 }
 
 
