@@ -10,6 +10,7 @@ models "PPL2-ITBCareerCenter/app/models"
 "log"
 "time"
 "strconv"
+"math/rand"
 )
 
 type Users struct {
@@ -47,6 +48,7 @@ func (c Users) AddOne() revel.Result {
         Role: 1,
     }
     InsertUsers(Dbm, user)
+    c.Flash.Success("User " + c.Request.Form.Get("username") + " added successfully");
     return c.Redirect("/Users")
 }
 
@@ -55,12 +57,43 @@ func (c Users) AddBundleView() revel.Result {
 }
 
 func (c Users) AddBundle() revel.Result {
+    timecreated := time.Now().UnixNano()
+    jumlah,_ := strconv.Atoi(c.Request.Form.Get("jumlah"))
+    prefix := c.Request.Form.Get("prefix")
+    angkatan,_ := strconv.Atoi(c.Request.Form.Get("angkatan"))
+
+    for i:=1; i<=jumlah; i++ {
+        username := prefix + "-" + strconv.Itoa(i)
+        password := generateRandomPassword(10);
+        user := models.Users {
+            UserId: 0,
+            Username: username,
+            Password: password,
+            Name: "",
+            ProductName: "",
+            CompanyName: "",
+            CompanyDescription: "",
+            Visi: "",
+            Misi: "",
+            Jurusan: "",
+            Angkatan: angkatan,
+            LogoPath: "",
+            CreatedAt: timecreated,
+            UpdatedAt: timecreated,
+            ShowProfile: false,
+            Role: 1,
+        }
+        InsertUsers(Dbm, user);
+    }
+    c.Flash.Success(c.Request.Form.Get("jumlah") + " Users added successfully");
     return c.Redirect("/Users")
 }
 
 func (c Users) Delete() revel.Result {
+    c.Flash.Success("User added successfully");
     id,_ := strconv.Atoi(c.Request.Form.Get("id"))
     DeleteUsersByUserid(Dbm,id)
+    //c.Flash.Success("User " + "deleted successfully");
     return c.Redirect("/Users")
 }
 
@@ -71,8 +104,26 @@ func (c Users) EditView() revel.Result {
 }
 
 func (c Users) Edit() revel.Result {
+    userid,_ := strconv.Atoi(c.Request.Form.Get("userid"))
+    username := c.Request.Form.Get("username")
+    password := c.Request.Form.Get("password")
+    angkatan,_ := strconv.Atoi(c.Request.Form.Get("angkatan"))
 
+    UpdateUsersByUserid(Dbm, userid, username, password, angkatan)
+    
+    c.Flash.Success("User edited successfully");
     return c.Redirect("/Users")
+}
+
+func generateRandomPassword(digits int) string {
+    const letterBytes = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ~!@#$^&*()_+-=/?,.<>"
+    pwd := make([]byte, digits)
+
+    rand.Seed(time.Now().UnixNano())
+    for i := range pwd {
+        pwd[i] = letterBytes[rand.Intn(len(letterBytes))]
+    }
+    return string(pwd)
 }
 
 func InsertUsersAdmin(dbm *gorp.DbMap){
@@ -144,6 +195,12 @@ func UpdateUsers(dbm *gorp.DbMap, u models.Users) {
 	count, err := dbm.Update(&u)
 	checkErr(err, "Update failed")	
     log.Println("Rows updated:", count)
+}
+
+func UpdateUsersByUserid(dbm *gorp.DbMap, userid int, username string, password string, angkatan int) {
+    _, err := dbm.Exec("UPDATE users SET username=?, password=?, angkatan=? WHERE userid=?", username, password, angkatan, userid)
+    checkErr(err, "Update failed")
+    log.Println("Updated")
 }
 
 func DeleteUsersByUserid(dbm *gorp.DbMap, userid int) {

@@ -1,0 +1,37 @@
+{{set . "title" "ITB Career Center Entrepreneurship Add Bundle"}}
+
+<!-- Header -->
+{{template "header.html" .}}
+<header>
+</header>
+
+<style>
+</style>
+<!-- Content -->
+<div id="page-wrapper">
+	<!-- Nav -->
+	{{template "nav.html" .}}
+
+	<!-- Main -->
+	<section class="wrapper style1">
+		<div class="container">
+			<form action="/Users/Add/Bundle" method="POST">
+				<label>Username Prefix</label>
+				<input name="prefix" type="text" value="">
+
+				<label>Angkatan</label>
+				<input name="angkatan" type="number" value="" required>
+
+				<label>Jumlah User</label>
+				<input name="jumlah" type="number" value="" required>
+				<br><br>
+
+				<input type="submit" value="Add">
+			</form>
+		</div>
+	</section>
+</div>		
+<!-- Footer -->
+{{template "footer.html" .}}
+<footer>
+</footer>

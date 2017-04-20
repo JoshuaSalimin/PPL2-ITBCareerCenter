@@ -19,6 +19,7 @@ form {
 	<section class="wrapper style1">
 		<div class="container">
 			<form action="/Users/Edit" method="POST">
+				<input name ="userid" type="hidden" value="{{.user.UserId}}">
 				<label>Username</label>
 				<input name="username" type="text" value="{{.user.Username}}" required>
 
