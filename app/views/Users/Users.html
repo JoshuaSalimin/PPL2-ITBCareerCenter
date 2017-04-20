@@ -1,0 +1,71 @@
+{{set . "title" "ITB Career Center Entrepreneurship Users"}}
+
+<!-- Header -->
+{{template "header.html" .}}
+<header>
+</header>
+
+<style>
+.tableheader {
+	font-weight: bold;
+	font-size: 16pt;
+}
+.tablecontent {
+	color: #777777;
+}
+</style>
+<!-- Content -->
+<div id="page-wrapper">
+	<!-- Nav -->
+	{{template "nav.html" .}}
+
+	<!-- Main -->
+	<section class="wrapper style1">
+		<div class="container">
+			<table id="content">
+				<tr class="tableheader">
+					<td width="5%">Id</td>
+					<td width="15%">Username</td>
+					<td width="15%">Password</td>
+					<td width="15%">Name</td>
+					<td width="20%">Company Name</td>
+					<td width="10%">Angkatan</td>
+					<td width="7%">Show?</td>
+					<td width="3%"></td>
+					<td width="3%"></td>
+				</tr>
+				{{range .users}}
+				<tr class="tablecontent">
+					<td>{{.UserId}}</td>
+					<td>{{.Username}}</td>
+					<td>{{.Password}}</td>
+					<td>{{.Name}}</td>
+					<td>{{.CompanyName}}</td>
+					<td>{{.Angkatan}}</td>
+					<td>{{.ShowProfile}}</td>
+					<td>
+						<form action="/Users/Delete" method="POST">
+							<input type="hidden" name="id" id="id" value="{{.UserId}}">
+							<button type="submit" id="submit">
+								<i class="fa fa-trash-o" style="color:red" aria-hidden="true"></i>
+							</button>
+						</form>
+					</td>
+					<td>
+						<form action="/Users/Edit" method="GET">
+							<input type="hidden" name="id" id="id" value="{{.UserId}}">
+							<button type="submit" id="submit">
+								<i class="fa fa-pencil-square-o" style="color:green" aria-hidden="true"></i>
+							</button>
+						</form>
+					</td>
+				</tr>
+				{{end}}
+			</table>
+		</div>
+	</section>
+</div>		
+<!-- Footer -->
+{{template "footer.html" .}}
+<footer>
+</footer>

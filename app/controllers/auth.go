@@ -13,8 +13,6 @@ type Auth struct {
 	*revel.Controller
 }
 
-type tai struct {}
-
 func (c Auth) Login() revel.Result {
 	loginFailedMsg := "Login Failed: "
 	//log.Println(getCurrentUserId(c));

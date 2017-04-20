@@ -1,0 +1,40 @@
+{{set . "title" "ITB Career Center Entrepreneurship Users"}}
+
+<!-- Header -->
+{{template "header.html" .}}
+<header>
+</header>
+
+<style>
+form {
+	display: block;
+}
+</style>
+<!-- Content -->
+<div id="page-wrapper">
+	<!-- Nav -->
+	{{template "nav.html" .}}
+
+	<!-- Main -->
+	<section class="wrapper style1">
+		<div class="container">
+			<form action="/Users/Edit" method="POST">
+				<label>Username</label>
+				<input name="username" type="text" value="{{.user.Username}}" required>
+
+				<label>Password</label>
+				<input name="password" type="text" value="{{.user.Password}}" required>
+
+				<label>Angkatan</label>
+				<input name="angkatan" type="number" value="{{.user.Angkatan}}" required>
+				<br><br>
+
+				<input type="submit" value="Edit">
+			</form>
+		</div>
+	</section>
+</div>
+<!-- Footer -->
+{{template "footer.html" .}}
+<footer>
+</footer>

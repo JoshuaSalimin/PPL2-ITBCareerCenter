@@ -39,6 +39,16 @@ POST     /News/Delete/                          News.Delete
 GET      /News/EditForm/:id                     News.EditForm
 POST     /News/EditSubmit/                   	News.EditSubmit
 
+#UserManagement
+GET 	/Users									Users.Users
+GET 	/Users/Add 								Users.AddOneView
+POST	/Users/Add								Users.AddOne
+GET 	/Users/Add/Bundle						Users.AddBundleView
+POST	/Users/Add/Bundle 						Users.AddBundle
+GET 	/Users/Edit 							Users.EditView
+POST 	/Users/Edit 							Users.Edit
+POST	/Users/Delete 							Users.Delete
+
 # Ignore favicon requests
 GET     /favicon.ico                            404
 
