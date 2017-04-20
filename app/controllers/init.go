@@ -8,8 +8,6 @@ import (
     "fmt"
     "strings"
     "PPL2-ITBCareerCenter/app/models"
-    // "log"
-
 )
 
 func init(){
@@ -94,45 +92,6 @@ var InitDb func() = func(){
         newContact.ContactID = 0
         InsertContact(Dbm, newContact)
     }
-
-
-    //u := models.CreateDefaultUser("ramos")
-
-    // KEY := []byte("key")
-    // unencryptedPassword := "this is password you will encrypt"
-    // encryptedPassword, err := encrypt(KEY, unencryptedPassword) 
-    // u.Password = encryptedPassword
-
-    //InsertUsers(Dbm, u)
-
-    // USAGE EXAMPLE --------------
-    // InsertUsersAdmin(Dbm)
-    // InsertPostAdmin(Dbm)
-
-    // NewsTemp := models.CreateDefaultNews("News Title Temp")
-    // InsertNews(Dbm, NewsTemp)
-    // UsersSocialMedia := models.CreateDefaultUserSocialMedia()
-    // n := SelectNewsByNewsId(Dbm, 2)
-    // SelectAllNews(Dbm)
-    // UpdateNews(Dbm, n)
-    // DeleteNewsByNewsid(Dbm, 2)
-
-
-    // InsertUserSocialMedia(Dbm, UsersSocialMedia)
-    // UsersContact := models.CreateDefaultUserContact()
-    // sm := SelectUserSocialMediaByUserSocialMediaId(Dbm, 2)
-    // SelectAllUserSocialMedia(Dbm)
-    // UpdateUserSocialMedia(Dbm, sm)
-    // DeleteUserSocialMediaByUserSocialMediaid(Dbm, 2)
-
-
-    // InsertUserContact(Dbm, UsersContact)
-    // u := SelectUserContactByUserContactId(Dbm, 2)
-    // SelectAllUserContact(Dbm)
-    // UpdateUserContact(Dbm, u)
-    // DeleteUserContactByUserContactid(Dbm, 2)
-
-    // ---------------------------------------------
 }
 
 
