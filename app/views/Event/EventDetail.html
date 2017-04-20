@@ -1,15 +1,3 @@
-{{set . "NamaPerusahaan" .namaPerusahaan}}
-{{set . "DeskripsiPerusahaan" .deskripsiPerusahaan}}
-{{set . "Visi" .visiPerusahaan}}
-{{set . "Misi" .misiPerusahaan}}
-{{set . "SocialMedia" "Facebook: TonyTony"}}
-{{set . "ContactUs" "081210123456"}}
-{{set . "NameFounder" .namaPemilik}}
-{{set . "Jurusan" .jurusan}}
-{{set . "Angkatan" .angkatanPMW}}
-{{set . "userContactView" .userContact}}
-
-
 <!-- Header -->
 {{template "header.html" .}}
 <!-- Content -->
@@ -35,7 +23,7 @@
 
 								{{if .EventBannerPath}}
 								<span class="image featured">
-								<img src="public/images/event1.jpg" alt="" style="height:200px; object-fit: cover"/>
+								<img src="{{.EventBannerPath}}" alt="" style="height:200px; object-fit: cover"/>
 								</span>
 								{{end}}
 
