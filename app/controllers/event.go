@@ -7,7 +7,7 @@ import (
     // "encoding/json"
     "github.com/go-gorp/gorp"
     "log"
-    // "time"
+    "time"
     // "strconv"
 )
 
@@ -20,11 +20,11 @@ func (c Event) EventDetail(id int) revel.Result {
     log.Println(ev)
     EventTitle := ev.EventTitle
     EventBannerPath := ev.BannerPath
-    EventStart := ev.EventStart
-    EventEnd := ev.EventEnd
+    EventStart := time.Unix(ev.EventStart, 0)
+    EventEnd := time.Unix(ev.EventEnd, 0)
     EventDescription := ev.EventDescription
-    EventCreatedAt := ev.CreatedAt
-    EventUpdatedAt := ev.UpdatedAt
+    EventCreatedAt := time.Unix(0, ev.CreatedAt)
+    EventUpdatedAt := time.Unix(0, ev.UpdatedAt)
     return c.Render(true, id, EventTitle, EventBannerPath, EventStart, EventEnd, EventDescription, EventCreatedAt, EventUpdatedAt)
 }
 
