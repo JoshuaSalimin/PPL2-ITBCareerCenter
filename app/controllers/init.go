@@ -137,12 +137,12 @@ var InitDb func() = func(){
 
     // ----------------------------------------------
 
-        e1 := models.CreateDefaultEvent("Event1")
-        e2 := models.CreateDefaultEvent2("Event2")
-        e3 := models.CreateDefaultEvent3("Event3")
-        InsertEvent(Dbm, e1)
-        InsertEvent(Dbm, e2)
-        InsertEvent(Dbm, e3)
+        // e1 := models.CreateDefaultEvent("Event1")
+        // e2 := models.CreateDefaultEvent2("Event2")
+        // e3 := models.CreateDefaultEvent3("Event3")
+        // InsertEvent(Dbm, e1)
+        // InsertEvent(Dbm, e2)
+        // InsertEvent(Dbm, e3)
 }
 
 

@@ -42,9 +42,15 @@
 								{{if .EventStart}}
 									{{if .EventEnd}}
 									<h4>Event will hold on : </h4>
-									<p>{{.EventStart}} - {{.EventEnd}}</p>
+									<p>{{.EventStart}} <b>until</b> {{.EventEnd}}</p>
 									<br>
 									{{end}}
+								{{end}}
+
+								{{if .EventDescription}}
+									<h4>What is this event about?</h4>
+									<p>{{.EventDescription}}</p>
+									<br>
 								{{end}}
 
 
