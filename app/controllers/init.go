@@ -8,7 +8,7 @@ import (
     "fmt"
     "strings"
     "PPL2-ITBCareerCenter/app/models"
-    "log"
+    // "log"
 
 )
 
@@ -67,6 +67,7 @@ var InitDb func() = func(){
     defineUserContactTable(Dbm)
     defineAboutTable(Dbm)
     defineContactTable(Dbm)
+    defineEventTable(Dbm)
 
     err := Dbm.CreateTablesIfNotExists()
     checkErr(err, "Create Table failed")
@@ -78,6 +79,8 @@ var InitDb func() = func(){
     checkErr(err, "ALTER TABLE News FAILED")
     _, err = Dbm.Exec("ALTER TABLE users ADD UNIQUE (username)")
     checkErr(err, "ALTER TABLE users FAILED")
+    _, err = Dbm.Exec("ALTER TABLE event MODIFY event_description text")
+    checkErr(err, "ALTER TABLE event FAILED")
     countAbout := CountAbout(Dbm)
     if(countAbout >= 1){
         // do nothing
@@ -134,18 +137,12 @@ var InitDb func() = func(){
 
     // ----------------------------------------------
 
-    // Sample of Encryption
-
-    stringAwal := "Halooo"
-    key := []byte("CAREERCENTERITB1")
-    encryptedString := Encrypt(key, stringAwal)
-    log.Println(encryptedString)
-    decryptedString := Decrypt(key, encryptedString)
-    log.Println(decryptedString)
-
-
-
-
+        e1 := models.CreateDefaultEvent("Event1")
+        e2 := models.CreateDefaultEvent2("Event2")
+        e3 := models.CreateDefaultEvent3("Event3")
+        InsertEvent(Dbm, e1)
+        InsertEvent(Dbm, e2)
+        InsertEvent(Dbm, e3)
 }
 
 
@@ -181,4 +178,8 @@ func defineAboutTable(dbm *gorp.DbMap) {
 
 func defineContactTable(dbm *gorp.DbMap) {
     dbm.AddTable(models.Contact{}).SetKeys(true, "contactid")    
+}
+
+func defineEventTable(dbm *gorp.DbMap) {
+    dbm.AddTable(models.Event{}).SetKeys(true,"eventid")
 }

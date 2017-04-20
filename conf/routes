@@ -9,6 +9,7 @@ module:testrunner
 
 GET     /                                       App.Index
 GET 	/News									App.News
+GET 	/Event									App.Event
 
 #Login
 GET 	/Login									App.Login
@@ -38,6 +39,9 @@ GET      /News/Detail/:id                       News.Detail
 POST     /News/Delete/                          News.Delete
 GET      /News/EditForm/:id                     News.EditForm
 POST     /News/EditSubmit/                   	News.EditSubmit
+
+#Event
+GET 	/Event/:id 								Event.EventDetail
 
 # Ignore favicon requests
 GET     /favicon.ico                            404

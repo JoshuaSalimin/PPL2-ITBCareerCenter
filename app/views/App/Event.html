@@ -1,0 +1,42 @@
+<!-- Header -->
+{{template "header.html" .}}
+
+<!-- Content -->
+	<div id="page-wrapper">
+		<!-- Nav -->
+	{{template "nav.html" .}}
+		
+		<!-- Main -->
+			<section class="wrapper style1">
+				<div class="container">
+					<div id="content">
+					{{range .list}}
+
+						<span class="image featured">
+						<a href="/Event/{{.EventId}}">
+						<img src="{{.BannerPath}}" alt="" style="height:200px; object-fit: cover"/>
+						</a>
+						</span>
+
+					{{end}}
+<!-- 						<span class="image featured"><img src="public/images/event1.jpg" 
+						alt=""/></span>						 -->
+<!-- 						<span class="image featured"><img src="public/images/event2.jpg" alt="" style="height:200px;"/></span>
+						<span class="image featured"><img src="public/images/event3.jpg" alt="" style="height:200px;"/></span> -->
+						<!-- Content -->
+<!-- 							<article>
+								<header>
+									<h2>No Sidebar</h2>
+									<p>All content, all the time.</p>
+								</header>
+								<span class="image featured"><img src="public/images/banner.jpg" alt="" /></span>
+								<p><a href="/News/Detail/{{.NewsId}}" style="color:#000000">{{.NewsTitle}}</a></p>
+
+
+							</article>
+					</div> -->
+				</div>
+			</section>
+	</div>
+<!-- Footer -->
+{{template "footer.html" .}}

@@ -1,0 +1,59 @@
+{{set . "NamaPerusahaan" .namaPerusahaan}}
+{{set . "DeskripsiPerusahaan" .deskripsiPerusahaan}}
+{{set . "Visi" .visiPerusahaan}}
+{{set . "Misi" .misiPerusahaan}}
+{{set . "SocialMedia" "Facebook: TonyTony"}}
+{{set . "ContactUs" "081210123456"}}
+{{set . "NameFounder" .namaPemilik}}
+{{set . "Jurusan" .jurusan}}
+{{set . "Angkatan" .angkatanPMW}}
+{{set . "userContactView" .userContact}}
+
+
+<!-- Header -->
+{{template "header.html" .}}
+<!-- Content -->
+	<div id="page-wrapper">
+	<!-- Nav -->
+		{{template "nav.html" .}}
+	<!-- Main -->
+		
+		<div id="page-wrapper">
+			<!-- Main -->
+				<section class="wrapper style1">
+					<div class="container">
+						<div id="content">					
+							<article>
+								<header style="text-align: center;">
+									<h2></h2>
+								</header>
+								{{if .EventTitle}}
+								<header style="text-align: center;">
+									<h2>{{.EventTitle}}</h2>
+								</header>
+								{{end}}
+
+								{{if .EventBannerPath}}
+								<span class="image featured">
+								<img src="public/images/event1.jpg" alt="" style="height:200px; object-fit: cover"/>
+								</span>
+								{{end}}
+
+								{{if .EventStart}}
+									{{if .EventEnd}}
+									<h4>Event will hold on : </h4>
+									<p>{{.EventStart}} - {{.EventEnd}}</p>
+									<br>
+									{{end}}
+								{{end}}
+
+
+							</article>
+						</div>
+					</div>
+				</section>
+		</div>
+
+	</div>
+<!-- Footer -->
+{{template "footer.html" .}}

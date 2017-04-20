@@ -19,6 +19,12 @@ func (c App) News() revel.Result {
     return c.Render(news,list);
 }
 
+func (c App) Event() revel.Result {
+	event := true
+	list := SelectAllEvent(Dbm)
+	return c.Render(event, list)
+}
+
 func (c App) Profiles() revel.Result {
 	profiles := true
 	return c.Render(profiles)
