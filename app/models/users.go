@@ -1,8 +1,7 @@
 package models 
 
 import (
-    // "github.com/go-gorp/gorp"
-    //"regexp"
+
     "time"
 )
 
