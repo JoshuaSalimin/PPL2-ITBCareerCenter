@@ -27,7 +27,7 @@ func SelectUIBByBundleId(dbm *gorp.DbMap, bundleid int) []models.UsersInBundle {
 
     _, err := dbm.Select(&uib, "SELECT * FROM usersinbundle WHERE bundleid=?", bundleid)
     checkErr(err, "Select failed")
-    log.Println("User Range rows:")
+    log.Println("UIB Range rows:")
     for x, p := range uib {
         log.Printf("    %d: %v\n", x, p)
     }

@@ -42,7 +42,7 @@ func (c Users) Add() revel.Result {
         Jurusan: "",
         Angkatan: angkatan,
         LogoPath: "",
-        CreatedAt: timecreated,
+        CreatedAt: timecreated, 
         UpdatedAt: timecreated,
         ShowProfile: false,
         Role: 0,

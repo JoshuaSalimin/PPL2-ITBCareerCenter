@@ -11,8 +11,10 @@ GET     /                                       App.Index
 GET 	/News									App.News
 
 #Login
-GET 	/Login									App.Login
+GET 	/Login									Auth.LoginView
 POST	/Login									Auth.Login
+GET 	/Logout									Auth.LogoutView
+POST 	/Logout 								Auth.Logout
 
 #About
 GET 	/About									About.About

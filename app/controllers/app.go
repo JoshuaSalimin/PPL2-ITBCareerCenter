@@ -29,9 +29,4 @@ func (c App) Contact() revel.Result {
 	return c.Render(contact)
 }
 
-func (c App) Login() revel.Result {
-	login := true
-	return c.Render(login)
-}
-
 
