@@ -142,8 +142,6 @@ func DeleteNewsByNewsid(dbm *gorp.DbMap, newsid int) bool{
 func SelectLatestNews(dbm *gorp.DbMap) models.News {
     var p models.News
     err := dbm.SelectOne(&p, "SELECT * FROM News ORDER BY news_updated_at DESC LIMIT 1")
-    log.Println("p :", p)
     checkErr(err, "SelectOne failed")
     return p
 }
-

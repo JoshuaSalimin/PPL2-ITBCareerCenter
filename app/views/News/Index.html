@@ -11,12 +11,19 @@
 				<div class="container">
 					<div id="content">
 						<!-- Content -->
-							<div>
-								<p>{{raw .latest.Content}}</p>
+							<h3>Home News</h3>
+							<div class="homeNewsOuter">
+								<div class="homeNewsInner">
+									<p>{{raw .latest.Content}}</p>
+								</div>
+								<p align="right"><a href="/News/Detail/{{.latest.NewsId}}" class="button back">Read Detail</a></p>			
 							</div>
 							<article>
+							<h3>All News</h3>
+
 							{{range .list}}
-								<p><a href="/News/Detail/{{.NewsId}}" style="color:#000000">{{.NewsTitle}}</a></p>
+								{{convert_unix_time .UpdatedAt}}
+								<a href="/News/Detail/{{.NewsId}}" class="homeListNews">{{.NewsTitle}}</a><br>
 							{{end}}
 
 							</article>
