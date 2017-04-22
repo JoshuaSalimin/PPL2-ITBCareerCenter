@@ -24,3 +24,7 @@
 #deleteeventbutton {
 	background-color: red; 
 }
+
+.eventdatetime {
+	margin-bottom: 20px;
+}

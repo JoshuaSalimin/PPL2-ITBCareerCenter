@@ -1,0 +1,56 @@
+<head>
+	<link rel="stylesheet" type="text/css" href="/public/css/EventDetailStyle.css">
+	
+	<script src="/public/js/EventDetail.js"></script>
+	<script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+
+</head>
+
+<!-- Header -->
+{{template "header.html" .}}
+<!-- Content -->
+	<div id="page-wrapper">
+	<!-- Nav -->
+		{{template "nav.html" .}}
+	<!-- Main -->
+		
+		<div id="page-wrapper">
+			<!-- Main -->
+			{{if .isAuthorizedAsAdmin}}
+				<section class="wrapper style1">
+					<div class="container">
+						<div id="content">					
+							<article>
+								<header style="text-align: center;">
+									<h2>Edit Event</h2>
+								</header>
+								<form action="#EditEventPost" method="POST">
+									<h5>Event Title</h5>
+									<input type="text" name="EventTitle">
+
+									<h5>Event Start Time</h5>
+										<div class="eventdatetime">
+											<input type="datetime-local" name="EventStart">
+										</div>
+
+									<h5>Event End Time</h5>
+										<div class="eventdatetime">
+											<input type="datetime-local" name="EventEnd">
+										</div>
+									<h5>Event Banner</h5>
+
+									<h5>Event Description</h5>
+									<p>CK Editor</p>
+								</form>
+								
+
+							</article>
+						</div>
+					</div>
+				</section>
+		{{end}}		
+		</div>
+
+	</div>
+<!-- Footer -->
+{{template "footer.html" .}}

@@ -6,3 +6,4 @@ function ConfirmDelete()
   else
     return false;
 }
+
