@@ -8,7 +8,6 @@ module:testrunner
 
 
 GET     /                                       App.Index
-GET 	/News									App.News
 
 #Login
 GET 	/Login									App.Login
@@ -32,6 +31,7 @@ POST	/EditProfile/:id						Profile.Edit
 GET 	/ProfileForm/:id						Profile.Form
 
 #News
+GET  	 /News									News.Index
 GET      /News/Form                             News.Form 
 POST     /News/Add                              News.Add
 GET      /News/Detail/:id                       News.Detail

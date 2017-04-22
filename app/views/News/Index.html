@@ -10,8 +10,10 @@
 			<section class="wrapper style1">
 				<div class="container">
 					<div id="content">
-
 						<!-- Content -->
+							<div>
+								<p>{{raw .latest.Content}}</p>
+							</div>
 							<article>
 							{{range .list}}
 								<p><a href="/News/Detail/{{.NewsId}}" style="color:#000000">{{.NewsTitle}}</a></p>
