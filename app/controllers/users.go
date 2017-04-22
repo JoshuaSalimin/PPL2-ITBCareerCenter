@@ -17,9 +17,28 @@ type Users struct {
     *revel.Controller
 }
 
-func (c Users) Users() revel.Result {
-    users := SelectAllUsers(Dbm)
-    return c.Render(users)
+func (c Users) Users(page int) revel.Result {
+    log.Println(page)
+    numUserPerPage := 20
+    if (page == 0) {
+        page = 1
+    }
+    startUserLimit := (page-1)*numUserPerPage
+    endUserLimit := page*numUserPerPage
+
+    userCount := CountUsers(Dbm)
+
+    startUserLimit = max(startUserLimit, 0)
+
+    if (startUserLimit >= userCount) {
+        return c.NotFound("Invalid Page: ", page);
+    }
+
+    endUserLimit = min(userCount, endUserLimit)
+
+    users := SelectLatestUsersInRange(Dbm, startUserLimit, endUserLimit - startUserLimit)
+    currentPageNum := page
+    return c.Render(page, users, userCount, numUserPerPage, currentPageNum)
 }
 
 func (c Users) AddView() revel.Result {
