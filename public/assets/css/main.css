@@ -3184,7 +3184,8 @@
 }
 
 .homeNewsInner {
-    height: 800px;
+    min-height: : 50px;
+    max-height: 800px;
     margin-bottom: 20px;
     overflow: hidden;	
 }
