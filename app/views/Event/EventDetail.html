@@ -1,3 +1,8 @@
+<head>
+	<link rel="stylesheet" type="text/css" href="/public/css/EventDetailStyle.css">
+	<script src="/public/js/EventDetail.js"></script>
+</head>
+
 <!-- Header -->
 {{template "header.html" .}}
 <!-- Content -->
@@ -12,14 +17,28 @@
 					<div class="container">
 						<div id="content">					
 							<article>
-								<header style="text-align: center;">
-									<h2></h2>
-								</header>
 								{{if .EventTitle}}
 								<header style="text-align: center;">
 									<h2>{{.EventTitle}}</h2>
+									{{if .isAuthorizedAsAdmin}}
+									<div id="divedit">
+									<form action="#Edit">
+									    <input type="submit" id="editeventbutton" value="Edit Event" />
+									</form>
+									</div>
+									<div id="divdelete">
+									<form action="#Delete" method>
+									    <input Onclick="return ConfirmDelete();" type="submit" id="deleteeventbutton" value="Delete Event" />
+									</form>
+									</div>
+									{{end}}
 								</header>
 								{{end}}
+
+								{{if .isAuthorizedAsAdmin}}
+
+								{{end}}
+
 
 								{{if .EventBannerPath}}
 								<span class="image featured">

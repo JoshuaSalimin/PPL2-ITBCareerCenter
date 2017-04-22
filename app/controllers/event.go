@@ -25,7 +25,9 @@ func (c Event) EventDetail(id int) revel.Result {
     EventDescription := ev.EventDescription
     EventCreatedAt := time.Unix(0, ev.CreatedAt)
     EventUpdatedAt := time.Unix(0, ev.UpdatedAt)
-    return c.Render(true, id, EventTitle, EventBannerPath, EventStart, EventEnd, EventDescription, EventCreatedAt, EventUpdatedAt)
+    isAuthorizedAsAdmin := true
+    return c.Render(true, id, EventTitle, EventBannerPath, EventStart, EventEnd, 
+        EventDescription, EventCreatedAt, EventUpdatedAt, isAuthorizedAsAdmin)
 }
 
 func InsertEvent(dbm *gorp.DbMap, p models.Event) bool {
