@@ -30,6 +30,28 @@ func (c Event) EventDetail(id int) revel.Result {
         EventDescription, EventCreatedAt, EventUpdatedAt, isAuthorizedAsAdmin)
 }
 
+func (c Event) DeleteEvent(id int) revel.Result {
+    DeleteEventByEventId(Dbm, id)
+    return c.Redirect("/Event")
+}
+
+func (c Event) EditEvent(id int) revel.Result {
+    ev := SelectEventByEventId(Dbm, id)
+    log.Println(ev)
+    EventTitle := ev.EventTitle
+    EventBannerPath := ev.BannerPath
+    EventStart := time.Unix(ev.EventStart, 0)
+    EventEnd := time.Unix(ev.EventEnd, 0)
+    EventDescription := ev.EventDescription
+    EventCreatedAt := time.Unix(0, ev.CreatedAt)
+    EventUpdatedAt := time.Unix(0, ev.UpdatedAt)
+    isAuthorizedAsAdmin := true
+    return c.Render(true, id, EventTitle, EventBannerPath, EventStart, EventEnd, 
+        EventDescription, EventCreatedAt, EventUpdatedAt, isAuthorizedAsAdmin)
+}
+
+
+
 func InsertEvent(dbm *gorp.DbMap, p models.Event) bool {
     err := dbm.Insert(&p)    
     checkErr(err, "Insert failed")    
@@ -55,6 +77,15 @@ func SelectEventByEventId(dbm *gorp.DbMap, eventid int) models.Event {
     return p
 }
 
+func DeleteEventByEventId(dbm *gorp.DbMap, eventid int) bool {
+    _, err := dbm.Exec("DELETE FROM event WHERE eventid=?", eventid)
+    checkErr(err, "Delete failed")
+    if(err == nil){
+        return true;
+    }else{
+        return false;
+    }
+}
 
 
 // func (c News) Detail() revel.Result {
@@ -138,12 +169,3 @@ func SelectEventByEventId(dbm *gorp.DbMap, eventid int) models.Event {
 // }
 
 
-// func DeleteNewsByNewsid(dbm *gorp.DbMap, newsid int) bool{
-//     _, err := dbm.Exec("DELETE FROM News WHERE newsid=?", newsid)
-//     checkErr(err, "Delete failed")
-//     if(err == nil){
-//         return true;
-//     }else{
-//         return false;
-//     }
-// }
