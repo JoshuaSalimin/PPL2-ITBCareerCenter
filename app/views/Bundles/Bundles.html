@@ -34,42 +34,44 @@ form button {
 	<!-- Main -->
 	<section class="wrapper style1">
 		<div class="container">
-			<h1>Manage Users</h1>
+			<h1>Manage Bundles</h1>
 			<p class="successflash">{{.flash.success}}</p>
 			<a href="/Users/Add"><button>Add a Single User</button></a>
-			<a href="/Users/Add/Bundle"><button>Add a Bundle of Users</button></a>
+			<a href="/Users/Bundles/Add"><button>Add a Bundle of Users</button></a>
 			<table id="content">
 				<tr class="tableheader">
-					<td width="4%">Id</td>
-					<td width="15%">Username</td>
-					<td width="15%">Name</td>
-					<td width="20%">Company Name</td>
-					<td width="10%">Angkatan</td>
-					<td width="7%">Show?</td>
-					<td width="3%"></td>
-					<td width="3%"></td>
+					<td width="5%">Id</td>
+					<td width="15%">Bundle Name</td>
+					<td width="1%"></td>
+					<td width="1%"></td>
+					<td width="1%"></td>
+					<td width="40%"></td>
 				</tr>
-				{{range .users}}
+				{{range .bundles}}
 				<tr class="tablecontent">
-					<td>{{.UserId}}</td>
-					<td>{{.Username}}</td>
-					<td>{{.Name}}</td>
-					<td>{{.CompanyName}}</td>
-					<td>{{.Angkatan}}</td>
-					<td>{{.ShowProfile}}</td>
+					<td>{{.BundleId}}</td>
+					<td>{{.BundleName}}</td>
 					<td>
-						<form action="/Users/Delete" method="POST">
-							<input type="hidden" name="id" id="id" value="{{.UserId}}">
+						<form action="/Users/Bundles/Delete" method="POST">
+							<input type="hidden" name="id" id="id" value="{{.BundleId}}">
 							<button type="submit" id="submit">
 								<i class="fa fa-trash-o" style="color:red" aria-hidden="true"></i>
 							</button>
 						</form>
 					</td>
 					<td>
-						<form action="/Users/Edit" method="GET">
-							<input type="hidden" name="id" id="id" value="{{.UserId}}">
+						<form action="/Users/Bundles/Edit" method="GET">
+							<input type="hidden" name="id" id="id" value="{{.BundleId}}">
 							<button type="submit" id="submit">
 								<i class="fa fa-pencil-square-o" style="color:green" aria-hidden="true"></i>
+							</button>
+						</form>
+					</td>
+					<td>
+						<form action="/Users/Bundles/DownloadCSV" method="POST">
+							<input type="hidden" name="id" id="id" value="{{.BundleId}}">
+							<button type="submit" id="submit">
+								<i class="fa fa-file-excel-o" style="color:green" aria-hidden="true"></i>
 							</button>
 						</form>
 					</td>

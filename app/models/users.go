@@ -23,6 +23,7 @@ type Users struct {
     UpdatedAt		        int64	`db:"users_updated_at"`		
     ShowProfile		        bool 	`db:"show_profile"`  // show profile ato ngga
     Role                    int  	`db:"role"`   // 1 untuk admin, 0 untuk non-admin
+    IsPasswordChanged       bool    `db:"is_password_changed"`
 }
 
 func CreateDefaultUser(username string) Users {

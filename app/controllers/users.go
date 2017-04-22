@@ -22,11 +22,11 @@ func (c Users) Users() revel.Result {
     return c.Render(users)
 }
 
-func (c Users) AddOneView() revel.Result {
+func (c Users) AddView() revel.Result {
     return c.Render(true)
 }
 
-func (c Users) AddOne() revel.Result {
+func (c Users) Add() revel.Result {
     timecreated := time.Now().UnixNano()
     angkatan,_ := strconv.Atoi(c.Request.Form.Get("angkatan"))
     user := models.Users {
@@ -45,54 +45,17 @@ func (c Users) AddOne() revel.Result {
         CreatedAt: timecreated,
         UpdatedAt: timecreated,
         ShowProfile: false,
-        Role: 1,
+        Role: 0,
     }
-    InsertUsers(Dbm, user)
+    InsertUsers(Dbm, &user)
     c.Flash.Success("User " + c.Request.Form.Get("username") + " added successfully");
-    return c.Redirect("/Users")
-}
-
-func (c Users) AddBundleView() revel.Result {
-    return c.Render(true)
-}
-
-func (c Users) AddBundle() revel.Result {
-    timecreated := time.Now().UnixNano()
-    jumlah,_ := strconv.Atoi(c.Request.Form.Get("jumlah"))
-    prefix := c.Request.Form.Get("prefix")
-    angkatan,_ := strconv.Atoi(c.Request.Form.Get("angkatan"))
-
-    for i:=1; i<=jumlah; i++ {
-        username := prefix + "-" + strconv.Itoa(i)
-        password := generateRandomPassword(10);
-        user := models.Users {
-            UserId: 0,
-            Username: username,
-            Password: password,
-            Name: "",
-            ProductName: "",
-            CompanyName: "",
-            CompanyDescription: "",
-            Visi: "",
-            Misi: "",
-            Jurusan: "",
-            Angkatan: angkatan,
-            LogoPath: "",
-            CreatedAt: timecreated,
-            UpdatedAt: timecreated,
-            ShowProfile: false,
-            Role: 1,
-        }
-        InsertUsers(Dbm, user);
-    }
-    c.Flash.Success(c.Request.Form.Get("jumlah") + " Users added successfully");
     return c.Redirect("/Users")
 }
 
 func (c Users) Delete() revel.Result {
     c.Flash.Success("User added successfully");
     id,_ := strconv.Atoi(c.Request.Form.Get("id"))
-    DeleteUsersByUserid(Dbm,id)
+    DeleteUsersByUserId(Dbm,id)
     //c.Flash.Success("User " + "deleted successfully");
     return c.Redirect("/Users")
 }
@@ -134,8 +97,8 @@ func InsertUsersAdmin(dbm *gorp.DbMap){
     dbm.Insert(&admin)
 }
 
-func InsertUsers(dbm *gorp.DbMap, u models.Users){
-    err := dbm.Insert(&u)
+func InsertUsers(dbm *gorp.DbMap, u *models.Users){
+    err := dbm.Insert(u)
     checkErr(err, "Insert failed")
 }
 
@@ -203,7 +166,7 @@ func UpdateUsersByUserid(dbm *gorp.DbMap, userid int, username string, password 
     log.Println("Updated")
 }
 
-func DeleteUsersByUserid(dbm *gorp.DbMap, userid int) {
+func DeleteUsersByUserId(dbm *gorp.DbMap, userid int) {
     _, err := dbm.Exec("DELETE FROM Users WHERE userid=?", userid)
     checkErr(err, "Delete failed")
 }
