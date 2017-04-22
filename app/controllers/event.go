@@ -8,12 +8,13 @@ import (
     "github.com/go-gorp/gorp"
     "log"
     "time"
-    // "strconv"
+    "strconv"
 )
 
 type Event struct {
 	*revel.Controller
 }
+
 
 func (c Event) EventDetail(id int) revel.Result {
     ev := SelectEventByEventId(Dbm, id)
@@ -40,8 +41,10 @@ func (c Event) EditEvent(id int) revel.Result {
     log.Println(ev)
     EventTitle := ev.EventTitle
     EventBannerPath := ev.BannerPath
-    EventStart := time.Unix(ev.EventStart, 0)
-    EventEnd := time.Unix(ev.EventEnd, 0)
+    EventStart_ := time.Unix(ev.EventStart, 0)
+    EventStart := TimeToStringHTML(EventStart_)
+    EventEnd_ := time.Unix(ev.EventEnd, 0)
+    EventEnd := TimeToStringHTML(EventEnd_)
     EventDescription := ev.EventDescription
     EventCreatedAt := time.Unix(0, ev.CreatedAt)
     EventUpdatedAt := time.Unix(0, ev.UpdatedAt)
@@ -50,6 +53,61 @@ func (c Event) EditEvent(id int) revel.Result {
         EventDescription, EventCreatedAt, EventUpdatedAt, isAuthorizedAsAdmin)
 }
 
+func TimeToStringHTML(t time.Time) string {
+    year, month_, day := time.Time.Date(t)
+    var month int = int(month_) 
+    hour, minute, second := time.Time.Clock(t)
+    // year = 1990
+    // month = 12
+    // day = 12
+    // hour = 12
+    // minute = 12
+    // second = 12
+
+    yearString := strconv.Itoa(year)
+
+    var monthString string
+    var dayString string
+    var hourString string
+    var minuteString string
+    var secondString string
+
+    if (month < 10) {
+        monthString = "0" + strconv.Itoa(month)
+    } else {
+        monthString = strconv.Itoa(month)    
+    }
+
+    if (day < 10) {
+        dayString = "0" + strconv.Itoa(day)
+    } else {
+        dayString = strconv.Itoa(day)
+    }
+
+    if (hour < 10) {
+        hourString = "0" + strconv.Itoa(hour)
+    } else {
+        hourString = strconv.Itoa(hour)
+    }
+   
+    if (minute < 10) {
+        minuteString = "0" + strconv.Itoa(minute)
+    } else {
+        minuteString = strconv.Itoa(minute)
+    }
+
+    if (second < 10) {
+        secondString = "0" + strconv.Itoa(minute)
+    } else {    
+        secondString = strconv.Itoa(second)
+    }
+
+
+
+    stringTime := yearString + "-" + monthString + "-" + dayString + "T" + hourString + ":" + minuteString + ":" + secondString
+    log.Println(stringTime)
+    return stringTime
+}
 
 
 func InsertEvent(dbm *gorp.DbMap, p models.Event) bool {

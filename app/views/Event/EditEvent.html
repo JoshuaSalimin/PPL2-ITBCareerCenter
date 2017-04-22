@@ -26,24 +26,33 @@
 								</header>
 								<form action="#EditEventPost" method="POST">
 									<h5>Event Title</h5>
-									<input type="text" name="EventTitle">
+									<input type="text" name="EventTitle" value={{.EventTitle}}>
 
 									<h5>Event Start Time</h5>
-										<div class="eventdatetime">
-											<input type="datetime-local" name="EventStart">
+										<div class="eventform">
+											<input type="datetime-local" name="EventStart" value={{.EventStart}}>
 										</div>
 
 									<h5>Event End Time</h5>
-										<div class="eventdatetime">
-											<input type="datetime-local" name="EventEnd">
+										<div class="eventform">
+											<input type="datetime-local" name="EventEnd" value={{.EventEnd}}>
 										</div>
 									<h5>Event Banner</h5>
-
+										<div class="eventform">
+											<div class="kv-avatar" style="width:200px">
+										      	<input name="EventBanner" type="file" class="file-loading">
+										    </div>
+									    </div>
 									<h5>Event Description</h5>
-									<p>CK Editor</p>
+										<div class="eventform">
+											<textarea name="EventDescription" id="eventdescription"></textarea>
+								            <script>
+								            	CKEDITOR.replace('eventdescription');
+								            	CKEDITOR.instances['eventdescription'].setData("{{.EventDescription}}");
+								            </script>
+										</div>
+									<input type="submit" id="applychanges" value="Apply Changes" />
 								</form>
-								
-
 							</article>
 						</div>
 					</div>
