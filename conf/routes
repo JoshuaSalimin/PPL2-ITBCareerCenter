@@ -75,6 +75,7 @@ POST 	/ChangePassword							ChangePassword.Test
 
 #Event
 GET 	/Event/:id 								Event.EventDetail
+GET 	/DeleteEvent/:id 						App.Event
 
 # Ignore favicon requests
 GET     /favicon.ico                            404
