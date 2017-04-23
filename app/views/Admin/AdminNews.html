@@ -13,6 +13,7 @@
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
 		<link rel="stylesheet" href="/public/assets/dist/css/AdminLTE.min.css">
 		<link rel="stylesheet" href="/public/assets/dist/css/skins/_all-skins.min.css">
+		<link rel="stylesheet" href="/public/assets/plugins/datatables/jquery.dataTables.min.css">
 	</head>
 	
 <body class="hold-transition skin-purple sidebar-mini">
@@ -81,13 +82,13 @@
     <!-- Main content -->
     <section class="content">
 
-      <div class="box box-primary">
+      <div class="box box-primary dataTables_wrapper">
 		<div class="box-header">
 		  <i class="ion ion-clipboard"></i>
 
 		  <h3 class="box-title">News</h3>
 
-		  <div class="box-tools pull-right">
+		  <!--<div class="box-tools pull-right">
 			<ul class="pagination pagination-sm inline">
 			  <li><a href="#">&laquo;</a></li>
 			  <li><a href="#">1</a></li>
@@ -95,77 +96,35 @@
 			  <li><a href="#">3</a></li>
 			  <li><a href="#">&raquo;</a></li>
 			</ul>
-		  </div>
+		  </div>-->
 		</div>
 
 		<div class="box-body">
 		  <div class="table-responsive">
-			<table class="table no-margin">
+			<table class="table no-margin sort display dataTable">
 			  <thead>
-			  <tr>
-				<th>ID</th>
-				<th>Title</th>
-				<th>Created At</th>
-				<th>Updated At</th>
+			  <tr role="row">
+				<th class="sorting" width="10%">ID</th>
+				<th class="sorting" width="40%">Title</th>
+				<th class="sorting" width="20%">Created At</th>
+				<th class="sorting" width="20%">Updated At</th>
+				<th width="5%"></th>
+				<th width="5%"></th>
 			  </tr>
 			  </thead>
 			  <tbody>
+			  {{range .news}}
 			  <tr>
-				<td><a>OR9842</a></td>
-				<td>Call of Duty IV</td>
-				<td><span class="label label-success">Shipped</span></td>
-				<td>
-				  <div class="sparkbar" data-color="#00a65a" data-height="20">90,80,90,-70,61,-83,63</div>
+				<td>{{.NewsId}}</td>
+				<td>{{.NewsTitle}}</td>
+				<td>{{.CreatedAt}}</td>
+				<td>{{.UpdatedAt}}</td>
+				<td class="tools">
+					<i class="fa fa-edit"></i>
+                    <i class="fa fa-trash-o"></i>
 				</td>
 			  </tr>
-			  <tr>
-				<td><a href="pages/examples/invoice.html">OR1848</a></td>
-				<td>Samsung Smart TV</td>
-				<td><span class="label label-warning">Pending</span></td>
-				<td>
-				  <div class="sparkbar" data-color="#f39c12" data-height="20">90,80,-90,70,61,-83,68</div>
-				</td>
-			  </tr>
-			  <tr>
-				<td><a href="pages/examples/invoice.html">OR7429</a></td>
-				<td>iPhone 6 Plus</td>
-				<td><span class="label label-danger">Delivered</span></td>
-				<td>
-				  <div class="sparkbar" data-color="#f56954" data-height="20">90,-80,90,70,-61,83,63</div>
-				</td>
-			  </tr>
-			  <tr>
-				<td><a href="pages/examples/invoice.html">OR7429</a></td>
-				<td>Samsung Smart TV</td>
-				<td><span class="label label-info">Processing</span></td>
-				<td>
-				  <div class="sparkbar" data-color="#00c0ef" data-height="20">90,80,-90,70,-61,83,63</div>
-				</td>
-			  </tr>
-			  <tr>
-				<td><a href="pages/examples/invoice.html">OR1848</a></td>
-				<td>Samsung Smart TV</td>
-				<td><span class="label label-warning">Pending</span></td>
-				<td>
-				  <div class="sparkbar" data-color="#f39c12" data-height="20">90,80,-90,70,61,-83,68</div>
-				</td>
-			  </tr>
-			  <tr>
-				<td><a href="pages/examples/invoice.html">OR7429</a></td>
-				<td>iPhone 6 Plus</td>
-				<td><span class="label label-danger">Delivered</span></td>
-				<td>
-				  <div class="sparkbar" data-color="#f56954" data-height="20">90,-80,90,70,-61,83,63</div>
-				</td>
-			  </tr>
-			  <tr>
-				<td><a href="pages/examples/invoice.html">OR9842</a></td>
-				<td>Call of Duty IV</td>
-				<td><span class="label label-success">Shipped</span></td>
-				<td>
-				  <div class="sparkbar" data-color="#00a65a" data-height="20">90,80,90,-70,61,-83,63</div>
-				</td>
-			  </tr>
+			  {{end}}
 			  </tbody>
 			</table>
 		  </div>
@@ -274,6 +233,7 @@
 <script src="/public/assets/js/bootstrap.min.js"></script>
 <script src="/public/assets/dist/js/app.min.js"></script>
 <script src="/public/assets/plugins/slimScroll/jquery.slimscroll.min.js"></script>
+<script src="/public/assets/plugins/datatables/jquery.dataTables.min.js"></script>
 
 </body>
 </html>
