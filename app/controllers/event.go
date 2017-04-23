@@ -64,11 +64,18 @@ func (c Event) UpdateEvent() revel.Result{
     id, _ := strconv.Atoi(c.Request.Form.Get("id"))
     ev := SelectEventByEventId(Dbm, id)
 
+
     EventStart_RFC3339 := c.Request.Form.Get("EventStart")
     EventEnd_RFC3339 := c.Request.Form.Get("EventEnd")
     EventStart, _ := time.Parse(layout, EventStart_RFC3339)
     EventEnd, _ := time.Parse(layout, EventEnd_RFC3339)
 
+    trunc := -7 * time.Hour
+
+    EventStart = EventStart.Add(trunc)
+    EventEnd = EventEnd.Add(trunc)
+
+    log.Println(EventStart)
     EventTitle := c.Request.Form.Get("EventTitle")
     EventBanner := c.Request.Form.Get("EventBanner")
     EventDescription := c.Request.Form.Get("EventDescription")

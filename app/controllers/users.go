@@ -123,7 +123,6 @@ func InsertUsers(dbm *gorp.DbMap, u *models.Users){
     checkErr(err, "Insert failed")
 }
 
-
 func SelectAllUsers(dbm *gorp.DbMap) []models.Users {
 	var u []models.Users
 

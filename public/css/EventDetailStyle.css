@@ -1,12 +1,16 @@
 #div-editdelete {
   margin-left: 200px;
 }
+
 #divedit {
   float: center;
   text-align:center;
   border-style: solid;
   margin-bottom: 20px;
 }
+
+
+
 #divdelete {
   float: center;
   text-align:center;  
@@ -27,4 +31,10 @@
 
 .eventform {
 	margin-bottom: 20px;
+}
+
+.event-time-div {
+  position: absolute;
+  float: center;
+  text-align: center;
 }
