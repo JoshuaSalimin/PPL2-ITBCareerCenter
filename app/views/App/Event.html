@@ -1,6 +1,10 @@
+<head>
+	<link rel="stylesheet" type="text/css" href="/public/css/EventDetailStyle.css">
+	<script src="/public/js/EventDetail.js"></script>
+</head>
+
 <!-- Header -->
 {{template "header.html" .}}
-
 <!-- Content -->
 	<div id="page-wrapper">
 		<!-- Nav -->
@@ -10,6 +14,13 @@
 			<section class="wrapper style1">
 				<div class="container">
 					<div id="content">
+
+					<div id="divedit">
+						<form action="#AddEvent" method=get>
+						    <input type="submit" id="AddEventButton" value="Add New Event" />
+						</form>
+					</div>			
+					<br>
 					{{range .list}}
 
 						<span class="image featured">

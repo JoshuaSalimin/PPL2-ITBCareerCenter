@@ -36,9 +36,6 @@
 								</header>
 								{{end}}
 
-								{{if .isAuthorizedAsAdmin}}
-
-								{{end}}
 
 
 								{{if .EventBannerPath}}
@@ -49,15 +46,17 @@
 
 								{{if .EventStart}}
 									{{if .EventEnd}}
-									<h4>Event will hold on : </h4>
-									<p>{{.EventStart}} <b>until</b> {{.EventEnd}}</p>
-									<br>
+									<div class="event-time-div">
+										<h4>Event will hold on : </h4>
+										<p>{{.EventStart}} <b>until</b> {{.EventEnd}}</p>
+										<br>
+									</div>
 									{{end}}
 								{{end}}
 
 								{{if .EventDescription}}
 									<h4>What is this event about?</h4>
-									{{.EventDescription}}
+									{{raw .EventDescription}}
 								{{end}}
 
 
