@@ -43,6 +43,9 @@ POST     /News/EditSubmit/                   	News.EditSubmit
 GET 	/ChangePassword							ChangePassword.ChangePassword
 POST 	/ChangePassword							ChangePassword.Test
 
+#Admin
+GET		/Admin/AdminNews						Admin.AdminNews
+
 # Ignore favicon requests
 GET     /favicon.ico                            404
 
