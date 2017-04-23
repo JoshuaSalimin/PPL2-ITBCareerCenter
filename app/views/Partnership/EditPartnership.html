@@ -1,0 +1,40 @@
+<!-- Header -->
+{{template "header.html" .}}
+<!-- Content -->
+	<div id="page-wrapper">
+	<!-- Nav -->
+		{{template "nav.html" .}}
+		<!-- Main -->
+		<div id="page-wrapper">
+			<!-- Main -->
+				<section class="wrapper style1">
+					<div class="container">
+						<div id="content">
+							<form action=# method="POST" enctype="multipart/form-data">
+						        <strong>Partnership:</strong><br><br>
+								<div>
+									<button type="button" class="btn btn-success btn-number" style="margin-top: 1em; margin-bottom: 1em;" id="social-media-add">
+					                	<span class="glyphicon glyphicon-plus"></span>
+					              	</button>
+								</div>
+								<!-- jquery add elements-->
+								<div>
+								<p>
+									<strong>Nama Partnership</strong>
+									<input type="text" name="user.CompanyName" value="{{.user.CompanyName}}">
+								</p>
+								<input type="file" name="fileToUpload" id="fileToUpload" accept="image/*">
+								<br>
+								</div>
+							    <br>
+							    	<input type="submit" value="Save" name="submit"/>
+						    	</p>
+							</form>
+						</div>
+					</div>
+				</section>
+		</div>
+	</div>
+<!-- Footer -->
+{{template "footer.html" .}}
+

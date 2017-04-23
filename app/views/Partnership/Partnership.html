@@ -1,0 +1,40 @@
+{{set . "title" "ITB Career Center Entrepreneurship Partnership"}}
+
+<!-- Header -->
+{{template "header.html" .}}
+
+	<!-- Content -->
+		<div id="page-wrapper">
+	<!-- Nav -->
+		{{template "nav.html" .}}
+			
+	<!-- Main -->
+		<!-- Posts -->
+		<section class="wrapper style1">
+			<div class="container">
+				{{if .authorized}}
+					<a href="#" style="color: white;"><button class="btn btn-info btn-lg">Edit This Page</button></a>
+				{{end}}
+				<a href="/EditPartnership" style="color: white;"><button class="btn btn-info btn-lg">Edit This Page</button></a>
+				<br><br>
+				  <div class="row">
+						<section class="6u 12u(narrower)">
+							<a href="" style="color: black;">
+								<div class="box post">
+									<div class="image left"><img src="/public/images/pic02.jpg" alt="" /></div>
+									<div class="inner">
+										<h3></h3>
+										<p></p>
+									</div>
+								</div>
+							</a>
+						</section>
+					</div>
+				</div>
+			</div>
+			
+		</section>
+				
+		</div>		
+<!-- Footer -->
+{{template "footer.html" .}}

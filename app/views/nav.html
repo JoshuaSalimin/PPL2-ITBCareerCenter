@@ -3,19 +3,20 @@
 		<nav id="nav">
 			<ul>
 				<li {{if .home}}class="current"{{end}}><a href="/">Home</a></li>
-				
+
+				<li {{if .about}}class="current"{{end}}><a href="/About">About</a></li>
+
+				<li {{if .events}}class="current"{{end}}><a href="/Events">Events</a></li>
 				
 				<li {{if .news}}class="current"{{end}}><a href="/News">News</a></li>
 
 				<li {{if .profiles}}class="current"{{end}}><a href="/ListProfiles">Profiles</a></li>				
-				
-				<li {{if .about}}class="current"{{end}}><a href="/About">About</a></li>
-				
-				
+							
+				<li {{if .login}}class="current"{{end}}><a href="/Login">Login</a></li>
+								
 				<li {{if .contact}}class="current"{{end}}><a href="/Contact">Contact</a></li>
 				
-				
-				<li {{if .login}}class="current"{{end}}><a href="/Login">Login</a></li>
+				<li {{if .partnership}}class="current"{{end}}><a href="/Partnership">Partnership</a></li>
 							
 			</ul>
 		</nav>
