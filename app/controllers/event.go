@@ -9,6 +9,7 @@ import (
     "log"
     "time"
     "strconv"
+    "html"
 )
 
 type Event struct {
@@ -21,9 +22,14 @@ func (c Event) EventDetail(id int) revel.Result {
     log.Println(ev)
     EventTitle := ev.EventTitle
     EventBannerPath := ev.BannerPath
-    EventStart := time.Unix(ev.EventStart, 0)
-    EventEnd := time.Unix(ev.EventEnd, 0)
+    _EventStart := time.Unix(ev.EventStart, 0)
+    _EventEnd := time.Unix(ev.EventEnd, 0)
+    EventStart := TimeToString(_EventStart)
+    EventEnd := TimeToString(_EventEnd)
+
     EventDescription := ev.EventDescription
+    EventDescription = html.UnescapeString(EventDescription)
+    log.Println(EventDescription)
     EventCreatedAt := time.Unix(0, ev.CreatedAt)
     EventUpdatedAt := time.Unix(0, ev.UpdatedAt)
     isAuthorizedAsAdmin := true
@@ -53,16 +59,45 @@ func (c Event) EditEvent(id int) revel.Result {
         EventDescription, EventCreatedAt, EventUpdatedAt, isAuthorizedAsAdmin)
 }
 
-func TimeToStringHTML(t time.Time) string {
+func (c Event) UpdateEvent() revel.Result{
+    layout := "2006-01-02T15:04"       
+    id, _ := strconv.Atoi(c.Request.Form.Get("id"))
+    ev := SelectEventByEventId(Dbm, id)
+
+    EventStart_RFC3339 := c.Request.Form.Get("EventStart")
+    EventEnd_RFC3339 := c.Request.Form.Get("EventEnd")
+    EventStart, _ := time.Parse(layout, EventStart_RFC3339)
+    EventEnd, _ := time.Parse(layout, EventEnd_RFC3339)
+
+    EventTitle := c.Request.Form.Get("EventTitle")
+    EventBanner := c.Request.Form.Get("EventBanner")
+    EventDescription := c.Request.Form.Get("EventDescription")
+
+    log.Println(ev)
+    log.Println(EventStart)
+    log.Println(EventEnd)
+    log.Println(EventTitle)
+    log.Println(EventBanner)
+    log.Println(EventDescription)
+
+    ev.EventTitle = EventTitle
+    ev.EventStart = EventStart.Unix()
+    ev.EventEnd = EventEnd.Unix()
+    ev.EventDescription = EventDescription
+    ev.UpdatedAt = time.Now().UnixNano()
+
+    UpdateEventDB(Dbm, ev)
+
+    log.Println(ev)
+
+
+    return c.Redirect("/Event")
+}
+
+func TimeToString(t time.Time) string {
     year, month_, day := time.Time.Date(t)
     var month int = int(month_) 
-    hour, minute, second := time.Time.Clock(t)
-    // year = 1990
-    // month = 12
-    // day = 12
-    // hour = 12
-    // minute = 12
-    // second = 12
+    hour, minute, _ := time.Time.Clock(t)
 
     yearString := strconv.Itoa(year)
 
@@ -70,7 +105,6 @@ func TimeToStringHTML(t time.Time) string {
     var dayString string
     var hourString string
     var minuteString string
-    var secondString string
 
     if (month < 10) {
         monthString = "0" + strconv.Itoa(month)
@@ -96,15 +130,55 @@ func TimeToStringHTML(t time.Time) string {
         minuteString = strconv.Itoa(minute)
     }
 
-    if (second < 10) {
-        secondString = "0" + strconv.Itoa(minute)
-    } else {    
-        secondString = strconv.Itoa(second)
+    s := dayString + "-" + monthString + "-" + yearString + " " + hourString + ":" + minuteString
+    return s
+}
+
+func TimeToStringHTML(t time.Time) string {
+    year, month_, day := time.Time.Date(t)
+    var month int = int(month_) 
+    hour, minute, _ := time.Time.Clock(t)
+
+    yearString := strconv.Itoa(year)
+
+    var monthString string
+    var dayString string
+    var hourString string
+    var minuteString string
+    // var secondString string
+
+    if (month < 10) {
+        monthString = "0" + strconv.Itoa(month)
+    } else {
+        monthString = strconv.Itoa(month)    
     }
 
+    if (day < 10) {
+        dayString = "0" + strconv.Itoa(day)
+    } else {
+        dayString = strconv.Itoa(day)
+    }
 
+    if (hour < 10) {
+        hourString = "0" + strconv.Itoa(hour)
+    } else {
+        hourString = strconv.Itoa(hour)
+    }
+   
+    if (minute < 10) {
+        minuteString = "0" + strconv.Itoa(minute)
+    } else {
+        minuteString = strconv.Itoa(minute)
+    }
 
-    stringTime := yearString + "-" + monthString + "-" + dayString + "T" + hourString + ":" + minuteString + ":" + secondString
+    // if (second < 10) {
+    //     secondString = "0" + strconv.Itoa(minute)
+    // } else {    
+    //     secondString = strconv.Itoa(second)
+    // }
+
+    stringTime := yearString + "-" + monthString + "-" + dayString + "T" + hourString + ":" + minuteString
+    //":" + secondString
     log.Println(stringTime)
     return stringTime
 }
@@ -143,6 +217,12 @@ func DeleteEventByEventId(dbm *gorp.DbMap, eventid int) bool {
     }else{
         return false;
     }
+}
+
+func UpdateEventDB(dbm *gorp.DbMap, u models.Event) {
+    count, err := dbm.Update(&u)
+    checkErr(err, "Update failed")  
+    log.Println("Rows updated:", count)
 }
 
 
