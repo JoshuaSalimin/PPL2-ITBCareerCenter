@@ -46,12 +46,17 @@
 
 								{{if .EventStart}}
 									{{if .EventEnd}}
-									<div class="event-time-div">
-										<h4>Event will hold on : </h4>
-										<p>{{.EventStart}} <b>until</b> {{.EventEnd}}</p>
-										<br>
-									</div>
+									<h4>Event will hold on : </h4>
+									<p>{{.EventStart}} <b>until</b> {{.EventEnd}}</p>
+
 									{{end}}
+								{{end}}
+
+								{{if .EventLocation}}
+									<h4>Location</h4>
+									{{.EventLocation}}
+									<br>									
+									<br>
 								{{end}}
 
 								{{if .EventDescription}}

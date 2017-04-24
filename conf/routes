@@ -45,6 +45,8 @@ GET 	/Event/:id 								Event.EventDetail
 GET 	/DeleteEvent/:id 						Event.DeleteEvent
 GET 	/EditEvent/:id 							Event.EditEvent
 POST 	/EditEvent/ 							Event.UpdateEvent
+GET 	/AddEvent								Event.AddEvent
+POST 	/AddEvent 								Event.AddEventToDB
 
 # Ignore favicon requests
 GET     /favicon.ico                            404

@@ -16,6 +16,41 @@ type Event struct {
 	*revel.Controller
 }
 
+func (c Event) AddEvent() revel.Result {
+    isAuthorizedAsAdmin := true
+    return c.Render(isAuthorizedAsAdmin)
+}
+
+func (c Event) AddEventToDB() revel.Result {
+    layout := "2006-01-02T15:04"      
+    EventStart_RFC3339 := c.Request.Form.Get("EventStart")
+    EventEnd_RFC3339 := c.Request.Form.Get("EventEnd")
+    EventStart, _ := time.Parse(layout, EventStart_RFC3339)
+    EventEnd, _ := time.Parse(layout, EventEnd_RFC3339)
+
+    trunc := -7 * time.Hour
+
+    EventStart = EventStart.Add(trunc)
+    EventEnd = EventEnd.Add(trunc)
+
+
+    EventLocation := c.Request.Form.Get("EventLocation")
+    EventTitle := c.Request.Form.Get("EventTitle")
+    // EventBanner := c.Request.Form.Get("EventBanner")
+    EventDescription := c.Request.Form.Get("EventDescription")
+
+    ev := models.CreateDefaultEvent3(EventTitle)
+    ev.EventStart = EventStart.Unix()
+    ev.EventEnd = EventEnd.Unix()
+    ev.EventLocation = EventLocation
+    ev.EventDescription = EventDescription
+
+
+    InsertEvent(Dbm, ev)
+
+    return c.Redirect("/Event")
+
+}
 
 func (c Event) EventDetail(id int) revel.Result {
     ev := SelectEventByEventId(Dbm, id)
@@ -26,7 +61,7 @@ func (c Event) EventDetail(id int) revel.Result {
     _EventEnd := time.Unix(ev.EventEnd, 0)
     EventStart := TimeToString(_EventStart)
     EventEnd := TimeToString(_EventEnd)
-
+    EventLocation := ev.EventLocation
     EventDescription := ev.EventDescription
     EventDescription = html.UnescapeString(EventDescription)
     log.Println(EventDescription)
@@ -34,7 +69,7 @@ func (c Event) EventDetail(id int) revel.Result {
     EventUpdatedAt := time.Unix(0, ev.UpdatedAt)
     isAuthorizedAsAdmin := true
     return c.Render(true, id, EventTitle, EventBannerPath, EventStart, EventEnd, 
-        EventDescription, EventCreatedAt, EventUpdatedAt, isAuthorizedAsAdmin)
+        EventLocation, EventDescription, EventCreatedAt, EventUpdatedAt, isAuthorizedAsAdmin)
 }
 
 func (c Event) DeleteEvent(id int) revel.Result {
@@ -51,19 +86,19 @@ func (c Event) EditEvent(id int) revel.Result {
     EventStart := TimeToStringHTML(EventStart_)
     EventEnd_ := time.Unix(ev.EventEnd, 0)
     EventEnd := TimeToStringHTML(EventEnd_)
+    EventLocation := ev.EventLocation
     EventDescription := ev.EventDescription
     EventCreatedAt := time.Unix(0, ev.CreatedAt)
     EventUpdatedAt := time.Unix(0, ev.UpdatedAt)
     isAuthorizedAsAdmin := true
     return c.Render(true, id, EventTitle, EventBannerPath, EventStart, EventEnd, 
-        EventDescription, EventCreatedAt, EventUpdatedAt, isAuthorizedAsAdmin)
+        EventLocation, EventDescription, EventCreatedAt, EventUpdatedAt, isAuthorizedAsAdmin)
 }
 
 func (c Event) UpdateEvent() revel.Result{
     layout := "2006-01-02T15:04"       
     id, _ := strconv.Atoi(c.Request.Form.Get("id"))
     ev := SelectEventByEventId(Dbm, id)
-
 
     EventStart_RFC3339 := c.Request.Form.Get("EventStart")
     EventEnd_RFC3339 := c.Request.Form.Get("EventEnd")
@@ -75,21 +110,19 @@ func (c Event) UpdateEvent() revel.Result{
     EventStart = EventStart.Add(trunc)
     EventEnd = EventEnd.Add(trunc)
 
-    log.Println(EventStart)
+
+    EventLocation := c.Request.Form.Get("EventLocation")
     EventTitle := c.Request.Form.Get("EventTitle")
-    EventBanner := c.Request.Form.Get("EventBanner")
+    // EventBanner := c.Request.Form.Get("EventBanner")
     EventDescription := c.Request.Form.Get("EventDescription")
 
     log.Println(ev)
-    log.Println(EventStart)
-    log.Println(EventEnd)
-    log.Println(EventTitle)
-    log.Println(EventBanner)
-    log.Println(EventDescription)
+
 
     ev.EventTitle = EventTitle
     ev.EventStart = EventStart.Unix()
     ev.EventEnd = EventEnd.Unix()
+    ev.EventLocation = EventLocation
     ev.EventDescription = EventDescription
     ev.UpdatedAt = time.Now().UnixNano()
 
