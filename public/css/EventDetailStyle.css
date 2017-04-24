@@ -9,7 +9,12 @@
   margin-bottom: 20px;
 }
 
-
+.divlocation {
+  float: center;
+  text-align:center;
+  border-style: solid;
+  margin-bottom: 20px;
+}
 
 #divdelete {
   float: center;
@@ -34,7 +39,5 @@
 }
 
 .event-time-div {
-  position: absolute;
-  float: center;
   text-align: center;
 }

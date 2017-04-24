@@ -13,6 +13,7 @@ type Event struct {
 	BannerPath		string 	`db:"banner_path"`
 	EventStart		int64	`db:"event_start"`
 	EventEnd		int64	`db:"event_end"`
+	EventLocation	string  `db:"event_location"`
 	EventDescription	string 	`db:"event_description"`
     CreatedAt       int64   `db:"news_created_at"`
     UpdatedAt		int64	`db:"news_updated_at"`
@@ -22,9 +23,10 @@ func CreateDefaultEvent(event_title string) Event {
 	event_dummy := Event {
 	EventId 	: 0,
 	EventTitle	: "DEFAULT_TITLE",
-	BannerPath	: "public/images/event1.jpg",
+	BannerPath	: "/public/images/event1.jpg",
 	EventStart	: time.Now().Unix(),
 	EventEnd	: time.Now().Unix(),
+	EventLocation : "-",
 	EventDescription	: "DEFAULT_DESCRIPTION",
     CreatedAt       : time.Now().UnixNano(), 
     UpdatedAt		: 0,
@@ -36,9 +38,10 @@ func CreateDefaultEvent2(event_title string) Event {
 	event_dummy := Event {
 	EventId 	: 0,
 	EventTitle	: "DEFAULT_TITLE",
-	BannerPath	: "public/images/event2.jpg",
+	BannerPath	: "/public/images/event2.jpg",
 	EventStart	: time.Now().Unix(),
 	EventEnd	: time.Now().Unix(),
+	EventLocation : "-"	,
 	EventDescription	: "DEFAULT_DESCRIPTION",
     CreatedAt       : time.Now().UnixNano(), 
     UpdatedAt		: 0,
@@ -50,9 +53,10 @@ func CreateDefaultEvent3(event_title string) Event {
 	event_dummy := Event {
 	EventId 	: 0,
 	EventTitle	: "DEFAULT_TITLE",
-	BannerPath	: "public/images/event3.jpg",
+	BannerPath	: "/public/images/event3.jpg",
 	EventStart	: time.Now().Unix(),
 	EventEnd	: time.Now().Unix(),
+	EventLocation : "-"	,
 	EventDescription	: "DEFAULT_DESCRIPTION",
     CreatedAt       : time.Now().UnixNano(), 
     UpdatedAt		: 0,
