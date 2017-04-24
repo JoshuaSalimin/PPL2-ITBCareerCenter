@@ -43,6 +43,8 @@ POST     /News/EditSubmit/                   	News.EditSubmit
 GET      /Partnership							Partnership.Partnership
 GET      /EditPartnership						Partnership.EditPartnership
 POST     /SavePartnership						Partnership.SavePartnership
+POST     /UpdatePartnership						Partnership.UpdatePartnership
+POST     /DeletePartnership						Partnership.DeletePartnership
 
 # Change Password
 GET 	/ChangePassword							ChangePassword.ChangePassword

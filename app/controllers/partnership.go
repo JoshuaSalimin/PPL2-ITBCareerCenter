@@ -47,7 +47,6 @@ func PartnershiptoDB(dbm *gorp.DbMap, p models.Partnership){
 }
 
 func (p Partnership) SavePartnership(partnershipID []int, partnershipName []string, partnershipLink []string) revel.Result {
-    //Update Product Photos
    if ( (len(p.Params.Files["partnershipImg[]"]) != 0) || (len(partnershipID) != 0) || (len(partnershipName) != 0) || (len(partnershipLink) != 0) ) {
        var partnershipImg [][]byte
        p.Params.Bind(&partnershipImg, "partnershipImg")
@@ -73,6 +72,25 @@ func (p Partnership) SavePartnership(partnershipID []int, partnershipName []stri
            InsertPartnership(Dbm, newPartnership)
        }
    }
+    return p.Redirect(Partnership.Partnership);
+}
+
+func (p Partnership) DeletePartnership(dbm *gorp.DbMap, partnershipID int) revel.Result {
+     //_, err := dbm.Exec("DELETE FROM Partnership WHERE partnershipid=?", partnershipID)
+     //checkErr(err, "Delete failed")  
+    log.Println("partnership id:", partnershipID)
+    return p.Redirect(Partnership.EditPartnership);
+}
+
+func (p Partnership) UpdatePartnership(dbm *gorp.DbMap, partnershipID int, partnershipName string, partnershipLink string, partnershipImg []byte) revel.Result {
+    newPartnership := SelectPartnershipByPartnershipID(Dbm, partnershipID)
+    newPartnership.PartnershipName = partnershipName
+    newPartnership.PartnershipLink = partnershipLink
+    if(len(partnershipImg) != 0){
+        filename := p.Params.Files["partnershipImg"][0].Filename
+        newPartnership.ImgPath = p.UploadImagePartnership(partnershipImg, filename)
+   }
+   PartnershiptoDB(Dbm, newPartnership)
     return p.Redirect(Partnership.Partnership);
 }
 

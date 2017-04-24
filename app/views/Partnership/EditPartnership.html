@@ -12,35 +12,37 @@
 				<section class="wrapper style1">
 					<div class="container">
 						<div id="content">
-							<form action=/SavePartnership method="POST" enctype="multipart/form-data">
-						        <strong>Partnership:</strong><br><br>
-								<!-- jquery add elements-->
-								{{range .allPartnership}}
-								<div>
-								<p>
-									<strong>Nama Partnership</strong>
-									<input type="hidden" name="partnershipID[]" value="{{.PartnershipID}}">
-									<input type="text" name="partnershipName[]" value="{{.PartnershipName}}">
-									<strong>URL Partnership (begin with http://)</strong>
-									<input type="text" name="partnershipLink[]" value="{{.PartnershipLink}}">
-									{{if .ImgPath}}
-									<strong>Image already uploaded, choose new image to change</strong>
-									{{end}}
-									<input type="file" name="partnershipImg[]" accept="image/*">
-									<br>
-									<input type="submit" value="Delete" name="delete" style="background-color: red;"/>
+							<strong>Partnership:</strong><br><br>
+							{{range .allPartnership}}
+								<form action=/UpdatePartnership method="POST" enctype="multipart/form-data">
+									<!-- jquery add elements-->
+									<div>
+									<p>
+										<strong>Nama Partnership</strong>
+										<input type="hidden" name="partnershipID" value="{{.PartnershipID}}">
+										<input type="text" name="partnershipName" value="{{.PartnershipName}}">
+										<strong>URL Partnership (begin with http://)</strong>
+										<input type="text" name="partnershipLink" value="{{.PartnershipLink}}">
+										{{if .ImgPath}}
+										<strong>Image already uploaded, choose new image to change</strong>
+										{{end}}
+										<input type="file" name="partnershipImg" accept="image/*">
+									</p>
+									</div>
+								    	<input type="submit" value="Update" name="submit" />
+								</form>
 								<br>
-								</p>
-								</div>
-								{{end}}
-								<div>
-									<button type="button" class="btn btn-success btn-number" style="margin-top: 1em; margin-bottom: 1em;" id="partnership-add">
-					                	<span class="glyphicon glyphicon-plus"></span>
-					              	</button>
-								</div>
-							    <br><br>
-							    	<input type="submit" value="Save" name="submit" />
-							</form>
+								<form action=/DeletePartnership method="POST">
+									<input type="hidden" name="partnershipID" value="{{.PartnershipID}}">
+									<input type="submit" value="Delete" name="delete" style="background-color: red;"/>
+								</form>
+								<br><br>
+							{{end}}
+							<div>
+								<button type="button" class="btn btn-success btn-number" style="margin-top: 1em; margin-bottom: 1em;" id="partnership-add">
+						            <span class="glyphicon glyphicon-plus"></span>
+						        </button>
+							</div>
 						</div>
 					</div>
 				</section>
@@ -53,7 +55,7 @@ require(['jquery'],
 function($) {
 $("#partnership-add").click(function() {
 		$(this).before(
-			$('<div><p><strong>Nama Partnership</strong><input type="text" name="partnershipName[]"><strong>URL Partnership (begin with http://)</strong><input type="text" name="partnershipLink[]"><input type="file" name="partnershipImg[]" accept="image/*"><br></p></div>')
+			$('<form action=/SavePartnership method="POST" enctype="multipart/form-data"><div><p><strong>Nama Partnership</strong><input type="text" name="partnershipName[]"><strong>URL Partnership (begin with http://)</strong><input type="text" name="partnershipLink[]"><input type="file" name="partnershipImg[]" accept="image/*"></p></div><input type="submit" value="Save" name="submit"/></form><br><br>')
 		);
 	});	
 });
