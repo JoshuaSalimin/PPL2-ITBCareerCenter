@@ -3,13 +3,23 @@ package controllers
 import (
 	"github.com/revel/revel"
     models "PPL2-ITBCareerCenter/app/models"
-    // "github.com/revel/revel"
-    // "encoding/json"
+    "os"
     "github.com/go-gorp/gorp"
     "log"
     "time"
     "strconv"
     "html"
+    "path/filepath"
+    "math/rand" 
+    "encoding/hex"    
+    "fmt"
+)
+
+const (
+    _      = iota
+    KB int = 1 << (10 * iota)
+    MB
+    GB
 )
 
 type Event struct {
@@ -21,7 +31,8 @@ func (c Event) AddEvent() revel.Result {
     return c.Render(isAuthorizedAsAdmin)
 }
 
-func (c Event) AddEventToDB() revel.Result {
+
+func (c Event) AddEventToDB(eventbanner []byte) revel.Result {
     layout := "2006-01-02T15:04"      
     EventStart_RFC3339 := c.Request.Form.Get("EventStart")
     EventEnd_RFC3339 := c.Request.Form.Get("EventEnd")
@@ -33,18 +44,31 @@ func (c Event) AddEventToDB() revel.Result {
     EventStart = EventStart.Add(trunc)
     EventEnd = EventEnd.Add(trunc)
 
-
     EventLocation := c.Request.Form.Get("EventLocation")
     EventTitle := c.Request.Form.Get("EventTitle")
-    // EventBanner := c.Request.Form.Get("EventBanner")
-    EventDescription := c.Request.Form.Get("EventDescription")
 
     ev := models.CreateDefaultEvent3(EventTitle)
+
+    // log.Println("FFFFFFFFFFFFFFF")
+
+    // if (len(eventbanner) != 0) {
+    if (len(c.Params.Files["eventbanner"]) != 0) {
+        log.Println("YASSS")        
+        filename := c.Params.Files["eventbanner"][0].Filename
+        relativePath := c.UploadBanner(eventbanner, filename)
+        ev.BannerPath = relativePath
+    } else {
+        log.Println("STILL FAILED " + strconv.Itoa(len(c.Params.Files["eventbanner"])))
+    }
+    
+    // log.Println("FFFFFFFFFFFFFFF")
+
+    EventDescription := c.Request.Form.Get("EventDescription")
+
     ev.EventStart = EventStart.Unix()
     ev.EventEnd = EventEnd.Unix()
     ev.EventLocation = EventLocation
     ev.EventDescription = EventDescription
-
 
     InsertEvent(Dbm, ev)
 
@@ -118,7 +142,6 @@ func (c Event) UpdateEvent() revel.Result{
 
     log.Println(ev)
 
-
     ev.EventTitle = EventTitle
     ev.EventStart = EventStart.Unix()
     ev.EventEnd = EventEnd.Unix()
@@ -130,9 +153,30 @@ func (c Event) UpdateEvent() revel.Result{
 
     log.Println(ev)
 
-
     return c.Redirect("/Event")
 }
+
+
+func (c Event) UploadBanner(image []byte, filename string) string {
+    c.Validation.MaxSize(image, 2*MB).
+        Message("File cannot be larger than 2MB")
+
+    fileExt := filepath.Ext(filename)
+    randFilename := randBannerString() + fileExt
+    relativePath := fmt.Sprintf("/public/images/banner/%s", randFilename)
+    dstPath := fmt.Sprintf("%s/public/images/banner/", revel.BasePath)
+    if _, err := os.Stat(dstPath); os.IsNotExist(err) {
+        os.Mkdir(dstPath, 0777)
+    }
+    dstPath = dstPath + "/" + randFilename
+    dstFile, _ := os.Create(dstPath)
+    defer dstFile.Close()
+    defer os.Chmod(dstPath, (os.FileMode)(0644))
+
+    dstFile.Write(image)
+    return relativePath
+}
+
 
 func TimeToString(t time.Time) string {
     year, month_, day := time.Time.Date(t)
@@ -218,7 +262,6 @@ func TimeToStringHTML(t time.Time) string {
     // }
 
     stringTime := yearString + "-" + monthString + "-" + dayString + "T" + hourString + ":" + minuteString
-    //":" + secondString
     log.Println(stringTime)
     return stringTime
 }
@@ -265,85 +308,8 @@ func UpdateEventDB(dbm *gorp.DbMap, u models.Event) {
     log.Println("Rows updated:", count)
 }
 
-
-// func (c News) Detail() revel.Result {
-//         var id int;
-//         c.Params.Bind(&id,"id");
-//         news :=  SelectNewsByNewsId(Dbm,id);
-//         return c.Render(news);
-// }
-
-// func (c News) Delete() revel.Result {
-//         id,_ := strconv.Atoi(c.Request.Form.Get("id"));
-//         success := DeleteNewsByNewsid(Dbm,id);
-//         if (success){
-//             return c.Redirect(News.List);
-//         }else{
-//             return c.Redirect(App.Index);        
-//         }
-// }
-
-// func (c News) EditForm() revel.Result {
-//         var id int;
-//         c.Params.Bind(&id,"id");
-//         news :=  SelectNewsByNewsId(Dbm,id);
-//         return c.Render(news);
-// }
-
-// func (c News) EditSubmit() revel.Result {
-//     newsid,_ := strconv.ParseInt(c.Request.Form.Get("newsid"),0,64);
-//     newscreatedat,_ := strconv.ParseInt(c.Request.Form.Get("newscreated"),0,64);
-//     innews := models.News{
-//         NewsId : newsid,
-//         NewsTitle : c.Request.Form.Get("newstitle"),
-//         Content : c.Request.Form.Get("newscontent"),
-//         CreatedAt : newscreatedat,
-//         UpdatedAt : time.Now().UnixNano(), 
-//     }
-//     success := UpdateNews(Dbm, innews);
-//     if (success){
-//         return c.Redirect(News.List);
-//     }else{
-//         return c.Redirect(App.Index);        
-//     }
-// }
-
-
-// func InsertNews(dbm *gorp.DbMap, p models.News) bool{
-//     err := dbm.Insert(&p)    
-//     checkErr(err, "Insert failed")    
-//     if(err == nil){
-//         return true;
-//     }else{
-//         return false;
-//     }
-// }
-
-// func SelectAllNews(dbm *gorp.DbMap) []models.News {
-// 	var p []models.News
-
-//     _, err := dbm.Select(&p, "SELECT * FROM News")
-//     checkErr(err, "Select failed")
-//     log.Println("All rows:")
-//     return p 	
-// }
-
-// func SelectNewsByNewsId(dbm *gorp.DbMap, newsid int) models.News {
-// 	var p models.News
-//     err := dbm.SelectOne(&p, "SELECT * FROM News WHERE newsid=?", newsid)
-//     checkErr(err, "SelectOne failed")
-//     return p
-// }
-
-// func UpdateNews(dbm *gorp.DbMap, p models.News) bool{
-// 	count, err := dbm.Update(&p)
-// 	checkErr(err, "Update failed")	
-//     log.Println("Rows updated:", count)
-//     if(err == nil){
-//         return true;
-//     }else{
-//         return false;
-//     }
-// }
-
-
+func randBannerString() string {
+    randBytes := make([]byte, 16)
+    rand.Read(randBytes)
+    return hex.EncodeToString(randBytes)
+}
