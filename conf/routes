@@ -41,7 +41,6 @@ POST     /News/Delete/                          News.Delete
 GET      /News/EditForm/:id                     News.EditForm
 POST     /News/EditSubmit/                   	News.EditSubmit
 
-<<<<<<< HEAD
 #UserManagement
 GET 	/Users/List 							Users.Users
 GET 	/Users/List/:page						Users.Users
@@ -59,11 +58,10 @@ POST	/Users/Bundles/Add 						Bundles.Add
 POST	/Users/Bundles/Delete 					Bundles.Delete
 
 POST 	/Users/Bundles/DownloadCSV				Bundles.DownloadCSV
-=======
+
 # Change Password
 GET 	/ChangePassword							ChangePassword.ChangePassword
 POST 	/ChangePassword							ChangePassword.Test
->>>>>>> c069869d7e547877615b62cae126111a32a91a79
 
 # Ignore favicon requests
 GET     /favicon.ico                            404
