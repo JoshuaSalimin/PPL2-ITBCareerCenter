@@ -39,26 +39,37 @@ func InsertPartnership(dbm *gorp.DbMap, p models.Partnership){
     err := dbm.Insert(&p)
     checkErr(err, "Insert failed")
 }
-
+    
 func PartnershiptoDB(dbm *gorp.DbMap, p models.Partnership){
     count, err := dbm.Update(&p)
     checkErr(err, "Update failed")  
     log.Println("Rows updated:", count)
 }
 
-func (p Partnership) SavePartnership(partnershipName []string, partnershipLink []string) revel.Result {
+func (p Partnership) SavePartnership(partnershipID []int, partnershipName []string, partnershipLink []string) revel.Result {
     //Update Product Photos
-   if (len(p.Params.Files["partnershipImg[]"]) != 0) {
+   if ( (len(p.Params.Files["partnershipImg[]"]) != 0) || (len(partnershipID) != 0) || (len(partnershipName) != 0) || (len(partnershipLink) != 0) ) {
        var partnershipImg [][]byte
        p.Params.Bind(&partnershipImg, "partnershipImg")
-
-       for i, _ := range partnershipName {
-           filename := p.Params.Files["partnershipImg[]"][i].Filename
-           relativePath := p.UploadImagePartnership(partnershipImg[i], filename)
-           newPartnership := models.CreateDefaultPartnership()
+       count := len(partnershipID)
+       if(len(partnershipName) > count){
+            count = len(partnershipName)
+       }
+       if(len(partnershipLink) > count){
+            count = len(partnershipLink)
+       }
+       if(len(p.Params.Files["partnershipImg[]"]) > count){
+            count = len(p.Params.Files["partnershipImg[]"])
+       }
+       for i := 0; i<count; i++ {
+           var newPartnership models.Partnership
+           if(len(p.Params.Files["partnershipImg[]"]) != 0){
+                filename := p.Params.Files["partnershipImg[]"][i].Filename
+                relativePath := p.UploadImagePartnership(partnershipImg[i], filename)
+                newPartnership.ImgPath = relativePath  
+           }
            newPartnership.PartnershipName = partnershipName[i]
            newPartnership.PartnershipLink = partnershipLink[i]
-           newPartnership.ImgPath = relativePath  
            InsertPartnership(Dbm, newPartnership)
        }
    }
@@ -82,18 +93,6 @@ func (p Partnership) UploadImagePartnership(image []byte, filename string) strin
    dstFile.Write(image)
    return relativePath
 }
-
-/*
-func (p Partnership) SavePartnership() revel.Result {
-    aboutid,_ := strconv.ParseInt(a.Request.Form.Get("aboutid"),0,64);
-    newAbout := models.About{
-        AboutID            : aboutid,
-        CkeditorAbout      : a.Request.Form.Get("aboutcontent"),  
-        UpdatedAt          : time.Now().UnixNano(),     
-    }
-    PartnershiptoDB(Dbm, newAbout);
-    return a.Redirect(About.About);
-}*/
 
 func SelectPartnershipByPartnershipID(dbm *gorp.DbMap, id int) models.Partnership {
     var p models.Partnership

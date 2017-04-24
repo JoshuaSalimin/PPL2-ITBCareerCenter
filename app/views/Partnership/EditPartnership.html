@@ -19,6 +19,7 @@
 								<div>
 								<p>
 									<strong>Nama Partnership</strong>
+									<input type="hidden" name="partnershipID[]" value="{{.PartnershipID}}">
 									<input type="text" name="partnershipName[]" value="{{.PartnershipName}}">
 									<strong>URL Partnership (begin with http://)</strong>
 									<input type="text" name="partnershipLink[]" value="{{.PartnershipLink}}">
@@ -26,6 +27,8 @@
 									<strong>Image already uploaded, choose new image to change</strong>
 									{{end}}
 									<input type="file" name="partnershipImg[]" accept="image/*">
+									<br>
+									<input type="submit" value="Delete" name="delete" style="background-color: red;"/>
 								<br>
 								</p>
 								</div>
@@ -36,7 +39,7 @@
 					              	</button>
 								</div>
 							    <br><br>
-							    	<input type="submit" value="Save" name="submit"/>
+							    	<input type="submit" value="Save" name="submit" />
 							</form>
 						</div>
 					</div>

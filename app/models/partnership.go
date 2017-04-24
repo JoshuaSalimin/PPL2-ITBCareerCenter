@@ -16,9 +16,9 @@ type Partnership struct {
 func CreateDefaultPartnership() Partnership {
     partnership_dummy := Partnership {
         PartnershipID      : 0,
-        PartnershipName    : "DEFAULT_PARTNERSHIP",
-        PartnershipLink    : "www.google.com",
-        ImgPath            : "DEFAULT_PATH",
+        PartnershipName    : "",
+        PartnershipLink    : "",
+        ImgPath            : "",
         CreatedAt          : time.Now().UnixNano(), 
         UpdatedAt          : time.Now().UnixNano(),     
     }
