@@ -22,7 +22,7 @@ type Event struct {
 func CreateDefaultEvent(event_title string) Event {
 	event_dummy := Event {
 	EventId 	: 0,
-	EventTitle	: "DEFAULT_TITLE",
+	EventTitle	: event_title,
 	BannerPath	: "/public/images/event1.jpg",
 	EventStart	: time.Now().Unix(),
 	EventEnd	: time.Now().Unix(),
@@ -37,7 +37,7 @@ func CreateDefaultEvent(event_title string) Event {
 func CreateDefaultEvent2(event_title string) Event {
 	event_dummy := Event {
 	EventId 	: 0,
-	EventTitle	: "DEFAULT_TITLE",
+	EventTitle	: event_title,
 	BannerPath	: "/public/images/event2.jpg",
 	EventStart	: time.Now().Unix(),
 	EventEnd	: time.Now().Unix(),
@@ -52,7 +52,7 @@ func CreateDefaultEvent2(event_title string) Event {
 func CreateDefaultEvent3(event_title string) Event {
 	event_dummy := Event {
 	EventId 	: 0,
-	EventTitle	: "DEFAULT_TITLE",
+	EventTitle	: event_title,
 	BannerPath	: "/public/images/event3.jpg",
 	EventStart	: time.Now().Unix(),
 	EventEnd	: time.Now().Unix(),
