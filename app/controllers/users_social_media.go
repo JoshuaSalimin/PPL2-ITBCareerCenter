@@ -40,12 +40,12 @@ func UpdateUserSocialMedia(dbm *gorp.DbMap, p models.UserSocialMedia) {
 }
 
 
-func DeleteUserSocialMediaByUserSocialMediaid(dbm *gorp.DbMap, socialmediaaid int) {
+func DeleteUserSocialMediaByUserSocialMediaId(dbm *gorp.DbMap, socialmediaaid int) {
     _, err := dbm.Exec("DELETE FROM usersocialmedia WHERE socialmediaid=?", socialmediaaid)
     checkErr(err, "Delete failed")
 }
 
-func SelectAllUserSocialMediaByUserID(dbm *gorp.DbMap, id int) []models.UserSocialMedia {
+func SelectAllUserSocialMediaByUserId(dbm *gorp.DbMap, id int) []models.UserSocialMedia {
     var p []models.UserSocialMedia
 
     _, err := dbm.Select(&p, "SELECT * FROM usersocialmedia WHERE userid=?", id)

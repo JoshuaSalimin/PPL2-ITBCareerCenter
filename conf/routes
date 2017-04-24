@@ -32,6 +32,7 @@ GET		/ListProfiles/:page						Profile.List
 GET		/ProfilePage/:id						Profile.Page
 POST	/EditProfile/:id						Profile.Edit
 GET 	/ProfileForm/:id						Profile.Form
+POST 	/DeleteImage							Profile.DeleteImage
 
 #News
 GET      /News/Form                             News.Form 

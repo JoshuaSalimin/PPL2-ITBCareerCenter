@@ -8,6 +8,8 @@ import (
     "fmt"
     "strings"
     "PPL2-ITBCareerCenter/app/models"
+    "time"
+    "math/rand"
 )
 
 func init(){
@@ -48,6 +50,7 @@ func getConnectionString() string {
 }
 
 var InitDb func() = func(){
+    rand.Seed(time.Now().UTC().UnixNano())
     connectionString := getConnectionString()
     if db, err := sql.Open("mysql", connectionString); err != nil {
         revel.ERROR.Fatal(err)
