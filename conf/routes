@@ -8,7 +8,6 @@ module:testrunner
 
 
 GET     /                                       App.Index
-GET 	/News									App.News
 
 #Login
 GET 	/Login									Auth.LoginView
@@ -35,6 +34,7 @@ GET 	/ProfileForm/:id						Profile.Form
 POST 	/DeleteImage							Profile.DeleteImage
 
 #News
+GET  	 /News									News.Index
 GET      /News/Form                             News.Form 
 POST     /News/Add                              News.Add
 GET      /News/Detail/:id                       News.Detail

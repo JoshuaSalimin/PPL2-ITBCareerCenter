@@ -1,0 +1,50 @@
+<!-- Header -->
+{{template "header.html" .}}
+
+<!-- Content -->
+	<div id="page-wrapper">
+		<!-- Nav -->
+	{{template "nav.html" .}}
+		
+		<!-- Main -->
+			<section class="wrapper style1">
+				<div class="container">
+					<div id="content">
+						<!-- Content -->
+							<h3>Home News</h3>
+							<div class="homeNewsOuter">
+								<div class="homeNewsInner">
+									<p>{{raw .latest.Content}}</p>
+								</div>
+								<p align="right"><a href="/News/Detail/{{.latest.NewsId}}" class="button back">Read Detail</a></p>			
+							</div>
+							<article>
+							<h3>All News</h3>
+
+							<table id="result">
+								<tr>
+								</tr>
+							{{range .list}}
+								<tr>
+									<td>
+										{{convert_unix_time .UpdatedAt}} 
+										<a href="/News/Detail/{{.NewsId}}" class="homeListNews">{{.NewsTitle}}</a>
+									</td>
+								</tr>
+							{{end}}
+							</table>
+					        <div id="pageNavPosition"></div>
+
+							</article>
+					</div>
+				</div>
+			</section>
+	</div>
+<!-- Footer -->
+{{template "footer.html" .}}
+<script>
+    var pager = new Pager('result', 6); 
+    pager.init(); 
+    pager.showPageNav('pager', 'pageNavPosition'); 
+    pager.showPage(1);
+</script>

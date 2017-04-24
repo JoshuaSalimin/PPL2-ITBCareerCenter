@@ -17,6 +17,9 @@ func init(){
     revel.InterceptMethod((*GorpController).Begin, revel.BEFORE)
     revel.InterceptMethod((*GorpController).Commit, revel.AFTER)
     revel.InterceptMethod((*GorpController).Rollback, revel.FINALLY)
+    revel.TemplateFuncs["convert_unix_time"] = func(unixtime int64) string {
+        return time.Unix(0,unixtime).Format("2006-01-02, 15:04:05");
+    } 
 }
 
 func getParamString(param string, defaultValue string) string {

@@ -14,12 +14,6 @@ func (c App) Index() revel.Result {
 	return c.Render(home)
 }
 
-func (c App) News() revel.Result {
-	news := true
-    list := SelectAllNews(Dbm);
-    return c.Render(news,list);
-}
-
 func (c App) Profiles() revel.Result {
 	profiles := true
 	return c.Render(profiles)
