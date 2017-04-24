@@ -11,6 +11,8 @@ import (
     // "errors"
     // "fmt"
     // "io"
+    "math/rand"
+    "encoding/hex"
 )
 
 func parseUintOrDefault(intStr string, _default uint64) uint64 {
@@ -55,4 +57,10 @@ func EncryptSHA256(text string) string {
     h.Write([]byte(text))
     s := base64.URLEncoding.EncodeToString(h.Sum(nil))
     return (s)
+}
+
+func randString() string {
+    randBytes := make([]byte, 16)
+    rand.Read(randBytes)
+    return hex.EncodeToString(randBytes)
 }

@@ -1,3 +1,5 @@
+{{set . "title" "ITB Career Center Entrepreneurship Partnership"}}
+
 <!-- Header -->
 {{template "header.html" .}}
 <!-- Content -->
@@ -17,13 +19,13 @@
 								<div>
 								<p>
 									<strong>Nama Partnership</strong>
-									<input type="text" name="user.CompanyName" value="{{.PartnershipName}}">
-									<strong>URL Partnership</strong>
-									<input type="text" name="user.CompanyName" value="{{.PartnershipLink}}">
+									<input type="text" name="partnershipName[]" value="{{.PartnershipName}}">
+									<strong>URL Partnership (begin with http://)</strong>
+									<input type="text" name="partnershipLink[]" value="{{.PartnershipLink}}">
 									{{if .ImgPath}}
 									<strong>Image already uploaded, choose new image to change</strong>
 									{{end}}
-									<input type="file" name="fileToUpload" id="fileToUpload" accept="image/*">
+									<input type="file" name="partnershipImg[]" accept="image/*">
 								<br>
 								</p>
 								</div>
@@ -48,7 +50,7 @@ require(['jquery'],
 function($) {
 $("#partnership-add").click(function() {
 		$(this).before(
-			$('<div><p><strong>Nama Partnership</strong><input type="text" name="user.CompanyName" value=""><strong>URL Partnership</strong><input type="text" name="user.CompanyName" value="{{.user.CompanyName}}"><input type="file" name="fileToUpload" id="fileToUpload" accept="image/*"><br></p></div>')
+			$('<div><p><strong>Nama Partnership</strong><input type="text" name="partnershipName[]"><strong>URL Partnership (begin with http://)</strong><input type="text" name="partnershipLink[]"><input type="file" name="partnershipImg[]" accept="image/*"><br></p></div>')
 		);
 	});	
 });

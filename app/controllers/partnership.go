@@ -7,6 +7,16 @@ import (
      "log"
      //"time"
      //"strconv"
+     "path/filepath"
+     "os"
+     "fmt"
+)
+
+const (
+   _      = iota
+   KB int = 1 << (10 * iota)
+   MB
+   GB
 )
 
 type Partnership struct {
@@ -36,13 +46,45 @@ func PartnershiptoDB(dbm *gorp.DbMap, p models.Partnership){
     log.Println("Rows updated:", count)
 }
 
+func (p Partnership) SavePartnership(partnershipName []string, partnershipLink []string) revel.Result {
+    //Update Product Photos
+   if (len(p.Params.Files["partnershipImg[]"]) != 0) {
+       var partnershipImg [][]byte
+       p.Params.Bind(&partnershipImg, "partnershipImg")
 
-func (p Partnership) SavePartnership() revel.Result {
+       for i, _ := range partnershipName {
+           filename := p.Params.Files["partnershipImg[]"][i].Filename
+           relativePath := p.UploadImagePartnership(partnershipImg[i], filename)
+           newPartnership := models.CreateDefaultPartnership()
+           newPartnership.PartnershipName = partnershipName[i]
+           newPartnership.PartnershipLink = partnershipLink[i]
+           newPartnership.ImgPath = relativePath  
+           InsertPartnership(Dbm, newPartnership)
+       }
+   }
     return p.Redirect(Partnership.Partnership);
 }
 
+func (p Partnership) UploadImagePartnership(image []byte, filename string) string {
+   p.Validation.MaxSize(image, 2*MB).
+       Message("File cannot be larger than 2MB")
+   fileExt := filepath.Ext(filename)
+   randFilename := randString() + fileExt
+   relativePath := fmt.Sprintf("/public/images/partnership/%s", randFilename)
+   dstPath := fmt.Sprintf("%s/public/images/partnership", revel.BasePath)
+   if _, err := os.Stat(dstPath); os.IsNotExist(err) {
+       os.Mkdir(dstPath, 0777)
+   }
+   dstPath = dstPath + "/" + randFilename
+   dstFile, _ := os.Create(dstPath)
+   defer dstFile.Close()
+   defer os.Chmod(dstPath, (os.FileMode)(0644))
+   dstFile.Write(image)
+   return relativePath
+}
+
 /*
-func (a About) SavePartnership() revel.Result {
+func (p Partnership) SavePartnership() revel.Result {
     aboutid,_ := strconv.ParseInt(a.Request.Form.Get("aboutid"),0,64);
     newAbout := models.About{
         AboutID            : aboutid,
