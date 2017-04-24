@@ -65,6 +65,7 @@ var InitDb func() = func(){
     defineUserContactTable(Dbm)
     defineAboutTable(Dbm)
     defineContactTable(Dbm)
+    definePartnershipTable(Dbm)
 
     err := Dbm.CreateTablesIfNotExists()
     checkErr(err, "Create Table failed")
@@ -127,4 +128,8 @@ func defineAboutTable(dbm *gorp.DbMap) {
 
 func defineContactTable(dbm *gorp.DbMap) {
     dbm.AddTable(models.Contact{}).SetKeys(true, "contactid")    
+}
+
+func definePartnershipTable(dbm *gorp.DbMap) {
+    dbm.AddTable(models.Partnership{}).SetKeys(true, "partnershipid")    
 }
