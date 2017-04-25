@@ -1,0 +1,33 @@
+<!-- Header -->
+{{template "header.html" .}}
+<!-- Content -->
+	<div id="page-wrapper">
+	<!-- Nav -->
+		{{template "nav.html" .}}
+		<!-- Main -->
+		<div id="page-wrapper">
+			<!-- Main -->
+				<section class="wrapper style1">
+					<div class="container">
+						<div id="content">
+							<form action=/SaveAbout method="POST">
+						        <strong>About:</strong><br><br>
+						        <input type="hidden" name="aboutid" value="{{.aboutcontent.AboutID}}">
+					            <textarea name="aboutcontent" id="aboutcontent"></textarea>
+					            <script>
+					            	CKEDITOR.replace('aboutcontent');
+					            	CKEDITOR.instances['aboutcontent'].setData("{{.aboutcontent.CkeditorAbout}}");
+					            </script>
+							    <p align="right">
+							    <br>
+							    	<input type="submit" value="Save " />
+						    	</p>
+							</form>
+						</div>
+					</div>
+				</section>
+		</div>
+	</div>
+<!-- Footer -->
+{{template "footer.html" .}}
+

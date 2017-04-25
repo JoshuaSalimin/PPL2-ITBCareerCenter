@@ -1,0 +1,26 @@
+{{set . "title" "ITB Career Center Entrepreneurship Login"}}
+
+<!-- Header -->
+{{template "header.html" .}}
+<header>
+</header>
+	<!-- Content -->
+		<div id="page-wrapper">
+	<!-- Nav -->
+		{{template "nav.html" .}}
+			
+			<!-- Main -->
+				<section class="wrapper style1">
+					<div class="container">
+						<div class="4u 6u$(narrower) 12u$(mobilep) text-centered" style="margin:auto;">
+							<form action="/Logout" style="text-align: center; padding: 20px 40px 30px 40px" method="POST">
+								<input type="submit" value="Logout">
+							</form>
+						</div>
+					</div>
+				</section>
+		</div>		
+<!-- Footer -->
+{{template "footer.html" .}}
+<footer>
+</footer>

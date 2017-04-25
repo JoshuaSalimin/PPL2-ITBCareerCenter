@@ -7,12 +7,13 @@ import (
     "encoding/hex"
 
 
+    "crypto/sha256"
     // "crypto/aes"
     // "crypto/cipher"
     // "crypto/rand"
-    // "encoding/base64"
+    "encoding/base64"
     // "errors"
-    // //"fmt"
+    // "fmt"
     // "io"
 )
 
@@ -58,38 +59,10 @@ func randString() string {
     return hex.EncodeToString(randBytes)
 }
 
-// func encrypt(key []byte, text string) (string, error) {
-
-//     block, err := aes.NewCipher(key)
-//     if err != nil {
-//         return "FAIL", err
-//     }
-//     b := base64.StdEncoding.EncodeToString([]byte(text))
-//     ciphertext := make([]byte, aes.BlockSize+len(b))
-//     iv := ciphertext[:aes.BlockSize]
-//     if _, err := io.ReadFull(rand.Reader, iv); err != nil {
-//         return "FAIL", err
-//     }
-//     cfb := cipher.NewCFBEncrypter(block, iv)
-//     cfb.XORKeyStream(ciphertext[aes.BlockSize:], []byte(b))
-//     return string(ciphertext), nil
-// }
-
-// func decrypt(key []byte, text string) (string, error) {
-//     block, err := aes.NewCipher(key)
-//     if err != nil {
-//         return "FAIL"   , err
-//     }
-//     if len(text) < aes.BlockSize {
-//         return "FAIL", errors.New("ciphertext too short")
-//     }
-//     iv := []byte(text[:aes.BlockSize])
-//     text = text[aes.BlockSize:]
-//     cfb := cipher.NewCFBDecrypter(block, iv)
-//     cfb.XORKeyStream([]byte(text), []byte(text))
-//     data, err := base64.StdEncoding.DecodeString(string(text))
-//     if err != nil {
-//         return "FAIL", err
-//     }
-//     return string(data), nil
-// }
+// encrypt string to base64 crypto using AES
+func EncryptSHA256(text string) string {
+    h := sha256.New()
+    h.Write([]byte(text))
+    s := base64.URLEncoding.EncodeToString(h.Sum(nil))
+    return (s)
+}

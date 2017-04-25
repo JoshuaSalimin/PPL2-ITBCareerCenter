@@ -66,6 +66,10 @@ var InitDb func() = func(){
     defineNewsTable(Dbm)
     defineUserSocialMediaTable(Dbm)
     defineUserContactTable(Dbm)
+    defineAboutTable(Dbm)
+    defineContactTable(Dbm)
+    defineUsersInBundleTable(Dbm)
+    defineBundlesTable(Dbm)
 
     err := Dbm.CreateTablesIfNotExists()
     checkErr(err, "Create Table failed")
@@ -75,45 +79,24 @@ var InitDb func() = func(){
     // varchar(255) is not enough to contain it
     _, err = Dbm.Exec(" ALTER TABLE News MODIFY content text")
     checkErr(err, "ALTER TABLE News FAILED")
-
-    u := models.CreateDefaultUser("ramos")
-
-    // KEY := []byte("key")
-    // unencryptedPassword := "this is password you will encrypt"
-    // encryptedPassword, err := encrypt(KEY, unencryptedPassword) 
-    // u.Password = encryptedPassword
-
-    InsertUsers(Dbm, u)
-
-
-    // USAGE EXAMPLE --------------
-    // InsertUsersAdmin(Dbm)
-    // InsertPostAdmin(Dbm)
-
-    // NewsTemp := models.CreateDefaultNews("News Title Temp")
-    // InsertNews(Dbm, NewsTemp)
-    // UsersSocialMedia := models.CreateDefaultUserSocialMedia()
-    // n := SelectNewsByNewsId(Dbm, 2)
-    // SelectAllNews(Dbm)
-    // UpdateNews(Dbm, n)
-    // DeleteNewsByNewsid(Dbm, 2)
-
-
-    // InsertUserSocialMedia(Dbm, UsersSocialMedia)
-    // UsersContact := models.CreateDefaultUserContact()
-    // sm := SelectUserSocialMediaByUserSocialMediaId(Dbm, 2)
-    // SelectAllUserSocialMedia(Dbm)
-    // UpdateUserSocialMedia(Dbm, sm)
-    // DeleteUserSocialMediaByUserSocialMediaid(Dbm, 2)
-
-
-    // InsertUserContact(Dbm, UsersContact)
-    // u := SelectUserContactByUserContactId(Dbm, 2)
-    // SelectAllUserContact(Dbm)
-    // UpdateUserContact(Dbm, u)
-    // DeleteUserContactByUserContactid(Dbm, 2)
-
-    // ----------------------------------------------
+    _, err = Dbm.Exec("ALTER TABLE users ADD UNIQUE (username)")
+    checkErr(err, "ALTER TABLE users FAILED")
+    countAbout := CountAbout(Dbm)
+    if(countAbout >= 1){
+        // do nothing
+    } else{
+        newAbout := models.CreateDefaultAbout()
+        newAbout.AboutID = 0
+        InsertAbout(Dbm, newAbout)
+    }
+    countContact := CountContact(Dbm)
+    if(countContact >= 1){
+        // do nothing
+    } else{
+        newContact := models.CreateDefaultContact()
+        newContact.ContactID = 0
+        InsertContact(Dbm, newContact)
+    }
 }
 
 
@@ -124,6 +107,16 @@ func defineUserTable(dbm *gorp.DbMap){
 
     // e.g. VARCHAR(25)
     t.ColMap("name").SetMaxSize(25)
+}
+
+func defineBundlesTable(dbm *gorp.DbMap){
+    // set "id" as primary key and autoincrement
+    dbm.AddTable(models.Bundles{}).SetKeys(true, "bundleid")
+}
+
+func defineUsersInBundleTable(dbm *gorp.DbMap){
+    // set "id" as primary key and autoincrement
+    dbm.AddTable(models.UsersInBundle{}).SetKeys(false, "userid", "bundleid")
 }
 
 func defineUserSocialMediaTable(dbm *gorp.DbMap) {
@@ -141,4 +134,12 @@ func definePostTable(dbm *gorp.DbMap){
 
 func defineNewsTable(dbm *gorp.DbMap) {
     dbm.AddTable(models.News{}).SetKeys(true, "newsid")    
+}
+
+func defineAboutTable(dbm *gorp.DbMap) {
+    dbm.AddTable(models.About{}).SetKeys(true, "aboutid")    
+}
+
+func defineContactTable(dbm *gorp.DbMap) {
+    dbm.AddTable(models.Contact{}).SetKeys(true, "contactid")    
 }

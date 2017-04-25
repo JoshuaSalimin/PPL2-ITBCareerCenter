@@ -1,0 +1,33 @@
+<!-- Header -->
+{{template "header.html" .}}
+<!-- Content -->
+	<div id="page-wrapper">
+	<!-- Nav -->
+		{{template "nav.html" .}}
+		<!-- Main -->
+		<div id="page-wrapper">
+			<!-- Main -->
+				<section class="wrapper style1">
+					<div class="container">
+						<div id="content">
+							<form action=/SaveContact method="POST">
+						        <strong>Contact:</strong><br><br>
+						        <input type="hidden" name="contactid" value="{{.contactcontent.ContactID}}">
+					            <textarea name="contactcontent" id="contactcontent"></textarea>
+					            <script>
+					            	CKEDITOR.replace('contactcontent');
+					            	CKEDITOR.instances['contactcontent'].setData("{{.contactcontent.Content}}");
+					            </script>
+							    <p align="right">
+							    <br>
+							    	<input type="submit" value="Save " />
+						    	</p>
+							</form>
+						</div>
+					</div>
+				</section>
+		</div>
+	</div>
+<!-- Footer -->
+{{template "footer.html" .}}
+
