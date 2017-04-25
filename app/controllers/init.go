@@ -100,9 +100,6 @@ var InitDb func() = func(){
         newContact.ContactID = 0
         InsertContact(Dbm, newContact)
     }
-    u := models.CreateDefaultUser("ramosjanoah")
-    u.Password = EncryptSHA256("hasudungan")
-    InsertUsers(Dbm, &u)    
 }
 
 
