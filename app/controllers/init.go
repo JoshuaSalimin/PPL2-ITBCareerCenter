@@ -8,6 +8,8 @@ import (
     "fmt"
     "strings"
     "PPL2-ITBCareerCenter/app/models"
+    "time"
+    "math/rand"
 )
 
 func init(){
@@ -15,6 +17,9 @@ func init(){
     revel.InterceptMethod((*GorpController).Begin, revel.BEFORE)
     revel.InterceptMethod((*GorpController).Commit, revel.AFTER)
     revel.InterceptMethod((*GorpController).Rollback, revel.FINALLY)
+    revel.TemplateFuncs["convert_unix_time"] = func(unixtime int64) string {
+        return time.Unix(0,unixtime).Format("2006-01-02, 15:04:05");
+    } 
 }
 
 func getParamString(param string, defaultValue string) string {
@@ -48,6 +53,7 @@ func getConnectionString() string {
 }
 
 var InitDb func() = func(){
+    rand.Seed(time.Now().UTC().UnixNano())
     connectionString := getConnectionString()
     if db, err := sql.Open("mysql", connectionString); err != nil {
         revel.ERROR.Fatal(err)
@@ -65,6 +71,9 @@ var InitDb func() = func(){
     defineUserContactTable(Dbm)
     defineAboutTable(Dbm)
     defineContactTable(Dbm)
+    definePartnershipTable(Dbm)
+    defineUsersInBundleTable(Dbm)
+    defineBundlesTable(Dbm)
 
     err := Dbm.CreateTablesIfNotExists()
     checkErr(err, "Create Table failed")
@@ -104,6 +113,16 @@ func defineUserTable(dbm *gorp.DbMap){
     t.ColMap("name").SetMaxSize(25)
 }
 
+func defineBundlesTable(dbm *gorp.DbMap){
+    // set "id" as primary key and autoincrement
+    dbm.AddTable(models.Bundles{}).SetKeys(true, "bundleid")
+}
+
+func defineUsersInBundleTable(dbm *gorp.DbMap){
+    // set "id" as primary key and autoincrement
+    dbm.AddTable(models.UsersInBundle{}).SetKeys(false, "userid", "bundleid")
+}
+
 func defineUserSocialMediaTable(dbm *gorp.DbMap) {
     dbm.AddTable(models.UserSocialMedia{}).SetKeys(true, "socialmediaid")    
 }
@@ -128,3 +147,8 @@ func defineAboutTable(dbm *gorp.DbMap) {
 func defineContactTable(dbm *gorp.DbMap) {
     dbm.AddTable(models.Contact{}).SetKeys(true, "contactid")    
 }
+
+func definePartnershipTable(dbm *gorp.DbMap) {
+    dbm.AddTable(models.Partnership{}).SetKeys(true, "partnershipid")    
+}
+
