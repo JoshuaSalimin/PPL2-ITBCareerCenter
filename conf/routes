@@ -11,8 +11,10 @@ GET     /                                       App.Index
 GET 	/News									App.News
 
 #Login
-GET 	/Login									App.Login
+GET 	/Login									Auth.LoginView
 POST	/Login									Auth.Login
+GET 	/Logout									Auth.LogoutView
+POST 	/Logout 								Auth.Logout
 
 #About
 GET 	/About									About.About
@@ -45,6 +47,24 @@ GET      /EditPartnership						Partnership.EditPartnership
 POST     /SavePartnership						Partnership.SavePartnership
 POST     /UpdatePartnership						Partnership.UpdatePartnership
 POST     /DeletePartnership						Partnership.DeletePartnership
+
+#UserManagement
+GET 	/Users/List 							Users.Users
+GET 	/Users/List/:page						Users.Users
+GET 	/Users/Add 								Users.AddView
+POST	/Users/Add								Users.Add
+GET 	/Users/Edit 							Users.EditView
+POST 	/Users/Edit 							Users.Edit
+POST	/Users/Delete 							Users.Delete
+
+GET 	/Users/Bundles							Bundles.Bundles
+GET 	/Users/Bundles/Add						Bundles.AddView
+POST	/Users/Bundles/Add 						Bundles.Add
+#GET 	/Users/Bundles/Edit 					Bundles.EditView
+#POST 	/Users/Bundles/Edit 					Bundles.Edit
+POST	/Users/Bundles/Delete 					Bundles.Delete
+
+POST 	/Users/Bundles/DownloadCSV				Bundles.DownloadCSV
 
 # Change Password
 GET 	/ChangePassword							ChangePassword.ChangePassword

@@ -66,6 +66,8 @@ var InitDb func() = func(){
     defineAboutTable(Dbm)
     defineContactTable(Dbm)
     definePartnershipTable(Dbm)
+    defineUsersInBundleTable(Dbm)
+    defineBundlesTable(Dbm)
 
     err := Dbm.CreateTablesIfNotExists()
     checkErr(err, "Create Table failed")
@@ -103,6 +105,16 @@ func defineUserTable(dbm *gorp.DbMap){
 
     // e.g. VARCHAR(25)
     t.ColMap("name").SetMaxSize(25)
+}
+
+func defineBundlesTable(dbm *gorp.DbMap){
+    // set "id" as primary key and autoincrement
+    dbm.AddTable(models.Bundles{}).SetKeys(true, "bundleid")
+}
+
+func defineUsersInBundleTable(dbm *gorp.DbMap){
+    // set "id" as primary key and autoincrement
+    dbm.AddTable(models.UsersInBundle{}).SetKeys(false, "userid", "bundleid")
 }
 
 func defineUserSocialMediaTable(dbm *gorp.DbMap) {

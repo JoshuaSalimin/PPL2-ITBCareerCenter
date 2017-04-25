@@ -28,6 +28,9 @@ func (c Auth) Login() revel.Result {
 	if (user.Username == uname && user.Password == pwd) {
 		//Saves currently logged in user id in session, NIL OTHERWISE
 		c.Session["cUserId"] = strconv.FormatInt(user.UserId, 10)
+		//Saves currently logged in user's role in session, NIL OTHERWISE
+		user := SelectUsersByUserid(Dbm, int(user.UserId))
+		c.Session["cUserRole"] = strconv.Itoa(user.Role)
 		c.Flash.Success("Login Successful");
 		return c.Redirect("/")
 	} else {
@@ -36,9 +39,23 @@ func (c Auth) Login() revel.Result {
 	return c.Redirect("/Login")
 }
 
+func (c Auth) LogoutView() revel.Result {
+	return c.Render(true)
+}
+
 func (c Auth) Logout() revel.Result {
 	delete(c.Session, "cUserId")
-	return c.Redirect("/Login")
+	delete(c.Session, "cUserRole")
+	return c.Redirect("/")
+}
+
+func (c Auth) LoginView() revel.Result {
+	userid := c.Session["cUserId"]
+	if (userid == "") {
+		return c.Render()
+	} else {
+		return c.Redirect("/Logout")
+	}
 }
 
 /*
