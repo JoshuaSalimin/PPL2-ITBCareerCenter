@@ -37,5 +37,5 @@ CKEDITOR.editorConfig = function( config ) {
 	config.removeDialogTabs = 'image:advanced;link:advanced';
 
 	//Enable text alignment and font
-	config.extraPlugins = 'justify,font';
+	config.extraPlugins = 'justify,font,lineutils,widgetselection,widget,image2';
 };

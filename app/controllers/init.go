@@ -8,6 +8,8 @@ import (
     "fmt"
     "strings"
     "PPL2-ITBCareerCenter/app/models"
+    "time"
+    "math/rand"
 )
 
 func init(){
@@ -15,6 +17,9 @@ func init(){
     revel.InterceptMethod((*GorpController).Begin, revel.BEFORE)
     revel.InterceptMethod((*GorpController).Commit, revel.AFTER)
     revel.InterceptMethod((*GorpController).Rollback, revel.FINALLY)
+    revel.TemplateFuncs["convert_unix_time"] = func(unixtime int64) string {
+        return time.Unix(0,unixtime).Format("2006-01-02, 15:04:05");
+    } 
 }
 
 func getParamString(param string, defaultValue string) string {
@@ -48,6 +53,7 @@ func getConnectionString() string {
 }
 
 var InitDb func() = func(){
+    rand.Seed(time.Now().UTC().UnixNano())
     connectionString := getConnectionString()
     if db, err := sql.Open("mysql", connectionString); err != nil {
         revel.ERROR.Fatal(err)
@@ -145,3 +151,4 @@ func defineContactTable(dbm *gorp.DbMap) {
 func definePartnershipTable(dbm *gorp.DbMap) {
     dbm.AddTable(models.Partnership{}).SetKeys(true, "partnershipid")    
 }
+

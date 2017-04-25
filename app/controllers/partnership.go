@@ -12,13 +12,6 @@ import (
      "fmt"
 )
 
-const (
-   _      = iota
-   KB int = 1 << (10 * iota)
-   MB
-   GB
-)
-
 type Partnership struct {
     *revel.Controller
 }

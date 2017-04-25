@@ -3183,3 +3183,25 @@
 	padding-left: 4%;s
 }
 
+.homeNewsInner {
+    min-height: : 50px;
+    max-height: 800px;
+    margin-bottom: 20px;
+    overflow: hidden;	
+}
+
+.homeNewsOuter {
+    border-style: solid;
+	border-radius: 15px 50px;
+    border-color: #E8C246;
+    border-width: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+    margin-bottom: 20px;
+    overflow: hidden;	
+}
+
+.homeListNews{
+	margin-left: 5px;
+	color: #000000;
+}

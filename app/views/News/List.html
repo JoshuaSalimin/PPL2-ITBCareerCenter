@@ -2,28 +2,15 @@
 {{template "header.html" .}}
 <!-- Content -->
 	<div id="page-wrapper">
-		<!-- Nav -->
-			<div id="header">
-				<nav id="nav">
-					<ul>
-						<li><a href="/">Home</a></li>
-						<li><a href="/News">News</a></li>
-						<li><a href="/Articles">Articles</a></li>
-						<li class="current"><a href="/Files">Files</a></li>
-						<li><a href="/Photos">Photo Gallery</a></li>
-						<li><a href="/Videos">Videos</a></li>
-						<li><a href="/Profiles">Profiles</a></li>
-						<li><a href="/About">About</a></li>
-						<li><a href="/Contact">Contact</a></li>
-						<li><a href="/Login">Login</a></li>
-					</ul>
-				</nav>
-			</div>
+	{{template "nav.html" .}}
 		<!-- Main -->
 		<div id="page-wrapper">
 			<!-- Main -->
 				<section class="wrapper style1">
 					<div class="container">
+					<header class="major">
+						<h2>List of Posted News</h2>
+					</header>
 						<p align="right"><a href="/News/Form" class="button back">Add News</a></p>
 						<table id="content">
 							<tr>
@@ -38,8 +25,8 @@
 							<tr>
 								<td>{{.NewsId}}</td>
 								<td>{{.NewsTitle}}</td>
-								<td>{{.CreatedAt}}</td>
-								<td>{{.UpdatedAt}}</td>
+								<td>{{convert_unix_time .CreatedAt}}</td>
+								<td>{{convert_unix_time .UpdatedAt}}</td>
 								<td><a href="/News/EditForm/{{.NewsId}}"><i class="material-icons">mode_edit</i></a></td>
 								<form action="/News/Delete/" method="POST">
 									<input type="hidden" name="id" id="id" value="{{.NewsId}}">
