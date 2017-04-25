@@ -42,6 +42,13 @@ POST     /News/Delete/                          News.Delete
 GET      /News/EditForm/:id                     News.EditForm
 POST     /News/EditSubmit/                   	News.EditSubmit
 
+#Partnership
+GET      /Partnership							Partnership.Partnership
+GET      /EditPartnership						Partnership.EditPartnership
+POST     /SavePartnership						Partnership.SavePartnership
+POST     /UpdatePartnership						Partnership.UpdatePartnership
+POST     /DeletePartnership						Partnership.DeletePartnership
+
 #UserManagement
 GET 	/Users/List 							Users.Users
 GET 	/Users/List/:page						Users.Users

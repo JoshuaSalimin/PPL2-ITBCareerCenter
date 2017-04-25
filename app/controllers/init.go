@@ -71,6 +71,7 @@ var InitDb func() = func(){
     defineUserContactTable(Dbm)
     defineAboutTable(Dbm)
     defineContactTable(Dbm)
+    definePartnershipTable(Dbm)
     defineUsersInBundleTable(Dbm)
     defineBundlesTable(Dbm)
 
@@ -146,3 +147,8 @@ func defineAboutTable(dbm *gorp.DbMap) {
 func defineContactTable(dbm *gorp.DbMap) {
     dbm.AddTable(models.Contact{}).SetKeys(true, "contactid")    
 }
+
+func definePartnershipTable(dbm *gorp.DbMap) {
+    dbm.AddTable(models.Partnership{}).SetKeys(true, "partnershipid")    
+}
+

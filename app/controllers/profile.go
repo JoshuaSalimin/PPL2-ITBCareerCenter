@@ -14,13 +14,6 @@ type Profile struct {
 	App
 }
 
-const (
-	_      = iota
-	KB int = 1 << (10 * iota)
-	MB
-	GB
-)
-
 func (c Profile) List(page int) revel.Result {
 	profiles := true
 	numUserPerPage := 6

@@ -17,6 +17,14 @@ import (
     // "io"
 )
 
+
+const (
+    _      = iota
+    KB int = 1 << (10 * iota)
+    MB
+    GB
+)
+
 func parseUintOrDefault(intStr string, _default uint64) uint64 {
     if value, err := strconv.ParseUint(intStr, 0, 64); err != nil {
         return _default
