@@ -43,6 +43,7 @@ func (c Bundles) Add() revel.Result {
 	for i:=1; i<=jumlah; i++ {
 		username := namabundle + "-" + strconv.Itoa(i)
 		password := generateRandomPassword(10);
+		password = EncryptSHA256(password)
 		newuser := models.Users {
 			UserId: 0,
 			Username: username,
@@ -61,6 +62,7 @@ func (c Bundles) Add() revel.Result {
 			ShowProfile     : false,    
 			Role            : 0,     
 		}
+
 		InsertUsers(Dbm, &newuser)
 
         //Tambah user baru ke usersinbundle

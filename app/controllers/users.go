@@ -66,6 +66,7 @@ func (c Users) Add() revel.Result {
         ShowProfile: false,
         Role: 0,
     }
+    user.Password = EncryptSHA256(user.Password)
     InsertUsers(Dbm, &user)
     c.Flash.Success("User " + c.Request.Form.Get("username") + " added successfully");
     return c.Redirect("/Users")
@@ -89,6 +90,7 @@ func (c Users) Edit() revel.Result {
     userid,_ := strconv.Atoi(c.Request.Form.Get("userid"))
     username := c.Request.Form.Get("username")
     password := c.Request.Form.Get("password")
+    password = EncryptSHA256(password)
     angkatan,_ := strconv.Atoi(c.Request.Form.Get("angkatan"))
 
     UpdateUsersByUserid(Dbm, userid, username, password, angkatan)

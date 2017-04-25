@@ -59,7 +59,7 @@ func randString() string {
     return hex.EncodeToString(randBytes)
 }
 
-// encrypt string to base64 crypto using AES
+// encrypt string to base64 crypto using SHA
 func EncryptSHA256(text string) string {
     h := sha256.New()
     h.Write([]byte(text))
