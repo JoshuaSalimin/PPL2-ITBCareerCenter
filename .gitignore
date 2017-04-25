@@ -5,3 +5,5 @@ routes/
 \.DS_Store
 
 conf/app\.conf
+
+public/images/partnership
