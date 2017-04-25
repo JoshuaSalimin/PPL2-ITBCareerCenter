@@ -68,9 +68,9 @@ func (p Partnership) SavePartnership(partnershipID []int, partnershipName []stri
     return p.Redirect(Partnership.Partnership);
 }
 
-func (p Partnership) DeletePartnership(dbm *gorp.DbMap, partnershipID int) revel.Result {
-     //_, err := dbm.Exec("DELETE FROM Partnership WHERE partnershipid=?", partnershipID)
-     //checkErr(err, "Delete failed")  
+func (p Partnership) DeletePartnership(partnershipID int) revel.Result {
+     _, err := Dbm.Exec("DELETE FROM Partnership WHERE partnershipid=?", partnershipID)
+     checkErr(err, "Delete failed")  
     log.Println("partnership id:", partnershipID)
     return p.Redirect(Partnership.EditPartnership);
 }
