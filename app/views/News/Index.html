@@ -21,10 +21,19 @@
 							<article>
 							<h3>All News</h3>
 
+							<table id="result">
+								<tr>
+								</tr>
 							{{range .list}}
-								{{convert_unix_time .UpdatedAt}}
-								<a href="/News/Detail/{{.NewsId}}" class="homeListNews">{{.NewsTitle}}</a><br>
+								<tr>
+									<td>
+										{{convert_unix_time .UpdatedAt}} 
+										<a href="/News/Detail/{{.NewsId}}" class="homeListNews">{{.NewsTitle}}</a>
+									</td>
+								</tr>
 							{{end}}
+							</table>
+					        <div id="pageNavPosition"></div>
 
 							</article>
 					</div>
@@ -33,3 +42,9 @@
 	</div>
 <!-- Footer -->
 {{template "footer.html" .}}
+<script>
+    var pager = new Pager('result', 6); 
+    pager.init(); 
+    pager.showPageNav('pager', 'pageNavPosition'); 
+    pager.showPage(1);
+</script>
