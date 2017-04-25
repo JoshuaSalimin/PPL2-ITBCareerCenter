@@ -2,6 +2,7 @@ package controllers
 
 import (
 	"github.com/revel/revel"
+	// "log"
 )
 
 type App struct {
@@ -21,11 +22,6 @@ func (c App) Profiles() revel.Result {
 func (c App) Contact() revel.Result {
 	contact := true
 	return c.Render(contact)
-}
-
-func (c App) Login() revel.Result {
-	login := true
-	return c.Render(login)
 }
 
 

@@ -40,7 +40,7 @@ func UpdateUserContact(dbm *gorp.DbMap, p models.UserContact) {
 }
 
 
-func DeleteUserContactByUserContactid(dbm *gorp.DbMap, contactid int) {
+func DeleteUserContactByUserContactId(dbm *gorp.DbMap, contactid int64) {
     _, err := dbm.Exec("DELETE FROM usercontact WHERE contactid=?", contactid)
     checkErr(err, "Delete failed")
 }

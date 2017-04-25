@@ -1,8 +1,7 @@
 package models 
 
 import (
-    // "github.com/go-gorp/gorp"
-    //"regexp"
+
 	"time"
 )
 
@@ -24,7 +23,7 @@ func CreateDefaultPost(post_title string) Post {
 	    MediaType       : "DEFAULT_MEDIA_TYPE",
 	    PathFile        : "DEFAULT_PATH_FILE",
 	    CreatedAt       : time.Now().UnixNano(), 
-	    UpdatedAt		: 0,
+	    UpdatedAt		: time.Now().UnixNano(),
     }
     return post_dummy
 }

@@ -9,6 +9,7 @@ import (
     "strings"
     "PPL2-ITBCareerCenter/app/models"
     "time"
+    "math/rand"
 )
 
 func init(){
@@ -52,6 +53,7 @@ func getConnectionString() string {
 }
 
 var InitDb func() = func(){
+    rand.Seed(time.Now().UTC().UnixNano())
     connectionString := getConnectionString()
     if db, err := sql.Open("mysql", connectionString); err != nil {
         revel.ERROR.Fatal(err)
@@ -69,6 +71,8 @@ var InitDb func() = func(){
     defineUserContactTable(Dbm)
     defineAboutTable(Dbm)
     defineContactTable(Dbm)
+    defineUsersInBundleTable(Dbm)
+    defineBundlesTable(Dbm)
 
     err := Dbm.CreateTablesIfNotExists()
     checkErr(err, "Create Table failed")
@@ -96,45 +100,6 @@ var InitDb func() = func(){
         newContact.ContactID = 0
         InsertContact(Dbm, newContact)
     }
-
-
-    //u := models.CreateDefaultUser("ramos")
-
-    // KEY := []byte("key")
-    // unencryptedPassword := "this is password you will encrypt"
-    // encryptedPassword, err := encrypt(KEY, unencryptedPassword) 
-    // u.Password = encryptedPassword
-
-    //InsertUsers(Dbm, u)
-
-    // USAGE EXAMPLE --------------
-    // InsertUsersAdmin(Dbm)
-    // InsertPostAdmin(Dbm)
-
-    // NewsTemp := models.CreateDefaultNews("News Title Temp")
-    // InsertNews(Dbm, NewsTemp)
-    // UsersSocialMedia := models.CreateDefaultUserSocialMedia()
-    // n := SelectNewsByNewsId(Dbm, 2)
-    // SelectAllNews(Dbm)
-    // UpdateNews(Dbm, n)
-    // DeleteNewsByNewsid(Dbm, 2)
-
-
-    // InsertUserSocialMedia(Dbm, UsersSocialMedia)
-    // UsersContact := models.CreateDefaultUserContact()
-    // sm := SelectUserSocialMediaByUserSocialMediaId(Dbm, 2)
-    // SelectAllUserSocialMedia(Dbm)
-    // UpdateUserSocialMedia(Dbm, sm)
-    // DeleteUserSocialMediaByUserSocialMediaid(Dbm, 2)
-
-
-    // InsertUserContact(Dbm, UsersContact)
-    // u := SelectUserContactByUserContactId(Dbm, 2)
-    // SelectAllUserContact(Dbm)
-    // UpdateUserContact(Dbm, u)
-    // DeleteUserContactByUserContactid(Dbm, 2)
-
-    // ----------------------------------------------
 }
 
 
@@ -145,6 +110,16 @@ func defineUserTable(dbm *gorp.DbMap){
 
     // e.g. VARCHAR(25)
     t.ColMap("name").SetMaxSize(25)
+}
+
+func defineBundlesTable(dbm *gorp.DbMap){
+    // set "id" as primary key and autoincrement
+    dbm.AddTable(models.Bundles{}).SetKeys(true, "bundleid")
+}
+
+func defineUsersInBundleTable(dbm *gorp.DbMap){
+    // set "id" as primary key and autoincrement
+    dbm.AddTable(models.UsersInBundle{}).SetKeys(false, "userid", "bundleid")
 }
 
 func defineUserSocialMediaTable(dbm *gorp.DbMap) {

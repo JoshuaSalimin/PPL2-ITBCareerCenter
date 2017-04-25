@@ -53,7 +53,7 @@ func UpdatePost(dbm *gorp.DbMap, p models.Post) {
     log.Println("Rows updated:", count)
 }
 
-func DeletePostByPostid(dbm *gorp.DbMap, postid int) {
+func DeletePostByPostid(dbm *gorp.DbMap, postid int64) {
     _, err := dbm.Exec("DELETE FROM post WHERE postid=?", postid)
     checkErr(err, "Delete failed")
 }
