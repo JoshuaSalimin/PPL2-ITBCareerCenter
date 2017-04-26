@@ -5,3 +5,7 @@ routes/
 \.DS_Store
 
 conf/app\.conf
+
+public/images/partnership
+public/images/user/*
+!public/images/user/.gitkeep

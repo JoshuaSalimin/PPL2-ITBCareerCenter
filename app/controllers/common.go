@@ -3,6 +3,10 @@ package controllers
 import (
     "strconv"
     "log"
+    "math/rand"
+    "encoding/hex"
+
+
     "crypto/sha256"
     // "crypto/aes"
     // "crypto/cipher"
@@ -11,6 +15,14 @@ import (
     // "errors"
     // "fmt"
     // "io"
+)
+
+
+const (
+    _      = iota
+    KB int = 1 << (10 * iota)
+    MB
+    GB
 )
 
 func parseUintOrDefault(intStr string, _default uint64) uint64 {
@@ -49,7 +61,13 @@ func max(a, b int) int {
     return b
 }
 
-// encrypt string to base64 crypto using AES
+func randString() string {
+    randBytes := make([]byte, 16)
+    rand.Read(randBytes)
+    return hex.EncodeToString(randBytes)
+}
+
+// encrypt string to base64 crypto using SHA
 func EncryptSHA256(text string) string {
     h := sha256.New()
     h.Write([]byte(text))

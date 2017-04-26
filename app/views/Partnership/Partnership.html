@@ -1,0 +1,42 @@
+{{set . "title" "ITB Career Center Entrepreneurship Partnership"}}
+
+<!-- Header -->
+{{template "header.html" .}}
+
+	<!-- Content -->
+		<div id="page-wrapper">
+	<!-- Nav -->
+		{{template "nav.html" .}}
+			
+	<!-- Main -->
+		<!-- Posts -->
+		<section class="wrapper style1">
+			<div class="container">
+				{{if .authorized}}
+					<a href="#" style="color: white;"><button class="btn btn-info btn-lg">Edit This Page</button></a>
+				{{end}}
+				<a href="/EditPartnership" style="color: white;"><button class="btn btn-info btn-lg">Edit This Page</button></a>
+				<br><br>
+				{{ range $key, $p := .allPartnership }}
+				   {{if even $key}}<div class="row">{{end}}
+						<section class="6u 12u(narrower)">
+							<a href="{{ $p.PartnershipLink }}" style="color: black;">
+								<div class="box post">
+									<div class="image left"><img src="{{ $p.ImgPath}}" alt="" /></div>
+									<div class="inner">
+										<h3>{{ $p.PartnershipName }}</h3>
+										<p>{{ printf "%.25s" $p.PartnershipLink }}</p>
+									</div>
+								</div>
+							</a>
+						</section>
+					{{if not (even $key)}}</div>{{end}}
+				{{ end }}
+				{{if not (even (len .allPartnership))}}</div>{{end}}
+			</div>
+			
+		</section>
+				
+		</div>		
+<!-- Footer -->
+{{template "footer.html" .}}

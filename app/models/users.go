@@ -12,9 +12,9 @@ type Users struct {
     Name                    string  `db:"name"`		
 	ProductName		        string 	`db:"product_name"`
     CompanyName		        string  `db:"company_name"`
-    CompanyDescription		string	`db:"description"`
-    Visi                    string  `db:"visi"`
-    Misi                    string  `db:"misi"`
+    CompanyDescription		string	`db:"description, size:1000000"`
+    Visi                    string  `db:"visi, size:1000"`
+    Misi                    string  `db:"misi, size:1000"`
     Jurusan                 string  `db:"jurusan"`
     Angkatan                int  `db:"angkatan"`
     LogoPath				string `db:"logo_path"`
@@ -22,6 +22,7 @@ type Users struct {
     UpdatedAt		        int64	`db:"users_updated_at"`		
     ShowProfile		        bool 	`db:"show_profile"`  // show profile ato ngga
     Role                    int  	`db:"role"`   // 1 untuk admin, 0 untuk non-admin
+    IsPasswordChanged       bool    `db:"is_password_changed"`
 }
 
 func CreateDefaultUser(username string) Users {
@@ -37,7 +38,7 @@ func CreateDefaultUser(username string) Users {
         Misi            : "DEFAULT_MISI",
         Jurusan         : "DEFAULT_JURUSAN",
         Angkatan        : 0,       
-        LogoPath 		: "DEFAULT_LOGO_PATH",
+        LogoPath 		: "/public/images/defaultUserLogo.jpg",
         CreatedAt       : time.Now().UnixNano(), 
         UpdatedAt       : time.Now().UnixNano(),   
         ShowProfile     : false,    

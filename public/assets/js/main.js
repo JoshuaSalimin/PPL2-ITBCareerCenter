@@ -16,9 +16,6 @@ function(skel, $) {
 		mobile: '(max-width: 736px)',
 		mobilep: '(max-width: 480px)'
 	});
-
-	$(function() {
-
 		var	$window = $(window),
 			$body = $('body');
 
@@ -83,6 +80,5 @@ function(skel, $) {
 					$('#titleBar, #navPanel, #page-wrapper')
 						.css('transition', 'none');
 
-	});
 
 });

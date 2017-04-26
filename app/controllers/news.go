@@ -15,6 +15,13 @@ type News struct {
 	*revel.Controller
 }
 
+func (c News) Index() revel.Result {
+    news := true
+    list := SelectAllNews(Dbm);
+    latest := SelectLatestNews(Dbm);
+    return c.Render(news,list,latest);
+}
+
 func (c News) Form() revel.Result {
 	return c.Render()
 }
@@ -97,7 +104,7 @@ func InsertNews(dbm *gorp.DbMap, p models.News) bool{
 func SelectAllNews(dbm *gorp.DbMap) []models.News {
 	var p []models.News
 
-    _, err := dbm.Select(&p, "SELECT * FROM News")
+    _, err := dbm.Select(&p, "SELECT * FROM News ORDER BY news_updated_at DESC")
     checkErr(err, "Select failed")
     log.Println("All rows:")
     return p 	
@@ -130,4 +137,11 @@ func DeleteNewsByNewsid(dbm *gorp.DbMap, newsid int) bool{
     }else{
         return false;
     }
+}
+
+func SelectLatestNews(dbm *gorp.DbMap) models.News {
+    var p models.News
+    err := dbm.SelectOne(&p, "SELECT * FROM News ORDER BY news_updated_at DESC LIMIT 1")
+    checkErr(err, "SelectOne failed")
+    return p
 }
