@@ -23,7 +23,7 @@
 								<header style="text-align: center;">
 									<h2>Add New Event</h2>
 								</header>
-								<form action="/AddEvent" method="POST">
+								<form action="/AddEvent" method="POST" enctype="multipart/form-data">
 									
 									<h5>Event Title</h5>
 									<input type="text" name="EventTitle" placeholder="Event Title">
@@ -43,7 +43,7 @@
 
 									<h5>Event Banner</h5>
 										<div class="eventform">
-										      	<input id="EventBanner" name="eventbanner" type="file">
+										      	<input id="EventBanner" name="EventBanner" type="file">
 									    </div>
 									    <div class="container">
 									
