@@ -26,16 +26,21 @@ type Event struct {
 	*revel.Controller
 }
 
-func (c Event) AddEvent() revel.Result {
+func (e Event) AddEvent() revel.Result {
     isAuthorizedAsAdmin := true
-    return c.Render(isAuthorizedAsAdmin)
+    return e.Render(isAuthorizedAsAdmin)
 }
 
 
-func (c Event) AddEventToDB(eventbanner []byte) revel.Result {
+func (e Event) AddEventToDB(EventTitle string, 
+                            EventStart_RFC3339 string, 
+                            EventEnd_RFC3339 string, 
+                            EventLocation string, 
+                            EventBanner []byte,
+                            EventDescription string ) revel.Result {
+
     layout := "2006-01-02T15:04"      
-    EventStart_RFC3339 := c.Request.Form.Get("EventStart")
-    EventEnd_RFC3339 := c.Request.Form.Get("EventEnd")
+
     EventStart, _ := time.Parse(layout, EventStart_RFC3339)
     EventEnd, _ := time.Parse(layout, EventEnd_RFC3339)
 
@@ -44,26 +49,17 @@ func (c Event) AddEventToDB(eventbanner []byte) revel.Result {
     EventStart = EventStart.Add(trunc)
     EventEnd = EventEnd.Add(trunc)
 
-    EventLocation := c.Request.Form.Get("EventLocation")
-    EventTitle := c.Request.Form.Get("EventTitle")
-
     ev := models.CreateDefaultEvent3(EventTitle)
 
-    // log.Println("FFFFFFFFFFFFFFF")
-
     // if (len(eventbanner) != 0) {
-    if (len(c.Params.Files["eventbanner"]) != 0) {
+    if (len(EventBanner) != 0) {
         log.Println("YASSS")        
-        filename := c.Params.Files["eventbanner"][0].Filename
-        relativePath := c.UploadBanner(eventbanner, filename)
+        filename := e.Params.Files["eventbanner"][0].Filename
+        relativePath := e.UploadBanner(EventBanner, filename)
         ev.BannerPath = relativePath
     } else {
-        log.Println("STILL FAILED " + strconv.Itoa(len(c.Params.Files["eventbanner"])))
+        log.Println("STILL FAILED. Files : " + strconv.Itoa(len(e.Params.Files["eventbanner"])))
     }
-    
-    // log.Println("FFFFFFFFFFFFFFF")
-
-    EventDescription := c.Request.Form.Get("EventDescription")
 
     ev.EventStart = EventStart.Unix()
     ev.EventEnd = EventEnd.Unix()
@@ -72,11 +68,11 @@ func (c Event) AddEventToDB(eventbanner []byte) revel.Result {
 
     InsertEvent(Dbm, ev)
 
-    return c.Redirect("/Event")
+    return e.Redirect("/Event")
 
 }
 
-func (c Event) EventDetail(id int) revel.Result {
+func (e Event) EventDetail(id int) revel.Result {
     ev := SelectEventByEventId(Dbm, id)
     log.Println(ev)
     EventTitle := ev.EventTitle
@@ -92,16 +88,16 @@ func (c Event) EventDetail(id int) revel.Result {
     EventCreatedAt := time.Unix(0, ev.CreatedAt)
     EventUpdatedAt := time.Unix(0, ev.UpdatedAt)
     isAuthorizedAsAdmin := true
-    return c.Render(true, id, EventTitle, EventBannerPath, EventStart, EventEnd, 
+    return e.Render(true, id, EventTitle, EventBannerPath, EventStart, EventEnd, 
         EventLocation, EventDescription, EventCreatedAt, EventUpdatedAt, isAuthorizedAsAdmin)
 }
 
-func (c Event) DeleteEvent(id int) revel.Result {
+func (e Event) DeleteEvent(id int) revel.Result {
     DeleteEventByEventId(Dbm, id)
-    return c.Redirect("/Event")
+    return e.Redirect("/Event")
 }
 
-func (c Event) EditEvent(id int) revel.Result {
+func (e Event) EditEvent(id int) revel.Result {
     ev := SelectEventByEventId(Dbm, id)
     log.Println(ev)
     EventTitle := ev.EventTitle
@@ -115,17 +111,17 @@ func (c Event) EditEvent(id int) revel.Result {
     EventCreatedAt := time.Unix(0, ev.CreatedAt)
     EventUpdatedAt := time.Unix(0, ev.UpdatedAt)
     isAuthorizedAsAdmin := true
-    return c.Render(true, id, EventTitle, EventBannerPath, EventStart, EventEnd, 
+    return e.Render(true, id, EventTitle, EventBannerPath, EventStart, EventEnd, 
         EventLocation, EventDescription, EventCreatedAt, EventUpdatedAt, isAuthorizedAsAdmin)
 }
 
-func (c Event) UpdateEvent() revel.Result{
+func (e Event) UpdateEvent() revel.Result{
     layout := "2006-01-02T15:04"       
-    id, _ := strconv.Atoi(c.Request.Form.Get("id"))
+    id, _ := strconv.Atoi(e.Request.Form.Get("id"))
     ev := SelectEventByEventId(Dbm, id)
 
-    EventStart_RFC3339 := c.Request.Form.Get("EventStart")
-    EventEnd_RFC3339 := c.Request.Form.Get("EventEnd")
+    EventStart_RFC3339 := e.Request.Form.Get("EventStart")
+    EventEnd_RFC3339 := e.Request.Form.Get("EventEnd")
     EventStart, _ := time.Parse(layout, EventStart_RFC3339)
     EventEnd, _ := time.Parse(layout, EventEnd_RFC3339)
 
@@ -135,10 +131,10 @@ func (c Event) UpdateEvent() revel.Result{
     EventEnd = EventEnd.Add(trunc)
 
 
-    EventLocation := c.Request.Form.Get("EventLocation")
-    EventTitle := c.Request.Form.Get("EventTitle")
-    // EventBanner := c.Request.Form.Get("EventBanner")
-    EventDescription := c.Request.Form.Get("EventDescription")
+    EventLocation := e.Request.Form.Get("EventLocation")
+    EventTitle := e.Request.Form.Get("EventTitle")
+    // EventBanner := e.Request.Form.Get("EventBanner")
+    EventDescription := e.Request.Form.Get("EventDescription")
 
     log.Println(ev)
 
@@ -153,12 +149,12 @@ func (c Event) UpdateEvent() revel.Result{
 
     log.Println(ev)
 
-    return c.Redirect("/Event")
+    return e.Redirect("/Event")
 }
 
 
-func (c Event) UploadBanner(image []byte, filename string) string {
-    c.Validation.MaxSize(image, 2*MB).
+func (e Event) UploadBanner(image []byte, filename string) string {
+    e.Validation.MaxSize(image, 2*MB).
         Message("File cannot be larger than 2MB")
 
     fileExt := filepath.Ext(filename)
