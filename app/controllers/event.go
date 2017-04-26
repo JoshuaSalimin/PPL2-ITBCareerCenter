@@ -51,10 +51,9 @@ func (e Event) AddEventToDB(EventTitle string,
 
     ev := models.CreateDefaultEvent3(EventTitle)
 
-    // if (len(eventbanner) != 0) {
     if (len(EventBanner) != 0) {
         log.Println("YASSS")        
-        filename := e.Params.Files["eventbanner"][0].Filename
+        filename := e.Params.Files["EventBanner"][0].Filename
         relativePath := e.UploadBanner(EventBanner, filename)
         ev.BannerPath = relativePath
     } else {
@@ -115,7 +114,7 @@ func (e Event) EditEvent(id int) revel.Result {
         EventLocation, EventDescription, EventCreatedAt, EventUpdatedAt, isAuthorizedAsAdmin)
 }
 
-func (e Event) UpdateEvent() revel.Result{
+func (e Event) UpdateEvent(EventBanner []byte,) revel.Result{
     layout := "2006-01-02T15:04"       
     id, _ := strconv.Atoi(e.Request.Form.Get("id"))
     ev := SelectEventByEventId(Dbm, id)
@@ -133,7 +132,17 @@ func (e Event) UpdateEvent() revel.Result{
 
     EventLocation := e.Request.Form.Get("EventLocation")
     EventTitle := e.Request.Form.Get("EventTitle")
-    // EventBanner := e.Request.Form.Get("EventBanner")
+
+    if (len(EventBanner) != 0) {
+        log.Println("YASSS")        
+        filename := e.Params.Files["EventBanner"][0].Filename
+        relativePath := e.UploadBanner(EventBanner, filename)
+        ev.BannerPath = relativePath
+    } else {
+        log.Println("STILL FAILED. Files : " + strconv.Itoa(len(e.Params.Files["eventbanner"])))
+    }
+
+
     EventDescription := e.Request.Form.Get("EventDescription")
 
     log.Println(ev)
