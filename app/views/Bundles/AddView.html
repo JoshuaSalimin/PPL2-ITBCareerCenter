@@ -1,37 +1,116 @@
-{{set . "title" "ITB Career Center Entrepreneurship Add Bundle"}}
+<!DOCTYPE html>
 
-<!-- Header -->
-{{template "header.html" .}}
-<header>
-</header>
+<html>
+	<head>
+		<title>Admin Enterpreuner</title>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+		<link rel="stylesheet" href="/public/assets/css/bootstrap.min.css">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
+		<link rel="stylesheet" href="/public/assets/dist/css/AdminLTE.min.css">
+		<link rel="stylesheet" href="/public/assets/dist/css/skins/_all-skins.min.css">
+	</head>
+	
+<body class="hold-transition skin-purple sidebar-mini">
+<div class="wrapper">
 
-<style>
-</style>
+  <!-- Main Header -->
+  <header class="main-header">
+
+    <!-- Logo -->
+    <a href="#" class="logo">
+      <!-- mini logo for sidebar mini 50x50 pixels -->
+      <span class="logo-mini"><b>A</b>En</span>
+      <!-- logo for regular state and mobile devices -->
+      <span class="logo-lg"><b>Admin</b>Enterpreunership</span>
+    </a>
+
+    <!-- Header Navbar -->
+    <nav class="navbar navbar-static-top" role="navigation">
+      <!-- Sidebar toggle button-->
+      <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+        <span class="sr-only">Toggle navigation</span>
+      </a>
+      <!-- Navbar Right Menu -->
+      <div class="navbar-custom-menu">
+        <ul class="nav navbar-nav">
+          <!-- Control Sidebar Toggle Button -->
+          <li>
+            <a href="/" data-toggle="control-sidebar"><i class="fa fa-sign-out"></i></a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </header>
+  <!-- Left side column. contains the logo and sidebar -->
+  <aside class="main-sidebar">
+
+    <!-- sidebar: style can be found in sidebar.less -->
+    <section class="sidebar">
+      <!-- Sidebar Menu -->
+      <ul class="sidebar-menu">
+        <li class="header">MENU</li>
+        <!-- Optionally, you can add icons to the links -->
+        <li><a href="/News/List"><i class="fa fa-newspaper-o"></i> <span>News</span></a></li>
+        <li class="active treeview">
+          <a href="#">
+            <i class="fa fa-users"></i> <span>User Management</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li><a href="/Users/List"><i class="fa fa-circle-o"></i> List of Users</a></li>
+            <li class="active"><a href="/Users/Bundles"><i class="fa fa-circle-o"></i> List of Bundles</a></li>
+          </ul>
+        </li>
+        <li><a href="#"><i class="fa fa-calendar"></i> <span>Event</span></a></li>
+        <li><a href="#"><i class="fa fa-user"></i> <span>PMW Profile</span></a></li>
+      </ul>
+      <!-- /.sidebar-menu -->
+    </section>
+    <!-- /.sidebar -->
+  </aside>
+  
 <!-- Content -->
-<div id="page-wrapper">
-	<!-- Nav -->
-	{{template "nav.html" .}}
 
-	<!-- Main -->
-	<section class="wrapper style1">
-		<div class="container">
-			<form action="/Users/Bundles/Add" method="POST">
-				<label>Nama Bundle</label>
-				<input name="namabundle" type="text" value="" required>
+<div class="content-wrapper">
+		<!-- Main -->
+		<section class="content">
+			<div class="box box-primary">
+				<div class="box-body">
+					<form action="/Users/Bundles/Add" method="POST">
+						<div class="form-group">
+							<label>Nama Bundle<br></label>
+							<input class="form-control" name="namabundle" type="text" value="" required>
+						</div>
+						
+						<div class="form-group">
+							<label>Angkatan<br></label>
+							<input class="form-control" name="angkatan" type="number" value="" required>
+						</div>
+						
+						<div class="form-group">
+							<label>Jumlah User<br></label>
+							<input class="form-control" name="jumlah" type="number" value="" required>
+						</div>
 
-				<label>Angkatan</label>
-				<input name="angkatan" type="number" value="" required>
+						<input type="submit" value="Add" class="btn btn-primary">
+					</form>
+				</div>
+			</div>
+		</section>
+</div>
+<!-- ./wrapper -->
 
-				<label>Jumlah User</label>
-				<input name="jumlah" type="number" value="" required>
-				<br><br>
+<!-- REQUIRED JS SCRIPTS -->
 
-				<input type="submit" value="Add">
-			</form>
-		</div>
-	</section>
-</div>		
-<!-- Footer -->
-{{template "footer.html" .}}
-<footer>
-</footer>
+<script src="/public/assets/plugins/jQuery/jquery-2.2.3.min.js"></script>
+<script src="/public/assets/js/bootstrap.min.js"></script>
+<script src="/public/assets/dist/js/app.min.js"></script>
+<script src="/public/assets/plugins/slimScroll/jquery.slimscroll.min.js"></script>
+
+</body>
+</html>

@@ -58,7 +58,19 @@
         <li class="header">MENU</li>
         <!-- Optionally, you can add icons to the links -->
         <li><a href="/News/List"><i class="fa fa-newspaper-o"></i> <span>News</span></a></li>
-        <li class="active"><a href="/Users/List"><i class="fa fa-users"></i> <span>User Management</span></a></li>
+		
+		<li class="active treeview">
+          <a href="#">
+            <i class="fa fa-users"></i> <span>User Management</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li class="active"><a href="/Users/List"><i class="fa fa-circle-o"></i> List of Users</a></li>
+            <li><a href="/Users/Bundles"><i class="fa fa-circle-o"></i> List of Bundles</a></li>
+          </ul>
+        </li>
         <li><a href="#"><i class="fa fa-calendar"></i> <span>Event</span></a></li>
         <li><a href="#"><i class="fa fa-user"></i> <span>PMW Profile</span></a></li>
       </ul>
@@ -81,35 +93,35 @@ form button {
 	font-weight: bold;
 }
 </style>
+
 <!-- Content -->
-	<div class="content-wrapper">
+<div class="content-wrapper">
 	
 	<section class="content-header">
       <h1>
         Manage Users
       </h1>
-	<section>
+	</section>
 
 		<!-- Main -->
 		<section class="content">
 			<p class="successflash">{{.flash.success}}</p>
 			<div class="box box-primary">
-				<div class="box body">
-					<p></p>
+				<div class="box-body">
 					<div class="box-header ui-sortable-handle">
 						<a href="/Users/Add"><button><b>Add a Single User</b></button></a>
 						<a href="/Users/Bundles/Add"><button><b>Add a Bundle of Users</b></button></a>
 					</div>
 					<div class="table-responsive">
-						<table class="table no margin">
+						<table class="table no-margin table-hover">
 							<thead>
-							<tr role="row">
-								<th width="4%">Id</td>
-								<th width="15%">Username</td>
-								<th width="15%">Name</td>
-								<th width="20%">Company Name</td>
-								<th width="10%">Angkatan</td>
-								<th width="7%">Show?</td>
+							<tr>
+								<th width="4%"><center>Id</center></td>
+								<th width="15%"><center>Username</center></td>
+								<th width="15%"><center>Name</center></td>
+								<th width="20%"><center>Company Name</center></td>
+								<th width="10%"><center>Angkatan</center></td>
+								<th width="7%"><center>Show?</center></td>
 								<th width="3%"></td>
 								<th width="3%"></td>
 							</tr>
@@ -117,7 +129,7 @@ form button {
 							
 							<tbody>
 							{{range .users}}
-							<tr class="tablecontent">
+							<tr>
 								<td>{{.UserId}}</td>
 								<td>{{.Username}}</td>
 								<td>{{.Name}}</td>
