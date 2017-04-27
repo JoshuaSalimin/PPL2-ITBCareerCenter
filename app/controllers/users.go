@@ -73,11 +73,11 @@ func (c Users) Add() revel.Result {
 }
 
 func (c Users) Delete() revel.Result {
-    c.Flash.Success("User added successfully");
+    //c.Flash.Success("User added successfully");
     id,_ := strconv.Atoi(c.Request.Form.Get("id"))
     DeleteUsersByUserId(Dbm,id)
-    //c.Flash.Success("User " + "deleted successfully");
-    return c.Redirect("/Users")
+    c.Flash.Success("User deleted successfully");
+    return c.Redirect("/Users/List")
 }
 
 func (c Users) EditView() revel.Result {
@@ -96,7 +96,7 @@ func (c Users) Edit() revel.Result {
     UpdateUsersByUserid(Dbm, userid, username, password, angkatan)
     
     c.Flash.Success("User edited successfully");
-    return c.Redirect("/Users")
+    return c.Redirect("/Users/List")
 }
 
 func generateRandomPassword(digits int) string {
