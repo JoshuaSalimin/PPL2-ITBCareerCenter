@@ -104,7 +104,7 @@ var InitDb func() = func(){
 	
 	u := models.CreateDefaultUser("ramos")
 	
-	InsertUsers(Dbm, u)
+	InsertUsers(Dbm, &u)
 
 }
 

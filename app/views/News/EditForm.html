@@ -57,7 +57,7 @@
         <li class="header">MENU</li>
         <!-- Optionally, you can add icons to the links -->
         <li class="active"><a href="/News/List"><i class="fa fa-newspaper-o"></i> <span>News</span></a></li>
-        <li><a href="#"><i class="fa fa-users"></i> <span>User Management</span></a></li>
+        <li><a href="/Users/List"><i class="fa fa-users"></i> <span>User Management</span></a></li>
         <li><a href="#"><i class="fa fa-calendar"></i> <span>Event</span></a></li>
         <li><a href="#"><i class="fa fa-user"></i> <span>PMW Profile</span></a></li>
       </ul>
@@ -94,7 +94,7 @@
 						CKEDITOR.instances['newscontent'].setData("{{.news.Content}}");
 					</script>
 					<div align="right">
-						<input type="submit" value="Edit" />
+						<input class="btn btn-default pull-right" type="submit" value="Edit" />
 					</div>
 				
 				</form>

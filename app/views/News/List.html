@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 {{set . "AdminNews" "true"}}
 
 <!DOCTYPE html>
@@ -59,7 +58,7 @@
         <li class="header">MENU</li>
         <!-- Optionally, you can add icons to the links -->
         <li class="active"><a href="/News/List"><i class="fa fa-newspaper-o"></i> <span>News</span></a></li>
-        <li><a href="#"><i class="fa fa-users"></i> <span>User Management</span></a></li>
+        <li><a href="/Users/List"><i class="fa fa-users"></i> <span>User Management</span></a></li>
         <li><a href="#"><i class="fa fa-calendar"></i> <span>Event</span></a></li>
         <li><a href="#"><i class="fa fa-user"></i> <span>PMW Profile</span></a></li>
       </ul>
@@ -84,7 +83,7 @@
     <!-- Main content -->
     <section class="content">
 
-      <div class="box box-primary dataTables_wrapper">
+      <div class="box box-primary">
 		<div class="box-header">
 		  <i class="ion ion-clipboard"></i>
 
@@ -101,26 +100,26 @@
 		  </div>-->
 		</div>
 
-		<div class="box-body">
+		<div class="box-body dataTables_wrapper">
 		  <div class="table-responsive">
-			<table class="table no-margin sort display dataTable">
+			<table class="table no-margin">
 			  <thead>
 			  <tr role="row">
-				<th class="sorting" width="10%">ID</th>
-				<th class="sorting" width="40%">Title</th>
-				<th class="sorting" width="20%">Created At</th>
-				<th class="sorting" width="20%">Updated At</th>
+				<th class="sorting" width="10%" ><center>ID</center></th>
+				<th class="sorting" width="40%"><center>Title</center></th>
+				<th class="sorting" width="20%"><center>Created At</center></th>
+				<th class="sorting" width="20%"><center>Updated At</center></th>
 				<th width="5%"></th>
 				<th width="5%"></th>
 			  </tr>
 			  </thead>
 			  <tbody>
 			  {{range .news}}
-			  <tr>
-				<td align="center">{{.NewsId}}</td>
-				<td>{{.NewsTitle}}</td>
-				<td align="center">{{.CreatedAt}}</td>
-				<td align="center">{{.UpdatedAt}}</td>
+			  <tr role="row">
+				<td><center>{{.NewsId}}</center></td>
+				<td><center>{{.NewsTitle}}</center></td>
+				<td><center>{{.CreatedAt}}</center></td>
+				<td><center>{{.UpdatedAt}}</center></td>
 				<td><a href="/News/EditForm/{{.NewsId}}"><button><i class="fa fa-edit" style="color:blue"></i></button></a></td>
 				<form action="/News/Delete/" method="POST">
 					<input type="hidden" name="id" id="id" value="{{.NewsId}}">
