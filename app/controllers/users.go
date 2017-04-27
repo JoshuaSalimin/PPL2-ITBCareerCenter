@@ -69,7 +69,7 @@ func (c Users) Add() revel.Result {
     user.Password = EncryptSHA256(user.Password)
     InsertUsers(Dbm, &user)
     c.Flash.Success("User " + c.Request.Form.Get("username") + " added successfully");
-    return c.Redirect("/Users")
+    return c.Redirect("/Users/List")
 }
 
 func (c Users) Delete() revel.Result {
