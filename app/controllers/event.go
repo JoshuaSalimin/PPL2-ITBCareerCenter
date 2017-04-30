@@ -15,15 +15,31 @@ import (
     "fmt"
 )
 
-const (
-    _      = iota
-    KB int = 1 << (10 * iota)
-    MB
-    GB
-)
+// const (
+//     _      = iota
+//     KB int = 1 << (10 * iota)
+//     MB
+//     GB
+// )
 
 type Event struct {
 	*revel.Controller
+}
+
+func (e Event) Event() revel.Result {
+    events := true
+    list := SelectAllEvent(Dbm)
+    var isAuthorizedAsAdmin bool
+    if (e.Session["cUserId"] == "") {
+        isAuthorizedAsAdmin = false
+    } else {
+        if (e.Session["cUserRole"] == "1") {
+            isAuthorizedAsAdmin = true
+        } else {
+            isAuthorizedAsAdmin = false
+        }
+    }
+    return e.Render(events, list, isAuthorizedAsAdmin)
 }
 
 func (e Event) AddEvent() revel.Result {
@@ -67,7 +83,7 @@ func (e Event) AddEventToDB(EventTitle string,
 
     InsertEvent(Dbm, ev)
 
-    return e.Redirect("/Event")
+    return e.Redirect("/Events")
 
 }
 
@@ -86,14 +102,24 @@ func (e Event) EventDetail(id int) revel.Result {
     log.Println(EventDescription)
     EventCreatedAt := time.Unix(0, ev.CreatedAt)
     EventUpdatedAt := time.Unix(0, ev.UpdatedAt)
-    isAuthorizedAsAdmin := true
-    return e.Render(true, id, EventTitle, EventBannerPath, EventStart, EventEnd, 
+    var isAuthorizedAsAdmin bool
+    if (e.Session["cUserId"] == "") {
+        isAuthorizedAsAdmin = false
+    } else {
+        if (e.Session["cUserRole"] == "1") {
+            isAuthorizedAsAdmin = true
+        } else {
+            isAuthorizedAsAdmin = false
+        }
+    }
+    events := true
+    return e.Render(events, id, EventTitle, EventBannerPath, EventStart, EventEnd, 
         EventLocation, EventDescription, EventCreatedAt, EventUpdatedAt, isAuthorizedAsAdmin)
 }
 
 func (e Event) DeleteEvent(id int) revel.Result {
     DeleteEventByEventId(Dbm, id)
-    return e.Redirect("/Event")
+    return e.Redirect("/Events")
 }
 
 func (e Event) EditEvent(id int) revel.Result {
@@ -109,8 +135,18 @@ func (e Event) EditEvent(id int) revel.Result {
     EventDescription := ev.EventDescription
     EventCreatedAt := time.Unix(0, ev.CreatedAt)
     EventUpdatedAt := time.Unix(0, ev.UpdatedAt)
-    isAuthorizedAsAdmin := true
-    return e.Render(true, id, EventTitle, EventBannerPath, EventStart, EventEnd, 
+    var isAuthorizedAsAdmin bool
+    if (e.Session["cUserId"] == "") {
+        isAuthorizedAsAdmin = false
+    } else {
+        if (e.Session["cUserRole"] == "1") {
+            isAuthorizedAsAdmin = true
+        } else {
+            isAuthorizedAsAdmin = false
+        }
+    }
+    events := true
+    return e.Render(events, id, EventTitle, EventBannerPath, EventStart, EventEnd, 
         EventLocation, EventDescription, EventCreatedAt, EventUpdatedAt, isAuthorizedAsAdmin)
 }
 
@@ -158,7 +194,7 @@ func (e Event) UpdateEvent(EventBanner []byte,) revel.Result{
 
     log.Println(ev)
 
-    return e.Redirect("/Event")
+    return e.Redirect("/Events")
 }
 
 

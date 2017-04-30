@@ -11,11 +11,9 @@
 	{{template "nav.html" .}}
 		
 		<!-- Main -->
-		<article>
-			<h1>Our Event</h1>
 			<section class="wrapper style1">
 				<div class="container">
-					<div id="content">					
+					<div id="content">
 					{{if .isAuthorizedAsAdmin}}
 					<div id="divedit">
 						<form action="/AddEvent" method=get>
@@ -24,7 +22,6 @@
 					</div>			
 					<br>
 					{{end}}
-
 					{{range .list}}
 
 						<span class="image featured">
@@ -34,9 +31,24 @@
 						</span>
 
 					{{end}}
+<!-- 						<span class="image featured"><img src="public/images/event1.jpg" 
+						alt=""/></span>						 -->
+<!-- 						<span class="image featured"><img src="public/images/event2.jpg" alt="" style="height:200px;"/></span>
+						<span class="image featured"><img src="public/images/event3.jpg" alt="" style="height:200px;"/></span> -->
+						<!-- Content -->
+<!-- 							<article>
+								<header>
+									<h2>No Sidebar</h2>
+									<p>All content, all the time.</p>
+								</header>
+								<span class="image featured"><img src="public/images/banner.jpg" alt="" /></span>
+								<p><a href="/News/Detail/{{.NewsId}}" style="color:#000000">{{.NewsTitle}}</a></p>
+
+
+							</article>
+					</div> -->
 				</div>
 			</section>
-		</article>
 	</div>
 <!-- Footer -->
 {{template "footer.html" .}}

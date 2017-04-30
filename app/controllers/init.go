@@ -112,6 +112,10 @@ var InitDb func() = func(){
     // InsertEvent(Dbm, e1)
     // InsertEvent(Dbm, e2)
     // InsertEvent(Dbm, e3)
+
+    u := models.CreateDefaultUser("role0")
+    u.Password = EncryptSHA256(u.Password)
+    InsertUsers(Dbm, &u)
 }
 
 
