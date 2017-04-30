@@ -105,17 +105,6 @@ var InitDb func() = func(){
         newContact.ContactID = 0
         InsertContact(Dbm, newContact)
     }
-
-    // e1 := models.CreateDefaultEvent("Event1")
-    // e2 := models.CreateDefaultEvent2("Event2")
-    // e3 := models.CreateDefaultEvent3("Event3")
-    // InsertEvent(Dbm, e1)
-    // InsertEvent(Dbm, e2)
-    // InsertEvent(Dbm, e3)
-
-    u := models.CreateDefaultUser("role0")
-    u.Password = EncryptSHA256(u.Password)
-    InsertUsers(Dbm, &u)
 }
 
 
@@ -165,6 +154,10 @@ func defineContactTable(dbm *gorp.DbMap) {
 
 func definePartnershipTable(dbm *gorp.DbMap) {
     dbm.AddTable(models.Partnership{}).SetKeys(true, "partnershipid")    
+}
+
+func defineEventTable(dbm *gorp.DbMap) {
+    dbm.AddTable(models.Event{}).SetKeys(true,"eventid")
 }
 
 func defineEventTable(dbm *gorp.DbMap) {

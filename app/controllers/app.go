@@ -20,6 +20,13 @@ func (c App) News() revel.Result {
     return c.Render(news,list);
 }
 
+func (c App) Event() revel.Result {
+	event := true
+	list := SelectAllEvent(Dbm)
+	isAuthorized := true
+	return c.Render(event, list, isAuthorized)
+}
+
 func (c App) Profiles() revel.Result {
 	profiles := true
 	return c.Render(profiles)

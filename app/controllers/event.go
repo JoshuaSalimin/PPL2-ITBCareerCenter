@@ -15,6 +15,7 @@ import (
     "fmt"
 )
 
+
 // const (
 //     _      = iota
 //     KB int = 1 << (10 * iota)
@@ -22,9 +23,18 @@ import (
 //     GB
 // )
 
+const (
+    _      = iota
+    KB int = 1 << (10 * iota)
+    MB
+    GB
+)
+
+
 type Event struct {
 	*revel.Controller
 }
+
 
 func (e Event) Event() revel.Result {
     events := true
@@ -83,8 +93,8 @@ func (e Event) AddEventToDB(EventTitle string,
 
     InsertEvent(Dbm, ev)
 
-    return e.Redirect("/Events")
 
+    return e.Redirect("/Events")
 }
 
 func (e Event) EventDetail(id int) revel.Result {
@@ -147,7 +157,6 @@ func (e Event) EditEvent(id int) revel.Result {
     }
     events := true
     return e.Render(events, id, EventTitle, EventBannerPath, EventStart, EventEnd, 
-        EventLocation, EventDescription, EventCreatedAt, EventUpdatedAt, isAuthorizedAsAdmin)
 }
 
 func (e Event) UpdateEvent(EventBanner []byte,) revel.Result{
