@@ -159,7 +159,3 @@ func definePartnershipTable(dbm *gorp.DbMap) {
 func defineEventTable(dbm *gorp.DbMap) {
     dbm.AddTable(models.Event{}).SetKeys(true,"eventid")
 }
-
-func defineEventTable(dbm *gorp.DbMap) {
-    dbm.AddTable(models.Event{}).SetKeys(true,"eventid")
-}

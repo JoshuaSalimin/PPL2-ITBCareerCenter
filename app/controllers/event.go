@@ -15,22 +15,6 @@ import (
     "fmt"
 )
 
-
-// const (
-//     _      = iota
-//     KB int = 1 << (10 * iota)
-//     MB
-//     GB
-// )
-
-const (
-    _      = iota
-    KB int = 1 << (10 * iota)
-    MB
-    GB
-)
-
-
 type Event struct {
 	*revel.Controller
 }
@@ -157,6 +141,7 @@ func (e Event) EditEvent(id int) revel.Result {
     }
     events := true
     return e.Render(events, id, EventTitle, EventBannerPath, EventStart, EventEnd, 
+        EventLocation, EventDescription, EventCreatedAt, EventUpdatedAt, isAuthorizedAsAdmin)
 }
 
 func (e Event) UpdateEvent(EventBanner []byte,) revel.Result{
