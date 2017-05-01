@@ -19,15 +19,36 @@ type Bundles struct {
 }
 
 func (c Bundles) Bundles() revel.Result {
+	//Check Auth
+    isAuthorized := c.IsAuthorized()
+    if (!isAuthorized) {
+        c.Flash.Error("You are not authorized!")
+        return c.Redirect("/Login");
+    }
+
 	bundles := SelectAllBundles(Dbm)
 	return c.Render(bundles)
 }
 
 func (c Bundles) AddView() revel.Result {
+	//Check Auth
+    isAuthorized := c.IsAuthorized()
+    if (!isAuthorized) {
+        c.Flash.Error("You are not authorized!")
+        return c.Redirect("/Login");
+    }
+
 	return c.Render(true)
 }
 
 func (c Bundles) Add() revel.Result {
+	//Check Auth
+    isAuthorized := c.IsAuthorized()
+    if (!isAuthorized) {
+        c.Flash.Error("You are not authorized!")
+        return c.Redirect("/Login");
+    }
+
 	timecreated := time.Now().UnixNano()
 	jumlah,_ := strconv.Atoi(c.Request.Form.Get("jumlah"))
 	namabundle := c.Request.Form.Get("namabundle")
@@ -79,6 +100,13 @@ func (c Bundles) Add() revel.Result {
 }
 
 func (c Bundles) Delete() revel.Result {
+	//Check Auth
+    isAuthorized := c.IsAuthorized()
+    if (!isAuthorized) {
+        c.Flash.Error("You are not authorized!")
+        return c.Redirect("/Login");
+    }
+
 	bundleid,_ := strconv.Atoi(c.Request.Form.Get("id"))
 	users := SelectUIBByBundleId(Dbm, bundleid)
 	for _, user := range users {
@@ -91,6 +119,13 @@ func (c Bundles) Delete() revel.Result {
 }
 
 func (c Bundles) DownloadCSV() revel.Result {
+	//Check Auth
+    isAuthorized := c.IsAuthorized()
+    if (!isAuthorized) {
+        c.Flash.Error("You are not authorized!")
+        return c.Redirect("/Login");
+    }
+
 	bundleid,_ := strconv.Atoi(c.Request.Form.Get("id"))
 
 	//create parent folder
@@ -132,6 +167,15 @@ func (c Bundles) DownloadCSV() revel.Result {
 	}
 
 	return c.RenderFile(file, "attachment")
+}
+
+func (c Bundles) IsAuthorized() bool {
+    //Check Auth
+    isAdmin := false
+    if (c.Session["cUserRole"] == "1") {
+        isAdmin = true
+    }
+    return isAdmin
 }
 
 func SelectAllBundles(dbm *gorp.DbMap) []models.Bundles {
