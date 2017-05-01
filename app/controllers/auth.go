@@ -22,7 +22,7 @@ func (c Auth) Login() revel.Result {
 
 	user := SelectUserByUsername(Dbm, uname)
 
-	if (u.IsPasswordChanged == true) {
+	if (user.IsPasswordChanged == true) {
 		pwd = EncryptSHA256(pwd)
 	}
 

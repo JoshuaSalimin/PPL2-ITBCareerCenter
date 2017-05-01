@@ -2,7 +2,7 @@ package controllers
 
 import (
 	"github.com/revel/revel"
-	"log"
+	// "log"
 	"strconv"
 )
 
@@ -32,7 +32,7 @@ func (c ChangePassword) Test() revel.Result {
 		if (User.IsPasswordChanged == true) {
 			oldpassword = EncryptSHA256(oldpassword)
 		} else if (User.IsPasswordChanged == false) {
-			User.IsPasswordChanged == true
+			User.IsPasswordChanged = true
 		}
 
 		if (User.Password != oldpassword) {
