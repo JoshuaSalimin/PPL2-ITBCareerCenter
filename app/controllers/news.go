@@ -23,6 +23,7 @@ func (c News) Index() revel.Result {
 }
 
 func (c News) Form() revel.Result {
+    //Check Auth
     isAdmin := false
     if (c.Session["cUserRole"] == "1") {
         isAdmin = true
@@ -41,6 +42,7 @@ func (c News) List() revel.Result {
 }
 
 func (c News) Add() revel.Result {
+    //Check Auth
     if (c.Session["cUserRole"] == "1") {
         timecreated := time.Now().UnixNano();
         innews := models.News{
@@ -71,6 +73,7 @@ func (c News) Detail() revel.Result {
 }
 
 func (c News) Delete() revel.Result {
+    //Check Auth
     if (c.Session["cUserRole"] == "1") {
         id,_ := strconv.Atoi(c.Request.Form.Get("id"));
         success := DeleteNewsByNewsid(Dbm,id);
@@ -86,6 +89,7 @@ func (c News) Delete() revel.Result {
 }
 
 func (c News) EditForm() revel.Result {
+    //Check Auth
     if (c.Session["cUserRole"] == "1") {
         var id int;
         c.Params.Bind(&id,"id");
@@ -98,6 +102,7 @@ func (c News) EditForm() revel.Result {
 }
 
 func (c News) EditSubmit() revel.Result {
+    //Check Auth
     if (c.Session["cUserRole"] == "1") {
         newsid,_ := strconv.ParseInt(c.Request.Form.Get("newsid"),0,64);
         newscreatedat,_ := strconv.ParseInt(c.Request.Form.Get("newscreated"),0,64);
