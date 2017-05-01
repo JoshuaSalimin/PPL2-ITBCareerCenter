@@ -17,11 +17,12 @@ type Users struct {
     *revel.Controller
 }
 
+
 func (c Users) Users(page int) revel.Result {
     log.Println(page)
     numUserPerPage := 20
     if (page == 0) {
-        page = 1
+        c.Redirect("/Users/List/1")
     }
     startUserLimit := (page-1)*numUserPerPage
     endUserLimit := page*numUserPerPage
@@ -39,6 +40,10 @@ func (c Users) Users(page int) revel.Result {
     users := SelectLatestUsersInRange(Dbm, startUserLimit, endUserLimit - startUserLimit)
     currentPageNum := page
     return c.Render(page, users, userCount, numUserPerPage, currentPageNum)
+}
+
+func (c Users) RedirectToList() revel.Result {
+    return c.Redirect("/Users/List/1")
 }
 
 func (c Users) AddView() revel.Result {
@@ -114,6 +119,8 @@ func InsertUsersAdmin(dbm *gorp.DbMap){
     // set "userid" as primary key and autoincrement
     var admin models.Users
     admin = models.CreateDefaultUser("admin")
+    admin.Password = EncryptSHA256(admin.Password)
+    admin.Role = 1;
     log.Println("u :", admin)
     dbm.Insert(&admin)
 }

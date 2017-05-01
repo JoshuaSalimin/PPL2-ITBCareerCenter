@@ -23,6 +23,10 @@ func (c Bundles) Bundles() revel.Result {
 	return c.Render(bundles)
 }
 
+func (c Bundles) RedirectToList() revel.Result {
+    return c.Redirect("/Users/Bundles/List/1")
+}
+
 func (c Bundles) AddView() revel.Result {
 	return c.Render(true)
 }
