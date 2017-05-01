@@ -19,12 +19,18 @@ func (c Auth) Login() revel.Result {
 
 	uname := c.Params.Form.Get("username")
 	pwd := c.Params.Form.Get("password")
-	pwd = EncryptSHA256(pwd)
-	user := SelectUserByUsernameAndPassword(Dbm, uname, pwd);
+
+	user := SelectUserByUsername(Dbm, uname)
+
+	if (u.IsPasswordChanged == true) {
+		pwd = EncryptSHA256(pwd)
+	}
+
 	if (uname == "") {
 		c.Flash.Error(loginFailedMsg + "Username harus diisi");
 		return c.Redirect("/Login")
 	}
+
 	if (user.Username == uname && user.Password == pwd) {
 		//Saves currently logged in user id in session, NIL OTHERWISE
 		c.Session["cUserId"] = strconv.FormatInt(user.UserId, 10)
