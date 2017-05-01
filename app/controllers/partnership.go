@@ -17,12 +17,28 @@ type Partnership struct {
 }
 
 func (p Partnership) Partnership() revel.Result {
+    //Check Auth
+    isAdmin := false
+    if (p.Session["cUserRole"] == "1") {
+        isAdmin = true
+    }
+
     partnership := true
     allPartnership := SelectAllPartnership(Dbm)
-    return p.Render(partnership, allPartnership)
+    return p.Render(partnership, allPartnership, isAdmin)
 }
 
 func (p Partnership) EditPartnership() revel.Result {
+    //Check Auth
+    isAdmin := false
+    if (p.Session["cUserRole"] == "1") {
+        isAdmin = true
+    }
+    if (!isAdmin) {
+        p.Flash.Error("You are not authorized!")
+        return p.Redirect("/Login");
+    }
+
     partnership := true
     allPartnership := SelectAllPartnership(Dbm)
     return p.Render(partnership, allPartnership)
@@ -40,6 +56,16 @@ func PartnershiptoDB(dbm *gorp.DbMap, p models.Partnership){
 }
 
 func (p Partnership) SavePartnership(partnershipID []int, partnershipName []string, partnershipLink []string) revel.Result {
+    //Check Auth
+    isAdmin := false
+    if (p.Session["cUserRole"] == "1") {
+        isAdmin = true
+    }
+    if (!isAdmin) {
+        p.Flash.Error("You are not authorized!")
+        return p.Redirect("/Login");
+    }
+
    if ( (len(p.Params.Files["partnershipImg[]"]) != 0) || (len(partnershipID) != 0) || (len(partnershipName) != 0) || (len(partnershipLink) != 0) ) {
        var partnershipImg [][]byte
        p.Params.Bind(&partnershipImg, "partnershipImg")
@@ -69,6 +95,16 @@ func (p Partnership) SavePartnership(partnershipID []int, partnershipName []stri
 }
 
 func (p Partnership) DeletePartnership(partnershipID int) revel.Result {
+    //Check Auth
+    isAdmin := false
+    if (p.Session["cUserRole"] == "1") {
+        isAdmin = true
+    }
+    if (!isAdmin) {
+        p.Flash.Error("You are not authorized!")
+        return p.Redirect("/Login");
+    }
+
      _, err := Dbm.Exec("DELETE FROM Partnership WHERE partnershipid=?", partnershipID)
      checkErr(err, "Delete failed")  
     log.Println("partnership id:", partnershipID)
@@ -76,6 +112,16 @@ func (p Partnership) DeletePartnership(partnershipID int) revel.Result {
 }
 
 func (p Partnership) UpdatePartnership(dbm *gorp.DbMap, partnershipID int, partnershipName string, partnershipLink string, partnershipImg []byte) revel.Result {
+    //Check Auth
+    isAdmin := false
+    if (p.Session["cUserRole"] == "1") {
+        isAdmin = true
+    }
+    if (!isAdmin) {
+        p.Flash.Error("You are not authorized!")
+        return p.Redirect("/Login");
+    }
+
     newPartnership := SelectPartnershipByPartnershipID(Dbm, partnershipID)
     newPartnership.PartnershipName = partnershipName
     newPartnership.PartnershipLink = partnershipLink
