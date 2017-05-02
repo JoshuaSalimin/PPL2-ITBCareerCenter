@@ -101,6 +101,7 @@ var InitDb func() = func(){
         newContact.ContactID = 0
         InsertContact(Dbm, newContact)
     }
+    InsertUsersAdmin(Dbm)
 }
 
 

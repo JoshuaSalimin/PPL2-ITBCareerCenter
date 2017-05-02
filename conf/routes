@@ -50,6 +50,7 @@ POST     /UpdatePartnership						Partnership.UpdatePartnership
 POST     /DeletePartnership						Partnership.DeletePartnership
 
 #UserManagement
+GET 	/Users									Users.RedirectToList
 GET 	/Users/List 							Users.Users
 GET 	/Users/List/:page						Users.Users
 GET 	/Users/Add 								Users.AddView
@@ -58,7 +59,9 @@ GET 	/Users/Edit 							Users.EditView
 POST 	/Users/Edit 							Users.Edit
 POST	/Users/Delete 							Users.Delete
 
-GET 	/Users/Bundles							Bundles.Bundles
+GET 	/Users/Bundles/							Bundles.RedirectToList
+GET 	/Users/Bundles/List						Bundles.Bundles
+GET 	/Users/Bundles/List/:page				Bundles.Bundles
 GET 	/Users/Bundles/Add						Bundles.AddView
 POST	/Users/Bundles/Add 						Bundles.Add
 #GET 	/Users/Bundles/Edit 					Bundles.EditView
