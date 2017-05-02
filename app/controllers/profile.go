@@ -8,6 +8,7 @@ import (
 	"os"
 	"fmt"
 	"path/filepath"
+	"strconv"
 )
 
 type Profile struct {
@@ -176,6 +177,16 @@ func (c Profile) Edit(id int,
 }
 
 func (c Profile) Form(id int) revel.Result {
+	//Check Auth
+    authorized := false
+    if (c.Session["cUserId"] == strconv.Itoa(id)) {
+        authorized = true
+    }
+    if (!authorized) {
+    	c.Flash.Error("You are not authorized!")
+    	return c.Redirect("/Login")
+    }
+    
 	profiles := true
 	user := SelectUsersByUserid(Dbm, id)
 	userSocialMedias := SelectAllUserSocialMediaByUserId(Dbm, id)
@@ -187,7 +198,11 @@ func (c Profile) Form(id int) revel.Result {
 
 func (c Profile) Page(id int) revel.Result {
 	profiles := true
-	authorized := false
+	//Check Auth
+    authorized := false
+    if (c.Session["cUserId"] == strconv.Itoa(id)) {
+        authorized = true
+    }
 	user := SelectUsersByUserid(Dbm, id)
 	namaPerusahaan := user.CompanyName
 	deskripsiPerusahaan := user.CompanyDescription

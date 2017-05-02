@@ -101,9 +101,7 @@ var InitDb func() = func(){
         newContact.ContactID = 0
         InsertContact(Dbm, newContact)
     }
-    // u := models.CreateDefaultUser("role0")
-    // InsertUsers(Dbm, &u)
-
+    InsertUsersAdmin(Dbm)
 }
 
 

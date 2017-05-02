@@ -17,8 +17,15 @@ type Users struct {
     *revel.Controller
 }
 
+
 func (c Users) Users(page int) revel.Result {
-    log.Println(page)
+    //Check Auth
+    isAuthorized := c.IsAuthorized()
+    if (!isAuthorized) {
+        c.Flash.Error("You are not authorized!")
+        return c.Redirect("/Login");
+    }
+
     numUserPerPage := 20
     if (page == 0) {
         page = 1
@@ -41,11 +48,29 @@ func (c Users) Users(page int) revel.Result {
     return c.Render(page, users, userCount, numUserPerPage, currentPageNum)
 }
 
+func (c Users) RedirectToList() revel.Result {
+    return c.Redirect("/Users/List/1")
+}
+
 func (c Users) AddView() revel.Result {
+    //Check Auth
+    isAuthorized := c.IsAuthorized()
+    if (!isAuthorized) {
+        c.Flash.Error("You are not authorized!")
+        return c.Redirect("/Login");
+    }
+
     return c.Render(true)
 }
 
 func (c Users) Add() revel.Result {
+    //Check Auth
+    isAuthorized := c.IsAuthorized()
+    if (!isAuthorized) {
+        c.Flash.Error("You are not authorized!")
+        return c.Redirect("/Login");
+    }
+
     timecreated := time.Now().UnixNano()
     angkatan,_ := strconv.Atoi(c.Request.Form.Get("angkatan"))
     user := models.Users {
@@ -72,6 +97,13 @@ func (c Users) Add() revel.Result {
 }
 
 func (c Users) Delete() revel.Result {
+    //Check Auth
+    isAuthorized := c.IsAuthorized()
+    if (!isAuthorized) {
+        c.Flash.Error("You are not authorized!")
+        return c.Redirect("/Login");
+    }
+
     c.Flash.Success("User added successfully");
     id,_ := strconv.Atoi(c.Request.Form.Get("id"))
     DeleteUsersByUserId(Dbm,id)
@@ -80,12 +112,26 @@ func (c Users) Delete() revel.Result {
 }
 
 func (c Users) EditView() revel.Result {
+    //Check Auth
+    isAuthorized := c.IsAuthorized()
+    if (!isAuthorized) {
+        c.Flash.Error("You are not authorized!")
+        return c.Redirect("/Login");
+    }
+
     id,_ := strconv.Atoi(c.Params.Query.Get("id"))
     user := SelectUsersByUserid(Dbm, id)
     return c.Render(user)
 }
 
 func (c Users) Edit() revel.Result {
+    //Check Auth
+    isAuthorized := c.IsAuthorized()
+    if (!isAuthorized) {
+        c.Flash.Error("You are not authorized!")
+        return c.Redirect("/Login");
+    }
+
     userid,_ := strconv.Atoi(c.Request.Form.Get("userid"))
     username := c.Request.Form.Get("username")
     password := c.Request.Form.Get("password")
@@ -96,6 +142,15 @@ func (c Users) Edit() revel.Result {
     
     c.Flash.Success("User edited successfully");
     return c.Redirect("/Users")
+}
+
+func (c Users) IsAuthorized() bool {
+    //Check Auth
+    isAdmin := false
+    if (c.Session["cUserRole"] == "1") {
+        isAdmin = true
+    }
+    return isAdmin
 }
 
 func generateRandomPassword(digits int) string {
@@ -113,6 +168,8 @@ func InsertUsersAdmin(dbm *gorp.DbMap){
     // set "userid" as primary key and autoincrement
     var admin models.Users
     admin = models.CreateDefaultUser("admin")
+    admin.Password = EncryptSHA256(admin.Password)
+    admin.Role = 1;
     log.Println("u :", admin)
     dbm.Insert(&admin)
 }
