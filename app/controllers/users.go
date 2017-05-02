@@ -22,7 +22,7 @@ func (c Users) Users(page int) revel.Result {
     log.Println(page)
     numUserPerPage := 20
     if (page == 0) {
-        c.Redirect("/Users/List/1")
+        page = 1
     }
     startUserLimit := (page-1)*numUserPerPage
     endUserLimit := page*numUserPerPage
