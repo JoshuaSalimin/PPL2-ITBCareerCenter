@@ -23,9 +23,8 @@
 					<div class="container">
 						<div id="content">					
 							{{if .authorized}}
-								<button class="button"><a href="/ProfileForm/{{.id}}">Edit this Page</a></button>
+								<a href="/ProfileForm/{{.id}}" style="color: white;"><button class="btn btn-info btn-lg">Edit this Page</button></a>
 							{{end}}
-							<a href="/ProfileForm/{{.id}}" style="color: white;"><button class="btn btn-info btn-lg">Edit this Page</button></a>
 							<article>
 								{{if .NamaPerusahaan}}
 								<header style="text-align: center;">

@@ -14,10 +14,9 @@
 				<div id="content">
 
 					<!-- Content -->
-						{{if .authorized}}
-								<a href="#" style="color: white;"><button class="btn btn-info btn-lg">Edit This Page</button></a>
+						{{if .isAdmin}}
+							<a href="/EditAbout" style="color: white;"><button class="btn btn-info btn-lg">Edit This Page</button></a>
 						{{end}}
-						<a href="/EditAbout" style="color: white;"><button class="btn btn-info btn-lg">Edit This Page</button></a>
 						<br><br>
 						<article>
 							<header>

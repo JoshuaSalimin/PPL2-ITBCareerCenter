@@ -23,7 +23,17 @@ func (c News) Index() revel.Result {
 }
 
 func (c News) Form() revel.Result {
-	return c.Render()
+    //Check Auth
+    isAdmin := false
+    if (c.Session["cUserRole"] == "1") {
+        isAdmin = true
+    }
+    if (isAdmin) {
+        return c.Render()
+    } else {
+        c.Flash.Error("You are not authorized!")
+        return c.Redirect("/Login")
+    }
 }
 
 func (c News) List() revel.Result {
@@ -31,21 +41,28 @@ func (c News) List() revel.Result {
     return c.Render(news);
 }
 
-func (c News) Add() revel.Result {       
-    timecreated := time.Now().UnixNano();
-    innews := models.News{
-        NewsId : 0,
-        NewsTitle : c.Request.Form.Get("newstitle"),
-        Content : c.Request.Form.Get("newscontent"),
-        CreatedAt : timecreated,
-        UpdatedAt : timecreated, 
-    }
-    success := InsertNews(Dbm, innews);
-    if (success){
-        return c.Redirect(News.List);
-    }else{
-        return c.Redirect(News.Form);        
-    }
+func (c News) Add() revel.Result {
+    //Check Auth
+    if (c.Session["cUserRole"] == "1") {
+        timecreated := time.Now().UnixNano();
+        innews := models.News{
+            NewsId : 0,
+            NewsTitle : c.Request.Form.Get("newstitle"),
+            Content : c.Request.Form.Get("newscontent"),
+            CreatedAt : timecreated,
+            UpdatedAt : timecreated, 
+        }
+        success := InsertNews(Dbm, innews);
+        if (success){
+            return c.Redirect(News.List);
+        }else{
+            return c.Redirect(News.Form);        
+        }    
+    } else {
+        c.Flash.Error("You are not authorized!")
+        return c.Redirect("/Login")
+    }   
+    
 }
 
 func (c News) Detail() revel.Result {
@@ -56,6 +73,8 @@ func (c News) Detail() revel.Result {
 }
 
 func (c News) Delete() revel.Result {
+    //Check Auth
+    if (c.Session["cUserRole"] == "1") {
         id,_ := strconv.Atoi(c.Request.Form.Get("id"));
         success := DeleteNewsByNewsid(Dbm,id);
         if (success){
@@ -63,30 +82,46 @@ func (c News) Delete() revel.Result {
         }else{
             return c.Redirect(App.Index);        
         }
+    } else {
+        c.Flash.Error("You are not authorized!")
+        return c.Redirect("/Login")
+    }
 }
 
 func (c News) EditForm() revel.Result {
+    //Check Auth
+    if (c.Session["cUserRole"] == "1") {
         var id int;
         c.Params.Bind(&id,"id");
         news :=  SelectNewsByNewsId(Dbm,id);
         return c.Render(news);
+    } else {
+        c.Flash.Error("You are not authorized!")
+        return c.Redirect("/Login")
+    }
 }
 
 func (c News) EditSubmit() revel.Result {
-    newsid,_ := strconv.ParseInt(c.Request.Form.Get("newsid"),0,64);
-    newscreatedat,_ := strconv.ParseInt(c.Request.Form.Get("newscreated"),0,64);
-    innews := models.News{
-        NewsId : newsid,
-        NewsTitle : c.Request.Form.Get("newstitle"),
-        Content : c.Request.Form.Get("newscontent"),
-        CreatedAt : newscreatedat,
-        UpdatedAt : time.Now().UnixNano(), 
-    }
-    success := UpdateNews(Dbm, innews);
-    if (success){
-        return c.Redirect(News.List);
-    }else{
-        return c.Redirect(App.Index);        
+    //Check Auth
+    if (c.Session["cUserRole"] == "1") {
+        newsid,_ := strconv.ParseInt(c.Request.Form.Get("newsid"),0,64);
+        newscreatedat,_ := strconv.ParseInt(c.Request.Form.Get("newscreated"),0,64);
+        innews := models.News{
+            NewsId : newsid,
+            NewsTitle : c.Request.Form.Get("newstitle"),
+            Content : c.Request.Form.Get("newscontent"),
+            CreatedAt : newscreatedat,
+            UpdatedAt : time.Now().UnixNano(), 
+        }
+        success := UpdateNews(Dbm, innews);
+        if (success){
+            return c.Redirect(News.List);
+        }else{
+            return c.Redirect(App.Index);        
+        }
+    } else {
+        c.Flash.Error("You are not authorized!")
+        return c.Redirect("/Login")
     }
 }
 

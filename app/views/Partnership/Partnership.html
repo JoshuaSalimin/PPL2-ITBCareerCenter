@@ -12,10 +12,9 @@
 		<!-- Posts -->
 		<section class="wrapper style1">
 			<div class="container">
-				{{if .authorized}}
-					<a href="#" style="color: white;"><button class="btn btn-info btn-lg">Edit This Page</button></a>
+				{{if .isAdmin}}
+					<a href="/EditPartnership" style="color: white;"><button class="btn btn-info btn-lg">Edit This Page</button></a>
 				{{end}}
-				<a href="/EditPartnership" style="color: white;"><button class="btn btn-info btn-lg">Edit This Page</button></a>
 				<br><br>
 				{{ range $key, $p := .allPartnership }}
 				   {{if even $key}}<div class="row">{{end}}

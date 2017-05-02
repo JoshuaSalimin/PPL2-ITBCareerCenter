@@ -14,13 +14,28 @@ type About struct {
 }
 
 func (a About) About() revel.Result {
+    isAdmin := false
+    if (a.Session["cUserRole"] == "1") {
+        isAdmin = true
+    }
     about := true
     allabout := SelectAllAbout(Dbm)
     contentabout := allabout[0]
-    return a.Render(about, contentabout)
+    return a.Render(about, contentabout, isAdmin)
 }
 
 func (a About) EditAbout() revel.Result {
+    //Check Auth
+    isAdmin := false
+    if (a.Session["cUserRole"] == "1") {
+        isAdmin = true
+    }
+    if (!isAdmin) {
+        a.Flash.Error("You are not authorized!")
+        return a.Redirect("/Login");
+    }
+
+
     about := true
     allaboutcontent := SelectAllAbout(Dbm)
     aboutcontent := allaboutcontent[0]
@@ -39,6 +54,16 @@ func SavetoDB(dbm *gorp.DbMap, a models.About){
 }
 
 func (a About) Save() revel.Result {
+    //Check Auth
+    isAdmin := false
+    if (a.Session["cUserRole"] == "1") {
+        isAdmin = true
+    }
+    if (!isAdmin) {
+        a.Flash.Error("You are not authorized!")
+        return a.Redirect("/Login");
+    }
+
     aboutid,_ := strconv.ParseInt(a.Request.Form.Get("aboutid"),0,64);
     newAbout := models.About{
         AboutID            : aboutid,

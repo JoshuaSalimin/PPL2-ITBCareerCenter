@@ -14,13 +14,29 @@ type Contact struct {
 }
 
 func (c Contact) Contact() revel.Result {
+    //Check Auth
+    isAdmin := false
+    if (c.Session["cUserRole"] == "1") {
+        isAdmin = true
+    }
+    
     contact := true
     allcontact := SelectAllContact(Dbm)
     contentcontact := allcontact[0]
-    return c.Render(contact, contentcontact)
+    return c.Render(contact, contentcontact, isAdmin)
 }
 
 func (c Contact) EditContact() revel.Result {
+    //Check Auth
+    isAdmin := false
+    if (c.Session["cUserRole"] == "1") {
+        isAdmin = true
+    }
+    if (!isAdmin) {
+        c.Flash.Error("You are not authorized!")
+        return c.Redirect("/Login");
+    }
+
     about := true
     allcontactcontent := SelectAllContact(Dbm)
     contactcontent := allcontactcontent[0]

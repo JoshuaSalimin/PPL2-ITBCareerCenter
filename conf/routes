@@ -64,8 +64,6 @@ GET 	/Users/Bundles/List						Bundles.Bundles
 GET 	/Users/Bundles/List/:page				Bundles.Bundles
 GET 	/Users/Bundles/Add						Bundles.AddView
 POST	/Users/Bundles/Add 						Bundles.Add
-#GET 	/Users/Bundles/Edit 					Bundles.EditView
-#POST 	/Users/Bundles/Edit 					Bundles.Edit
 POST	/Users/Bundles/Delete 					Bundles.Delete
 
 POST 	/Users/Bundles/DownloadCSV				Bundles.DownloadCSV
