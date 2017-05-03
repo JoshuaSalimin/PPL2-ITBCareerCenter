@@ -170,7 +170,8 @@ func InsertUsersAdmin(dbm *gorp.DbMap){
     admin = models.CreateDefaultUser("admin")
     admin.Password = EncryptSHA256(admin.Password)
     admin.Role = 1;
-    log.Println("u :", admin)
+    admin.IsPasswordChanged = true;
+    log.Println("u :", admin)   
     dbm.Insert(&admin)
 }
 
