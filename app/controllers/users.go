@@ -91,7 +91,6 @@ func (c Users) Add() revel.Result {
         ShowProfile: false,
         Role: 0,
     }
-    user.Password = EncryptSHA256(user.Password)
     InsertUsers(Dbm, &user)
     c.Flash.Success("User " + c.Request.Form.Get("username") + " added successfully");
     return c.Redirect("/Users")

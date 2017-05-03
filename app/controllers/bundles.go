@@ -68,7 +68,7 @@ func (c Bundles) Add() revel.Result {
 	for i:=1; i<=jumlah; i++ {
 		username := namabundle + "-" + strconv.Itoa(i)
 		password := generateRandomPassword(10);
-		password = EncryptSHA256(password)
+		// spassword = EncryptSHA256(password)
 		newuser := models.Users {
 			UserId: 0,
 			Username: username,
