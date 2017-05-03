@@ -10,3 +10,4 @@ public/images/partnership
 public/images/user/*
 !public/images/user/.gitkeep
 public/images/banner
+!public/images/banner/.gitkeep
