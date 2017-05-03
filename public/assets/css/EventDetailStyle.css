@@ -1,0 +1,43 @@
+#div-editdelete {
+  margin-left: 200px;
+}
+
+#divedit {
+  float: center;
+  text-align:center;
+  border-style: solid;
+  margin-bottom: 20px;
+}
+
+.divlocation {
+  float: center;
+  text-align:center;
+  border-style: solid;
+  margin-bottom: 20px;
+}
+
+#divdelete {
+  float: center;
+  text-align:center;  
+  border-style: solid;
+  margin-bottom: 30px;
+}
+#cleared {
+  clear: both;
+}
+
+#editeventbutton {
+	background-color: blue; 
+}
+
+#deleteeventbutton {
+	background-color: red; 
+}
+
+.eventform {
+	margin-bottom: 20px;
+}
+
+.event-time-div {
+  text-align: center;
+}

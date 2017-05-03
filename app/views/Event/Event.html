@@ -1,0 +1,38 @@
+<head>
+	<link rel="stylesheet" type="text/css" href="/public/assets/css/EventDetailStyle.css">
+	<script src="/public/js/EventDetail.js"></script>
+</head>
+
+<!-- Header -->
+{{template "header.html" .}}
+<!-- Content -->
+	<div id="page-wrapper">
+		<!-- Nav -->
+	{{template "nav.html" .}}
+		
+		<!-- Main -->
+			<section class="wrapper style1">
+				<div class="container">
+					<div id="content">
+					{{if .isAuthorizedAsAdmin}}
+					<div id="divedit">
+						<form action="/AddEvent" method=get>
+						    <input type="submit" id="AddEventButton" value="Add New Event" />
+						</form>
+					</div>			
+					<br>
+					{{end}}
+					{{range .list}}
+
+						<span class="image featured">
+						<a href="/Event/{{.EventId}}">
+						<img src="{{.BannerPath}}" alt="" style="height:200px; object-fit: cover"/>
+						</a>
+						</span>
+
+					{{end}}
+				</div>
+			</section>
+	</div>
+<!-- Footer -->
+{{template "footer.html" .}}
