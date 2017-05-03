@@ -62,7 +62,6 @@ func (e Event) AddEventToDB(EventTitle string,
     ev := models.CreateDefaultEvent3(EventTitle)
 
     if (len(EventBanner) != 0) {
-        log.Println("YASSS")        
         filename := e.Params.Files["EventBanner"][0].Filename
         relativePath := e.UploadBanner(EventBanner, filename)
         ev.BannerPath = relativePath
@@ -83,7 +82,6 @@ func (e Event) AddEventToDB(EventTitle string,
 
 func (e Event) EventDetail(id int) revel.Result {
     ev := SelectEventByEventId(Dbm, id)
-    log.Println(ev)
     EventTitle := ev.EventTitle
     EventBannerPath := ev.BannerPath
     _EventStart := time.Unix(ev.EventStart, 0)
@@ -118,7 +116,6 @@ func (e Event) DeleteEvent(id int) revel.Result {
 
 func (e Event) EditEvent(id int) revel.Result {
     ev := SelectEventByEventId(Dbm, id)
-    log.Println(ev)
     EventTitle := ev.EventTitle
     EventBannerPath := ev.BannerPath
     EventStart_ := time.Unix(ev.EventStart, 0)
@@ -164,7 +161,6 @@ func (e Event) UpdateEvent(EventBanner []byte,) revel.Result{
     EventTitle := e.Request.Form.Get("EventTitle")
 
     if (len(EventBanner) != 0) {
-        log.Println("YASSS")        
         filename := e.Params.Files["EventBanner"][0].Filename
         relativePath := e.UploadBanner(EventBanner, filename)
         ev.BannerPath = relativePath
@@ -175,8 +171,6 @@ func (e Event) UpdateEvent(EventBanner []byte,) revel.Result{
 
     EventDescription := e.Request.Form.Get("EventDescription")
 
-    log.Println(ev)
-
     ev.EventTitle = EventTitle
     ev.EventStart = EventStart.Unix()
     ev.EventEnd = EventEnd.Unix()
@@ -185,8 +179,6 @@ func (e Event) UpdateEvent(EventBanner []byte,) revel.Result{
     ev.UpdatedAt = time.Now().UnixNano()
 
     UpdateEventDB(Dbm, ev)
-
-    log.Println(ev)
 
     return e.Redirect("/Events")
 }
@@ -297,7 +289,6 @@ func TimeToStringHTML(t time.Time) string {
     // }
 
     stringTime := yearString + "-" + monthString + "-" + dayString + "T" + hourString + ":" + minuteString
-    log.Println(stringTime)
     return stringTime
 }
 
@@ -315,7 +306,7 @@ func InsertEvent(dbm *gorp.DbMap, p models.Event) bool {
 func SelectAllEvent(dbm *gorp.DbMap) []models.Event {
     var p []models.Event
 
-    _, err := dbm.Select(&p, "SELECT * FROM event")
+    _, err := dbm.Select(&p, "SELECT * FROM event ORDER BY news_created_at DESC")
     checkErr(err, "Select failed")
     return p     
 }
