@@ -68,6 +68,8 @@ POST	/Users/Bundles/Delete 					Bundles.Delete
 
 POST 	/Users/Bundles/DownloadCSV				Bundles.DownloadCSV
 
+POST	/Users/ChangeShowProfile				Users.ChangeShowProfile
+
 # Change Password
 GET 	/ChangePassword							ChangePassword.ChangePassword
 POST 	/ChangePassword							ChangePassword.Test
