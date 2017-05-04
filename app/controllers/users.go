@@ -11,7 +11,17 @@ models "PPL2-ITBCareerCenter/app/models"
 "time"
 "strconv"
 "math/rand"
+"net/http"
 )
+
+//To return html instead of redirect or render
+type MyHtml string
+
+func (r MyHtml) Apply(req *revel.Request, resp *revel.Response) {
+    resp.WriteHeader(http.StatusOK, "text/html")
+    resp.Out.Write([]byte(r))
+}
+
 
 type Users struct {
     *revel.Controller
@@ -145,6 +155,13 @@ func (c Users) Edit() revel.Result {
     return c.Redirect("/Users")
 }
 
+func (c Users) ChangeShowProfile() revel.Result {
+    userid := c.Request.Form.Get("userId")
+    useridint,_ := strconv.Atoi(userid)
+    ReverseUsersShowProfileByUserid(Dbm, useridint)
+    return MyHtml("Hello! " + userid)
+}
+
 func (c Users) IsAuthorized() bool {
     //Check Auth
     isAdmin := false
@@ -191,6 +208,18 @@ func SelectAllUsers(dbm *gorp.DbMap) []models.Users {
         log.Printf("    %d: %v\n", x, p)
     }
     return u 	
+}
+
+func SelectAllShownUsers(dbm *gorp.DbMap) []models.Users {
+    var u []models.Users
+
+    _, err := dbm.Select(&u, "SELECT * FROM Users WHERE show_profile=true")
+    checkErr(err, "Select failed")
+    log.Println("All rows:")
+    for x, p := range u {
+        log.Printf("    %d: %v\n", x, p)
+    }
+    return u 
 }
 
 func SelectLatestUsersInRange(dbm *gorp.DbMap, start int, count int) []models.Users {
@@ -242,6 +271,11 @@ func UpdateUsersByUserid(dbm *gorp.DbMap, userid int, username string, password 
     _, err := dbm.Exec("UPDATE users SET username=?, password=?, angkatan=? WHERE userid=?", username, password, angkatan, userid)
     checkErr(err, "Update failed")
     log.Println("Updated")
+}
+
+func ReverseUsersShowProfileByUserid(dbm *gorp.DbMap, userid int) {
+    _, err := dbm.Exec("UPDATE users SET show_profile= NOT show_profile WHERE userid=?",  userid)
+    checkErr(err, "Update failed")
 }
 
 func DeleteUsersByUserId(dbm *gorp.DbMap, userid int) {

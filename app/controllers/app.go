@@ -11,7 +11,8 @@ type App struct {
 
 func (c App) Index() revel.Result {
 	home := true
-	return c.Render(home)
+	usersShown := SelectAllShownUsers(Dbm)
+	return c.Render(home, usersShown)
 }
 
 func (c App) Profiles() revel.Result {

@@ -56,7 +56,7 @@ form button {
 					<td>{{.Name}}</td>
 					<td>{{.CompanyName}}</td>
 					<td>{{.Angkatan}}</td>
-					<td>{{.ShowProfile}}</td>
+					<td><input type="checkbox" class="isShownCb" name="isShownCb" value="{{.UserId}}" id="isShownCb{{.UserId}}" {{if .ShowProfile}} checked {{end}}><i class="fa fa-spinner fa-pulse fa-1x fa-fw" id="loading{{.UserId}}" style="display: none; height:"></i></td>
 					<td>
 						<form action="/Users/Delete" method="POST">
 							<input type="hidden" name="id" id="id" value="{{.UserId}}">
@@ -80,11 +80,34 @@ form button {
 			<script>
 			require(['jquery', 'pagination'], 
 			function($) {
-				  $('#pagination').pagination({
+				$('.isShownCb').click( function() {
+			    	$(this).hide();
+			    	isChecked = $(this).is(':checked');
+			    	userId = $(this).val();
+			    	$("#loading" + userId).show();
+
+				    $.post("{{url "Users.ChangeShowProfile"}}",
+			        {
+			          userId: userId
+			        })
+			        .done(function() {
+			        	//done code here
+			        })
+			        .fail(function() {
+			        	$('#isShownCb' + userId).prop('checked', !isChecked);
+			        	alert("Cannot complete request");
+			        })
+			        .always(function() {
+			        	$("#isShownCb" + userId).show();
+			    		$("#loading" + userId).hide();
+			        });
+			    })
+
+				$('#pagination').pagination({
 			        items: {{.userCount}},
 			        itemsOnPage: {{.numUserPerPage}},
 			        cssStyle: 'pagination',
-			        hrefTextPrefix: "/Users/List/",
+			        hrefTextPrefix: "{{url "Users.Users"}}/",
 			        currentPage: {{.currentPageNum}}
 			    });
 			});
