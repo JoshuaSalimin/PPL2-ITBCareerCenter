@@ -10,6 +10,7 @@ import (
     "PPL2-ITBCareerCenter/app/models"
     "time"
     "math/rand"
+    // "log"
 )
 
 func init(){
@@ -74,6 +75,7 @@ var InitDb func() = func(){
     definePartnershipTable(Dbm)
     defineUsersInBundleTable(Dbm)
     defineBundlesTable(Dbm)
+    defineEventTable(Dbm)
 
     err := Dbm.CreateTablesIfNotExists()
     checkErr(err, "Create Table failed")
@@ -85,6 +87,8 @@ var InitDb func() = func(){
     checkErr(err, "ALTER TABLE News FAILED")
     _, err = Dbm.Exec("ALTER TABLE users ADD UNIQUE (username)")
     checkErr(err, "ALTER TABLE users FAILED")
+    _, err = Dbm.Exec("ALTER TABLE event MODIFY event_description text")
+    checkErr(err, "ALTER TABLE event FAILED")
     countAbout := CountAbout(Dbm)
     if(countAbout >= 1){
         // do nothing
@@ -153,3 +157,6 @@ func definePartnershipTable(dbm *gorp.DbMap) {
     dbm.AddTable(models.Partnership{}).SetKeys(true, "partnershipid")    
 }
 
+func defineEventTable(dbm *gorp.DbMap) {
+    dbm.AddTable(models.Event{}).SetKeys(true,"eventid")
+}

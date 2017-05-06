@@ -101,7 +101,6 @@ func (c Users) Add() revel.Result {
         ShowProfile: false,
         Role: 0,
     }
-    user.Password = EncryptSHA256(user.Password)
     InsertUsers(Dbm, &user)
     c.Flash.Success("User " + c.Request.Form.Get("username") + " added successfully");
     return c.Redirect("/Users")
@@ -188,7 +187,8 @@ func InsertUsersAdmin(dbm *gorp.DbMap){
     admin = models.CreateDefaultUser("admin")
     admin.Password = EncryptSHA256(admin.Password)
     admin.Role = 1;
-    log.Println("u :", admin)
+    admin.IsPasswordChanged = true;
+    log.Println("u :", admin)   
     dbm.Insert(&admin)
 }
 
@@ -196,7 +196,6 @@ func InsertUsers(dbm *gorp.DbMap, u *models.Users){
     err := dbm.Insert(u)
     checkErr(err, "Insert failed")
 }
-
 
 func SelectAllUsers(dbm *gorp.DbMap) []models.Users {
 	var u []models.Users

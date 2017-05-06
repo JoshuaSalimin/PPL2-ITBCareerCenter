@@ -1,0 +1,73 @@
+<head>
+	<link rel="stylesheet" type="text/css" href="/public/assets/css/EventDetailStyle.css">
+	
+	<script src="/public/js/EventDetail.js"></script>
+	<script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+</head>
+
+<!-- Header -->
+{{template "header.html" .}}
+<!-- Content -->
+	<div id="page-wrapper">
+	<!-- Nav -->
+		{{template "nav.html" .}}
+	<!-- Main -->
+		
+		<div id="page-wrapper">
+			<!-- Main -->
+			{{if .isAuthorizedAsAdmin}}
+				<section class="wrapper style1">
+					<div class="container">
+						<div id="content">					
+							<article>
+								<header style="text-align: center;">
+									<h2>Edit Event</h2>
+								</header>
+								<form action="/EditEvent" method="POST" enctype="multipart/form-data">
+									
+									<input type="hidden" name="id" value={{.id}}>
+
+									<h5>Event Title</h5>
+									<input type="text" name="EventTitle" value={{.EventTitle}}>
+
+									<h5>Event Start Time</h5>
+										<div class="eventform">
+											<input type="datetime-local" name="EventStart" value={{.EventStart}}>
+										</div>
+
+									<h5>Event End Time</h5>
+										<div class="eventform">
+											<input type="datetime-local" name="EventEnd" value={{.EventEnd}}>
+										</div>
+
+									<h5>Event Location</h5>
+									<input type="text" name="EventLocation" value={{.EventLocation}}>
+
+									<h5>Event Banner</h5>
+										<div class="eventform">
+											<div class="kv-avatar" style="width:200px">
+										      	<input name="EventBanner" type="file" class="file-loading">
+										    </div>
+									    </div>
+									    <div class="container">
+									
+									<h5>Event Description</h5>
+										<div class="eventform">
+											<textarea name="EventDescription" id="eventdescription"></textarea>
+								            <script>
+								            	CKEDITOR.replace('eventdescription');
+								            	CKEDITOR.instances['eventdescription'].setData("{{.EventDescription}}");
+								            </script>
+										</div>
+									<input type="submit" id="applychanges" value="Apply Changes" />
+								</form>
+							</article>
+						</div>
+					</div>
+				</section>
+		{{end}}		
+		</div>
+
+	</div>
+<!-- Footer -->
+{{template "footer.html" .}}

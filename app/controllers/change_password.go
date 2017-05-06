@@ -2,7 +2,7 @@ package controllers
 
 import (
 	"github.com/revel/revel"
-	"log"
+	// "log"
 	"strconv"
 )
 
@@ -28,7 +28,13 @@ func (c ChangePassword) Test() revel.Result {
 		return c.Redirect("/ChangePassword")
 	} else {
 		User := SelectUsersByUserid(Dbm, userid)
-		oldpassword = EncryptSHA256(oldpassword)
+	
+		if (User.IsPasswordChanged == true) {
+			oldpassword = EncryptSHA256(oldpassword)
+		} else if (User.IsPasswordChanged == false) {
+			User.IsPasswordChanged = true
+		}
+
 		if (User.Password != oldpassword) {
 			c.Flash.Error(ChangePasswordFailedMessage + "Password lama salah");
 		return c.Redirect("/ChangePassword")
@@ -44,8 +50,6 @@ func (c ChangePassword) Test() revel.Result {
 			}
 		}
 	}
-
-	log.Println(oldpassword + " " + newpassword + " " + confirmpassword)
-	test := true
-	return c.Render(test)
+	// return c.Render(test)
 }
+

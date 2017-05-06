@@ -1,0 +1,67 @@
+<head>
+	<link rel="stylesheet" type="text/css" href="/public/assets/css/EventDetailStyle.css">
+	<script src="/public/js/EventDetail.js"></script>
+</head>
+
+<!-- Header -->
+{{template "header.html" .}}
+<!-- Content -->
+	<div id="page-wrapper">
+	{{template "nav.html" .}}
+		<!-- Main -->
+		<div id="page-wrapper">
+			<!-- Main -->
+				{{if .isAuthorizedAsAdmin}}
+				<section class="wrapper style1">
+					<div class="container">
+					<header class="major">
+						<h2>List of Posted Event</h2>
+					</header>
+					<div id="divedit">
+						<form action="/AddEvent" method=get>
+						    <input type="submit" id="AddEventButton" value="Add New Event" />
+						</form>
+					</div>		
+					<div id="divedit">
+						<form action="/Events" method=get>
+						    <input type="submit" id="transeventbutton" value="Go To The Main Event Page" />
+						</form>
+					</div>
+					<br>
+						<table id="content">
+							<tr>
+								<td width="10%">Id</td>
+								<td width="40%">Title</td>
+								<td width="20%">Created At</td>
+								<td width="20%">Updated At</td>
+								<td width="5%"></td>
+								<td width="5%"></td>
+							</tr>
+							{{range .list}}
+							<tr>
+								<td>{{.EventId}}</td>
+								<td><a href="/Event/{{.EventId}}">{{.EventTitle}}</a></td>
+								<td>{{convert_unix_time .CreatedAt}}</td>
+								<td>
+								{{if .UpdatedAt}}
+								{{convert_unix_time .UpdatedAt}}
+								{{end}}
+								</td>
+								<td><a href="/EditEvent/{{.EventId}}"><i class="material-icons">mode_edit</i></a></td>
+								<form action="/DeleteEvent/{{.EventId}}" method="GET">
+									<!-- <input type="hidden" name="toEventList" id="toEventList" value="1"> -->
+									<td><button type="submit" id="submit" class="fabutton">
+										<i class="fa fa-trash-o" style="color:red" aria-hidden="true"></i>
+									</button></td>
+								</form>								
+							</tr>
+							{{end}}
+						</table>
+					</div>
+				</section>
+				{{end}}
+		</div>
+	</div>
+<!-- Footer -->
+{{template "footer.html" .}}
+
