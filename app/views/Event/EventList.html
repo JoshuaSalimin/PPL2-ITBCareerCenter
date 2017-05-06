@@ -1,0 +1,46 @@
+<!-- Header -->
+{{template "header.html" .}}
+<!-- Content -->
+	<div id="page-wrapper">
+	{{template "nav.html" .}}
+		<!-- Main -->
+		<div id="page-wrapper">
+			<!-- Main -->
+				<section class="wrapper style1">
+					<div class="container">
+					<header class="major">
+						<h2>List of Posted Event</h2>
+					</header>
+						<p align="right"><a href="/News/Form" class="button back">Add News</a></p>
+						<table id="content">
+							<tr>
+								<td width="10%">Id</td>
+								<td width="40%">Title</td>
+								<td width="20%">Created At</td>
+								<td width="20%">Updated At</td>
+								<td width="5%"></td>
+								<td width="5%"></td>
+							</tr>
+							{{range .news}}
+							<tr>
+								<td>#EventID</td>
+								<td>#EventTitle</td>
+								<td>#EventCreatedAt</td>
+								<td>#EventUpdatedAt</td>
+								<td><a href="#EditEvent"><i class="material-icons">mode_edit</i></a></td>
+								<form action="#DeleteEvent" method="POST">
+									<input type="hidden" name="id" id="id" value="{{.NewsId}}">
+									<td><button type="submit" id="submit" class="fabutton">
+										<i class="fa fa-trash-o" style="color:red" aria-hidden="true"></i>
+									</button></td>
+								</form>								
+							</tr>
+							{{end}}
+						</table>
+					</div>
+				</section>
+		</div>
+	</div>
+<!-- Footer -->
+{{template "footer.html" .}}
+

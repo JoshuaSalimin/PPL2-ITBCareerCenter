@@ -114,6 +114,23 @@ func (e Event) DeleteEvent(id int) revel.Result {
     return e.Redirect("/Events")
 }
 
+func (e Event) EventList() revel.Result {
+    events := true
+    list := SelectAllEvent(Dbm)
+    var isAuthorizedAsAdmin bool
+    if (e.Session["cUserId"] == "") {
+        isAuthorizedAsAdmin = false
+    } else {
+        if (e.Session["cUserRole"] == "1") {
+            isAuthorizedAsAdmin = true
+        } else {
+            isAuthorizedAsAdmin = false
+        }
+    }
+    return e.Render(events, list, isAuthorizedAsAdmin)
+}
+
+
 func (e Event) EditEvent(id int) revel.Result {
     ev := SelectEventByEventId(Dbm, id)
     EventTitle := ev.EventTitle
