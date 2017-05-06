@@ -52,7 +52,7 @@ form button {
 				{{range .users}}
 				<tr class="tablecontent">
 					<td>{{.UserId}}</td>
-					<td>{{.Username}}</td>
+					<td><a href="{{url "Profile.Page" .UserId}}">{{.Username}}</td></a>
 					<td>{{.Name}}</td>
 					<td>{{.CompanyName}}</td>
 					<td>{{.Angkatan}}</td>
