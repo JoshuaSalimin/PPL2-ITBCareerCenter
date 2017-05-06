@@ -14,7 +14,7 @@ type Event struct {
 	EventStart		int64	`db:"event_start"`
 	EventEnd		int64	`db:"event_end"`
 	EventLocation	string  `db:"event_location"`
-	EventDescription	string 	`db:"event_description"`
+	EventDescription string	`db:"event_description"`
     CreatedAt       int64   `db:"news_created_at"`
     UpdatedAt		int64	`db:"news_updated_at"`
 }

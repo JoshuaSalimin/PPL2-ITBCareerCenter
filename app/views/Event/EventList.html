@@ -11,7 +11,7 @@
 					<header class="major">
 						<h2>List of Posted Event</h2>
 					</header>
-						<p align="right"><a href="/News/Form" class="button back">Add News</a></p>
+						<p align="right"><a href="/AddEvent" class="button back">Add News</a></p>
 						<table id="content">
 							<tr>
 								<td width="10%">Id</td>
@@ -21,15 +21,15 @@
 								<td width="5%"></td>
 								<td width="5%"></td>
 							</tr>
-							{{range .news}}
+							{{range .list}}
 							<tr>
-								<td>#EventID</td>
-								<td>#EventTitle</td>
-								<td>#EventCreatedAt</td>
-								<td>#EventUpdatedAt</td>
-								<td><a href="#EditEvent"><i class="material-icons">mode_edit</i></a></td>
-								<form action="#DeleteEvent" method="POST">
-									<input type="hidden" name="id" id="id" value="{{.NewsId}}">
+								<td>{{.EventId}}</td>
+								<td>{{.EventTitle}}</td>
+								<td>{{convert_unix_time .CreatedAt}}</td>
+								<td>{{convert_unix_time .UpdatedAt}}</td>
+								<td><a href="/Event/{{.EventId}}"><i class="material-icons">mode_edit</i></a></td>
+								<form action="/DeleteEvent/{{.EventId}}" method="GET">
+									<input type="hidden" name="toEventList" id="toEventList" value="1">
 									<td><button type="submit" id="submit" class="fabutton">
 										<i class="fa fa-trash-o" style="color:red" aria-hidden="true"></i>
 									</button></td>

@@ -109,8 +109,11 @@ func (e Event) EventDetail(id int) revel.Result {
         EventLocation, EventDescription, EventCreatedAt, EventUpdatedAt, isAuthorizedAsAdmin)
 }
 
-func (e Event) DeleteEvent(id int) revel.Result {
+func (e Event) DeleteEvent(id int, toEventList int) revel.Result {
     DeleteEventByEventId(Dbm, id)
+    if (toEventList == 1) {
+        return e.Redirect("/Events/List")        
+    }
     return e.Redirect("/Events")
 }
 
