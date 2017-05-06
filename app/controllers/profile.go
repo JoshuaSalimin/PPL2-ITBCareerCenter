@@ -34,9 +34,9 @@ func (c Profile) List(page int) revel.Result {
 
 	endUserLimit = min(userCount, endUserLimit)
 
-	users := SelectLatestUsersInRange(Dbm, startUserLimit, endUserLimit - startUserLimit)
+ 	usersShown := SelectLatestShownUsersInRange(Dbm, startUserLimit, endUserLimit - startUserLimit)
 	currentPageNum := page
-	return c.Render(profiles, page, users, userCount, numUserPerPage, currentPageNum)
+	return c.Render(profiles, page, usersShown, userCount, numUserPerPage, currentPageNum)
 }
 
 func (c Profile) UploadImage(id int, image []byte, filename string) string {

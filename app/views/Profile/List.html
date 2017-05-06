@@ -12,7 +12,7 @@
 		<!-- Posts -->
 		<section class="wrapper style1">
 			<div class="container">
-				{{ range $key, $user := .users }}
+				{{ range $key, $user := .usersShown }}
 				   {{if even $key}}<div class="row">{{end}}
 						<section class="6u 12u(narrower)">
 							<a href="{{url "Profile.Page" $user.UserId}}" style="color: black;">
@@ -27,7 +27,7 @@
 						</section>
 					{{if not (even $key)}}</div>{{end}}
 				{{ end }}
-				{{if not (even (len .users))}}</div>{{end}}
+				{{if not (even (len .usersShown))}}</div>{{end}}
 
 				<ul id="pagination" class="pagination-sm"></ul>
 				<script>
