@@ -75,14 +75,14 @@ POST 	/ChangePassword							ChangePassword.Test
 
 #Event
 GET 	/Events									Event.Event
-
-#Event
 GET 	/Event/:id 								Event.EventDetail
 GET 	/DeleteEvent/:id 						Event.DeleteEvent
 GET 	/EditEvent/:id 							Event.EditEvent
 POST 	/EditEvent/ 							Event.UpdateEvent
 GET 	/AddEvent								Event.AddEvent
 POST 	/AddEvent 								Event.AddEventToDB
+GET 	/Events/List 							Event.EventList
+
 
 # Ignore favicon requests
 GET     /favicon.ico                            404
