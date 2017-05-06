@@ -20,7 +20,12 @@
 						    <input type="submit" id="AddEventButton" value="Add New Event" />
 						</form>
 					</div>			
-					<br>
+					<div id="divedit">
+						<form action="/Events/List" method=get>
+						    <input type="submit" id="transeventbutton" value="Go To The Event List Page" />
+						</form>
+					</div>
+					<br>					
 					{{end}}
 					{{range .list}}
 

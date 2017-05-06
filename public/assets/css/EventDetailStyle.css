@@ -26,8 +26,12 @@
   clear: both;
 }
 
+#transeventbutton {
+	background-color: orange; 
+}
+
 #editeventbutton {
-	background-color: blue; 
+  background-color: blue; 
 }
 
 #deleteeventbutton {
