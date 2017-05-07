@@ -8,4 +8,7 @@ conf/app\.conf
 
 public/images/partnership
 public/images/user/*
+csv/*
 !public/images/user/.gitkeep
+public/images/banner/*
+!public/images/banner/.gitkeep

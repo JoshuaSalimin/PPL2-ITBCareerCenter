@@ -11,14 +11,31 @@ models "PPL2-ITBCareerCenter/app/models"
 "time"
 "strconv"
 "math/rand"
+"net/http"
 )
+
+//To return html instead of redirect or render
+type MyHtml string
+
+func (r MyHtml) Apply(req *revel.Request, resp *revel.Response) {
+    resp.WriteHeader(http.StatusOK, "text/html")
+    resp.Out.Write([]byte(r))
+}
+
 
 type Users struct {
     *revel.Controller
 }
 
+
 func (c Users) Users(page int) revel.Result {
-    log.Println(page)
+    //Check Auth
+    isAuthorized := c.IsAuthorized()
+    if (!isAuthorized) {
+        c.Flash.Error("You are not authorized!")
+        return c.Redirect("/Login");
+    }
+
     numUserPerPage := 20
     if (page == 0) {
         page = 1
@@ -41,11 +58,29 @@ func (c Users) Users(page int) revel.Result {
     return c.Render(page, users, userCount, numUserPerPage, currentPageNum)
 }
 
+func (c Users) RedirectToList() revel.Result {
+    return c.Redirect("/Users/List/1")
+}
+
 func (c Users) AddView() revel.Result {
+    //Check Auth
+    isAuthorized := c.IsAuthorized()
+    if (!isAuthorized) {
+        c.Flash.Error("You are not authorized!")
+        return c.Redirect("/Login");
+    }
+
     return c.Render(true)
 }
 
 func (c Users) Add() revel.Result {
+    //Check Auth
+    isAuthorized := c.IsAuthorized()
+    if (!isAuthorized) {
+        c.Flash.Error("You are not authorized!")
+        return c.Redirect("/Login");
+    }
+
     timecreated := time.Now().UnixNano()
     angkatan,_ := strconv.Atoi(c.Request.Form.Get("angkatan"))
     user := models.Users {
@@ -66,27 +101,48 @@ func (c Users) Add() revel.Result {
         ShowProfile: false,
         Role: 0,
     }
-    user.Password = EncryptSHA256(user.Password)
     InsertUsers(Dbm, &user)
     c.Flash.Success("User " + c.Request.Form.Get("username") + " added successfully");
     return c.Redirect("/Users/List")
 }
 
 func (c Users) Delete() revel.Result {
+    //Check Auth
+    isAuthorized := c.IsAuthorized()
+    if (!isAuthorized) {
+        c.Flash.Error("You are not authorized!")
+        return c.Redirect("/Login");
+    }
+
     //c.Flash.Success("User added successfully");
     id,_ := strconv.Atoi(c.Request.Form.Get("id"))
+	c.Flash.Success("User" + c.Request.Form.Get("username") + "deleted successfully")
     DeleteUsersByUserId(Dbm,id)
-    c.Flash.Success("User deleted successfully");
+    //c.Flash.Success("User deleted successfully");
     return c.Redirect("/Users/List")
 }
 
 func (c Users) EditView() revel.Result {
+    //Check Auth
+    isAuthorized := c.IsAuthorized()
+    if (!isAuthorized) {
+        c.Flash.Error("You are not authorized!")
+        return c.Redirect("/Login");
+    }
+
     id,_ := strconv.Atoi(c.Params.Query.Get("id"))
     user := SelectUsersByUserid(Dbm, id)
     return c.Render(user)
 }
 
 func (c Users) Edit() revel.Result {
+    //Check Auth
+    isAuthorized := c.IsAuthorized()
+    if (!isAuthorized) {
+        c.Flash.Error("You are not authorized!")
+        return c.Redirect("/Login");
+    }
+
     userid,_ := strconv.Atoi(c.Request.Form.Get("userid"))
     username := c.Request.Form.Get("username")
     password := c.Request.Form.Get("password")
@@ -97,6 +153,22 @@ func (c Users) Edit() revel.Result {
     
     c.Flash.Success("User edited successfully");
     return c.Redirect("/Users/List")
+}
+
+func (c Users) ChangeShowProfile() revel.Result {
+    userid := c.Request.Form.Get("userId")
+    useridint,_ := strconv.Atoi(userid)
+    ReverseUsersShowProfileByUserid(Dbm, useridint)
+    return MyHtml("Hello! " + userid)
+}
+
+func (c Users) IsAuthorized() bool {
+    //Check Auth
+    isAdmin := false
+    if (c.Session["cUserRole"] == "1") {
+        isAdmin = true
+    }
+    return isAdmin
 }
 
 func generateRandomPassword(digits int) string {
@@ -114,7 +186,10 @@ func InsertUsersAdmin(dbm *gorp.DbMap){
     // set "userid" as primary key and autoincrement
     var admin models.Users
     admin = models.CreateDefaultUser("admin")
-    log.Println("u :", admin)
+    admin.Password = EncryptSHA256(admin.Password)
+    admin.Role = 1;
+    admin.IsPasswordChanged = true;
+    log.Println("u :", admin)   
     dbm.Insert(&admin)
 }
 
@@ -122,7 +197,6 @@ func InsertUsers(dbm *gorp.DbMap, u *models.Users){
     err := dbm.Insert(u)
     checkErr(err, "Insert failed")
 }
-
 
 func SelectAllUsers(dbm *gorp.DbMap) []models.Users {
 	var u []models.Users
@@ -136,10 +210,34 @@ func SelectAllUsers(dbm *gorp.DbMap) []models.Users {
     return u 	
 }
 
+func SelectAllShownUsers(dbm *gorp.DbMap) []models.Users {
+    var u []models.Users
+
+    _, err := dbm.Select(&u, "SELECT * FROM Users WHERE show_profile=true")
+    checkErr(err, "Select failed")
+    log.Println("All rows:")
+    for x, p := range u {
+        log.Printf("    %d: %v\n", x, p)
+    }
+    return u 
+}
+
 func SelectLatestUsersInRange(dbm *gorp.DbMap, start int, count int) []models.Users {
     var u []models.Users
 
     _, err := dbm.Select(&u, "SELECT * FROM Users ORDER BY users_created_at DESC LIMIT ?, ?", start, count)
+    checkErr(err, "Select failed")
+    log.Println("User Range rows:")
+    for x, p := range u {
+        log.Printf("    %d: %v\n", x, p)
+    }
+    return u    
+}
+
+func SelectLatestShownUsersInRange(dbm *gorp.DbMap, start int, count int) []models.Users {
+    var u []models.Users
+
+    _, err := dbm.Select(&u, "SELECT * FROM Users WHERE show_profile = true ORDER BY users_created_at DESC LIMIT ?, ?", start, count)
     checkErr(err, "Select failed")
     log.Println("User Range rows:")
     for x, p := range u {
@@ -185,6 +283,11 @@ func UpdateUsersByUserid(dbm *gorp.DbMap, userid int, username string, password 
     _, err := dbm.Exec("UPDATE users SET username=?, password=?, angkatan=? WHERE userid=?", username, password, angkatan, userid)
     checkErr(err, "Update failed")
     log.Println("Updated")
+}
+
+func ReverseUsersShowProfileByUserid(dbm *gorp.DbMap, userid int) {
+    _, err := dbm.Exec("UPDATE users SET show_profile= NOT show_profile WHERE userid=?",  userid)
+    checkErr(err, "Update failed")
 }
 
 func DeleteUsersByUserId(dbm *gorp.DbMap, userid int) {

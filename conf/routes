@@ -42,6 +42,7 @@ POST     /News/Delete/                          News.Delete
 GET      /News/EditForm/:id                     News.EditForm
 POST     /News/EditSubmit/                   	News.EditSubmit
 
+
 #Partnership
 GET      /Partnership							Partnership.Partnership
 GET      /EditPartnership						Partnership.EditPartnership
@@ -50,6 +51,7 @@ POST     /UpdatePartnership						Partnership.UpdatePartnership
 POST     /DeletePartnership						Partnership.DeletePartnership
 
 #UserManagement
+GET 	/Users									Users.RedirectToList
 GET 	/Users/List 							Users.Users
 GET 	/Users/List/:page						Users.Users
 GET 	/Users/Add 								Users.AddView
@@ -58,14 +60,16 @@ GET 	/Users/Edit 							Users.EditView
 POST 	/Users/Edit 							Users.Edit
 POST	/Users/Delete 							Users.Delete
 
-GET 	/Users/Bundles							Bundles.Bundles
+GET 	/Users/Bundles/							Bundles.RedirectToList
+GET 	/Users/Bundles/List						Bundles.Bundles
+GET 	/Users/Bundles/List/:page				Bundles.Bundles
 GET 	/Users/Bundles/Add						Bundles.AddView
 POST	/Users/Bundles/Add 						Bundles.Add
-#GET 	/Users/Bundles/Edit 					Bundles.EditView
-#POST 	/Users/Bundles/Edit 					Bundles.Edit
 POST	/Users/Bundles/Delete 					Bundles.Delete
 
 POST 	/Users/Bundles/DownloadCSV				Bundles.DownloadCSV
+
+POST	/Users/ChangeShowProfile				Users.ChangeShowProfile
 
 # Change Password
 GET 	/ChangePassword							ChangePassword.ChangePassword
@@ -73,6 +77,16 @@ POST 	/ChangePassword							ChangePassword.Test
 
 #Admin
 GET		/Admin/AdminNews						Admin.AdminNews
+
+#Event
+GET 	/Events									Event.Event
+GET 	/Event/:id 								Event.EventDetail
+GET 	/DeleteEvent/:id 						Event.DeleteEvent
+GET 	/EditEvent/:id 							Event.EditEvent
+POST 	/EditEvent/ 							Event.UpdateEvent
+GET 	/AddEvent								Event.AddEvent
+POST 	/AddEvent 								Event.AddEventToDB
+GET 	/Events/List 							Event.EventList
 
 # Ignore favicon requests
 GET     /favicon.ico                            404

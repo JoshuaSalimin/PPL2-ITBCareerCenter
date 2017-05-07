@@ -1,0 +1,68 @@
+<head>
+	<link rel="stylesheet" type="text/css" href="/public/assets/css/EventDetailStyle.css">
+	<!-- <link rel="stylesheet" href="/public/assets/css/fileinput.min.css" /> -->
+	<script src="/public/js/EventDetail.js"></script>
+	<script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+</head>
+
+<!-- Header -->
+{{template "header.html" .}}
+<!-- Content -->
+	<div id="page-wrapper">
+	<!-- Nav -->
+		{{template "nav.html" .}}
+	<!-- Main -->
+		
+		<div id="page-wrapper">
+			<!-- Main -->
+			{{if .isAuthorizedAsAdmin}}
+				<section class="wrapper style1">
+					<div class="container">
+						<div id="content">					
+							<article>
+								<header style="text-align: center;">
+									<h2>Add New Event</h2>
+								</header>
+								<form action="/AddEvent" method="POST" enctype="multipart/form-data">
+									
+									<h5>Event Title</h5>
+									<input type="text" name="EventTitle" placeholder="Event Title">
+
+									<h5>Event Start Time</h5>
+										<div class="eventform">
+											<input type="datetime-local" name="EventStart_RFC3339" value=2017-01-01T00:00>
+										</div>
+
+									<h5>Event End Time</h5>
+										<div class="eventform">
+											<input type="datetime-local" name="EventEnd_RFC3339" value=2017-01-01T00:00>
+										</div>
+
+									<h5>Event Location</h5>
+									<input type="text" name="EventLocation" placeholder="Event Location">
+
+									<h5>Event Banner</h5>
+										<div class="eventform">
+										      	<input id="EventBanner" name="EventBanner" type="file">
+									    </div>
+									    <div class="container">
+									
+									<h5>Event Description</h5>
+										<div class="eventform">
+											<textarea name="EventDescription" id="eventdescription" ></textarea>
+								            <script>
+								            	CKEDITOR.replace('eventdescription');
+								            </script>
+										</div>
+									<input type="submit" id="applychanges" value="Add Event" />
+								</form>
+							</article>
+						</div>
+					</div>
+				</section>
+		{{end}}		
+		</div>
+
+	</div>
+<!-- Footer -->
+{{template "footer.html" .}}
