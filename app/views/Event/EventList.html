@@ -69,7 +69,6 @@
           </ul>
         </li>
         <li class="active"><a href="/Events/List"><i class="fa fa-calendar"></i> <span>Event</span></a></li>
-        <li><a href="#"><i class="fa fa-user"></i> <span>PMW Profile</span></a></li>
       </ul>
       <!-- /.sidebar-menu -->
     </section>
@@ -120,7 +119,7 @@
 								{{convert_unix_time .UpdatedAt}}
 								{{end}}
 								</td>
-								<td><a href="/EditEvent/{{.EventId}}"><button><i class="fa fa-edit"></i></a></button></td>
+								<td><button><a href="/EditEvent/{{.EventId}}"><i class="fa fa-edit"></i></a></button></td>
 								<form action="/DeleteEvent/{{.EventId}}" method="GET">
 									<!-- <input type="hidden" name="toEventList" id="toEventList" value="1"> -->
 									<td><button type="submit" id="submit" class="fabutton">

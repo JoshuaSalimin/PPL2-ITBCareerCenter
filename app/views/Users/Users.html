@@ -72,7 +72,6 @@
           </ul>
         </li>
         <li><a href="/Events/List"><i class="fa fa-calendar"></i> <span>Event</span></a></li>
-        <li><a href="#"><i class="fa fa-user"></i> <span>PMW Profile</span></a></li>
       </ul>
       <!-- /.sidebar-menu -->
     </section>
@@ -134,8 +133,8 @@ form button {
 								<td><a href="{{url "Profile.Page" .UserId}}">{{.Username}}</td></a>
 								<td>{{.Name}}</td>
 								<td>{{.CompanyName}}</td>
-								<td>{{.Angkatan}}</td>
-								<td>{{.ShowProfile}}</td>
+								<td><center>{{.Angkatan}}</center></td>
+								<td><center><input type="checkbox" class="isShownCb" name="isShownCb" value="{{.UserId}}" id="isShownCb{{.UserId}}" {{if .ShowProfile}} checked {{end}}><i class="fa fa-spinner fa-pulse fa-1x fa-fw" id="loading{{.UserId}}" style="display: none; height:"></i></center></td>
 								<td>
 									<form action="/Users/Delete" method="POST">
 										<input type="hidden" name="id" id="id" value="{{.UserId}}">

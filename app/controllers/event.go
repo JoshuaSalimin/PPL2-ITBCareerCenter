@@ -77,7 +77,7 @@ func (e Event) AddEventToDB(EventTitle string,
     InsertEvent(Dbm, ev)
 
 
-    return e.Redirect("/Events")
+    return e.Redirect("/Events/List")
 }
 
 func (e Event) EventDetail(id int) revel.Result {
@@ -114,7 +114,7 @@ func (e Event) DeleteEvent(id int, toEventList int) revel.Result {
     if (toEventList == 1) {
         return e.Redirect("/Events/List")        
     }
-    return e.Redirect("/Events")
+    return e.Redirect("/Events/List")
 }
 
 func (e Event) EventList() revel.Result {
@@ -200,7 +200,7 @@ func (e Event) UpdateEvent(EventBanner []byte,) revel.Result{
 
     UpdateEventDB(Dbm, ev)
 
-    return e.Redirect("/Events")
+    return e.Redirect("/Events/List")
 }
 
 
