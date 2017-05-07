@@ -67,7 +67,7 @@
             <li class="active"><a href="/Users/Bundles"><i class="fa fa-circle-o"></i> List of Bundles</a></li>
           </ul>
         </li>
-        <li><a href="#"><i class="fa fa-calendar"></i> <span>Event</span></a></li>
+        <li><a href="/Events/List"><i class="fa fa-calendar"></i> <span>Event</span></a></li>
         <li><a href="#"><i class="fa fa-user"></i> <span>PMW Profile</span></a></li>
       </ul>
       <!-- /.sidebar-menu -->
@@ -133,14 +133,6 @@ form button {
 										</button>
 									</form>
 								</td>
-								<!--<td>
-									<form action="/Users/Bundles/Edit" method="GET">
-										<input type="hidden" name="id" id="id" value="{{.BundleId}}">
-										<button type="submit" id="submit">
-											<i class="fa fa-pencil-square-o" style="color:green" aria-hidden="true"></i>
-										</button>
-									</form>
-								</td>-->
 								<td>
 									<form action="/Users/Bundles/DownloadCSV" method="POST">
 										<input type="hidden" name="id" id="id" value="{{.BundleId}}">

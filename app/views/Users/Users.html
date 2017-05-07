@@ -71,7 +71,7 @@
             <li><a href="/Users/Bundles"><i class="fa fa-circle-o"></i> List of Bundles</a></li>
           </ul>
         </li>
-        <li><a href="#"><i class="fa fa-calendar"></i> <span>Event</span></a></li>
+        <li><a href="/Events/List"><i class="fa fa-calendar"></i> <span>Event</span></a></li>
         <li><a href="#"><i class="fa fa-user"></i> <span>PMW Profile</span></a></li>
       </ul>
       <!-- /.sidebar-menu -->
@@ -130,8 +130,8 @@ form button {
 							<tbody>
 							{{range .users}}
 							<tr>
-								<td>{{.UserId}}</td>
-								<td>{{.Username}}</td>
+								<td><center>{{.UserId}}</center></td>
+								<td><a href="{{url "Profile.Page" .UserId}}">{{.Username}}</td></a>
 								<td>{{.Name}}</td>
 								<td>{{.CompanyName}}</td>
 								<td>{{.Angkatan}}</td>
@@ -160,11 +160,33 @@ form button {
 						<script>
 						require(['jquery', 'pagination'], 
 						function($) {
+								$('.isShownCb').click( function() {
+								$(this).hide();
+								isChecked = $(this).is(':checked');
+								userId = $(this).val();
+								$("#loading" + userId).show();
+								$.post("{{url "Users.ChangeShowProfile"}}",
+								{
+								  userId: userId
+								})
+								.done(function() {
+									//done code here
+								})
+								.fail(function() {
+									$('#isShownCb' + userId).prop('checked', !isChecked);
+									alert("Cannot complete request");
+								})
+								.always(function() {
+									$("#isShownCb" + userId).show();
+									$("#loading" + userId).hide();
+								});
+							});
+							
 							  $('#pagination').pagination({
 								items: {{.userCount}},
 								itemsOnPage: {{.numUserPerPage}},
 								cssStyle: 'pagination',
-								hrefTextPrefix: "/Users/",
+								hrefTextPrefix: "{{url "Users.Users"}}/",
 								currentPage: {{.currentPageNum}}
 							});
 						});

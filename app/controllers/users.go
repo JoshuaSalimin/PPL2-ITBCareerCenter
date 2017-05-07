@@ -114,11 +114,9 @@ func (c Users) Delete() revel.Result {
         return c.Redirect("/Login");
     }
 
-    //c.Flash.Success("User added successfully");
     id,_ := strconv.Atoi(c.Request.Form.Get("id"))
-	c.Flash.Success("User" + c.Request.Form.Get("username") + "deleted successfully")
     DeleteUsersByUserId(Dbm,id)
-    //c.Flash.Success("User deleted successfully");
+    c.Flash.Success("User deleted successfully");
     return c.Redirect("/Users/List")
 }
 
