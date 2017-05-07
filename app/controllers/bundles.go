@@ -85,7 +85,8 @@ func (c Bundles) Add() revel.Result {
 			CreatedAt       : timecreated, 
 			UpdatedAt       : timecreated,
 			ShowProfile     : false,    
-			Role            : 0,     
+			Role            : 0,    
+			IsPasswordChanged: false, 
 		}
 
 		InsertUsers(Dbm, &newuser)
