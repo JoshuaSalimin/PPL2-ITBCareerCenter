@@ -24,7 +24,7 @@ func (c Profile) List(page int) revel.Result {
 	startUserLimit := (page-1)*numUserPerPage
 	endUserLimit := page*numUserPerPage
 
-	userCount := CountUsers(Dbm)
+	userCount := CountShownUsers(Dbm)
 
 	startUserLimit = max(startUserLimit, 0)
 

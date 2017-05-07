@@ -252,6 +252,13 @@ func CountUsers(dbm *gorp.DbMap) int {
     return int(count)
 }
 
+func CountShownUsers(dbm *gorp.DbMap) int {
+    count, err := dbm.SelectInt("SELECT COUNT(*) FROM Users WHERE show_profile = true")
+    checkErr(err, "Select failed")
+    log.Println("User count:", count)
+    return int(count)
+}
+
 func SelectUsersByUserid(dbm *gorp.DbMap, userid int) models.Users {
 	var u models.Users
     err := dbm.SelectOne(&u, "SELECT * FROM Users WHERE userid=?", userid)
