@@ -84,22 +84,23 @@ func (c Users) Add() revel.Result {
     timecreated := time.Now().UnixNano()
     angkatan,_ := strconv.Atoi(c.Request.Form.Get("angkatan"))
     user := models.Users {
-        UserId: 0,
-        Username: c.Request.Form.Get("username"),
-        Password: c.Request.Form.Get("password"),
-        Name: "",
-        ProductName: "",
-        CompanyName: "",
-        CompanyDescription: "",
-        Visi: "",
-        Misi: "",
-        Jurusan: "",
-        Angkatan: angkatan,
-        LogoPath: "",
-        CreatedAt: timecreated, 
-        UpdatedAt: timecreated,
-        ShowProfile: false,
-        Role: 0,
+        UserId          : 0,
+        Username        : c.Request.Form.Get("username"),
+        Password        : c.Request.Form.Get("password"),
+        Name            : "DEFAULT_NAME",  
+        ProductName     : "DEFAULT_PRODUCT_NAME",  
+        CompanyName     : "DEFAULT_COMPANY_NAME",  
+        CompanyDescription     : "DEFAULT_DESCRIPTION",  
+        Visi            : "DEFAULT_VISI",   
+        Misi            : "DEFAULT_MISI",
+        Jurusan         : "DEFAULT_JURUSAN",
+        Angkatan        : angkatan,
+        LogoPath        : "/public/images/defaultUserLogo.jpg",
+        CreatedAt       : timecreated, 
+        UpdatedAt       : timecreated,
+        ShowProfile     : false,
+        Role            : 0,
+        IsPasswordChanged : false,
     }
     InsertUsers(Dbm, &user)
     c.Flash.Success("User " + c.Request.Form.Get("username") + " added successfully");
@@ -247,6 +248,13 @@ func SelectLatestShownUsersInRange(dbm *gorp.DbMap, start int, count int) []mode
 
 func CountUsers(dbm *gorp.DbMap) int {
     count, err := dbm.SelectInt("SELECT COUNT(*) FROM Users")
+    checkErr(err, "Select failed")
+    log.Println("User count:", count)
+    return int(count)
+}
+
+func CountShownUsers(dbm *gorp.DbMap) int {
+    count, err := dbm.SelectInt("SELECT COUNT(*) FROM Users WHERE show_profile = true")
     checkErr(err, "Select failed")
     log.Println("User count:", count)
     return int(count)
