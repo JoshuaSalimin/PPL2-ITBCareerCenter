@@ -112,7 +112,7 @@
 							{{range .list}}
 							<tr>
 								<td>{{.EventId}}</td>
-								<td><a href="/Event/{{.EventId}}">{{.EventTitle}}</a></td>
+								<td><a href="/Event/{{.EventId}}" target="_blank">{{.EventTitle}}</a></td>
 								<td>{{convert_unix_time .CreatedAt}}</td>
 								<td>
 								{{if .UpdatedAt}}

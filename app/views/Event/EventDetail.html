@@ -20,19 +20,6 @@
 								{{if .EventTitle}}
 								<header style="text-align: center;">
 									<h2>{{.EventTitle}}</h2>
-									{{if .isAuthorizedAsAdmin}}
-									<div id="divedit">
-									<form action="/EditEvent/{{.id}}" method=get>
-									    <input type="submit" id="editeventbutton" value="Edit Event" />
-									</form>
-									</div>
-									<div id="divdelete">
-									<form action="/DeleteEvent/{{.id}}" method=get>
-
-									    <input Onclick="return ConfirmDelete();" type="submit" id="deleteeventbutton" value="Delete Event" />
-									</form>
-									</div>
-									{{end}}
 								</header>
 								{{end}}
 

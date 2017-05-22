@@ -127,7 +127,7 @@
 			  {{range .news}}
 			  <tr>
 				<td><center>{{.NewsId}}</center></td>
-				<td><center>{{.NewsTitle}}</center></td>
+				<td><center><a href="/News/Detail/{{.NewsId}}" target="_blank">{{.NewsTitle}}</a></center></td>
 				<td><center>{{.CreatedAt}}</center></td>
 				<td><center>{{.UpdatedAt}}</center></td>
 				<td><a href="/News/EditForm/{{.NewsId}}"><button><i class="fa fa-edit" style="color:blue"></i></button></a></td>
@@ -143,9 +143,11 @@
 			</table>
 		  </div>
 		</div>
-		<div class="box-footer clearfix no-border">
-		  <button type="button" class="btn btn-default pull-right"><a href="/News/Form"><i class="fa fa-plus"></i> Add News</a></button>
-		</div>
+    <a href="/News/Form">
+  		<div class="box-footer clearfix no-border">
+  		  <button type="button" class="btn btn-default pull-right"><i class="fa fa-plus"></i> Add News</button>
+  		</div>
+    </a>
 	  </div>
     </section>
     <!-- /.content -->
