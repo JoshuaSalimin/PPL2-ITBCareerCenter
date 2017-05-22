@@ -128,8 +128,8 @@
 			  <tr>
 				<td><center>{{.NewsId}}</center></td>
 				<td><center><a href="/News/Detail/{{.NewsId}}" target="_blank">{{.NewsTitle}}</a></center></td>
-				<td><center>{{.CreatedAt}}</center></td>
-				<td><center>{{.UpdatedAt}}</center></td>
+				<td><center>{{convert_unix_time .CreatedAt}}</center></td>
+				<td><center>{{convert_unix_time .UpdatedAt}}</center></td>
 				<td><a href="/News/EditForm/{{.NewsId}}"><button><i class="fa fa-edit" style="color:blue"></i></button></a></td>
 				<form action="/News/Delete/" method="POST">
 					<input type="hidden" name="id" id="id" value="{{.NewsId}}">
