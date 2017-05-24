@@ -104,7 +104,7 @@ func (c Users) Add() revel.Result {
     }
     InsertUsers(Dbm, &user)
     c.Flash.Success("User " + c.Request.Form.Get("username") + " added successfully");
-    return c.Redirect("/Users")
+    return c.Redirect("/Users/List")
 }
 
 func (c Users) Delete() revel.Result {
@@ -115,11 +115,10 @@ func (c Users) Delete() revel.Result {
         return c.Redirect("/Login");
     }
 
-    c.Flash.Success("User added successfully");
     id,_ := strconv.Atoi(c.Request.Form.Get("id"))
     DeleteUsersByUserId(Dbm,id)
-    //c.Flash.Success("User " + "deleted successfully");
-    return c.Redirect("/Users")
+    c.Flash.Success("User deleted successfully");
+    return c.Redirect("/Users/List")
 }
 
 func (c Users) EditView() revel.Result {
@@ -152,7 +151,7 @@ func (c Users) Edit() revel.Result {
     UpdateUsersByUserid(Dbm, userid, username, password, angkatan)
     
     c.Flash.Success("User edited successfully");
-    return c.Redirect("/Users")
+    return c.Redirect("/Users/List")
 }
 
 func (c Users) ChangeShowProfile() revel.Result {

@@ -1,34 +1,125 @@
-<!-- Header -->
-{{template "header.html" .}}
-<!-- Content -->
-	<div id="page-wrapper">
-	{{template "nav.html" .}}
-		<!-- Main -->
-		<div id="page-wrapper">
-			<!-- Main -->
-				<section class="wrapper style1">
-					<div class="container">
-						<div id="content">
-							<form action="/News/EditSubmit" method="POST">
-						    	<strong>Title:</strong><br>
-						    	<input type="hidden" name="newsid" value="{{.news.NewsId}}">
-						    	<input type="hidden" name="newscreated" value="{{.news.CreatedAt}}">
-						        <input type="text" name="newstitle" value="{{.news.NewsTitle}}" /><br/>
-						        <strong>Content:</strong><br>
-					            <textarea name="newscontent" id="newscontent"></textarea>
-					            <script>
-					            	CKEDITOR.replace('newscontent');
-					            	CKEDITOR.instances['newscontent'].setData("{{.news.Content}}");
-					            </script>
-							    <p align="right">
-							    	<input type="submit" value="Edit" />
-						    	</p>
-							</form>
-						</div>
+<!DOCTYPE html>
+
+<html>
+	<head>
+		<title>Admin Enterpreuner</title>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+		<link rel="stylesheet" href="/public/assets/css/bootstrap.min.css">
+		<link rel="stylesheet" href="/public/assets/css/font-awesome.min.css">
+		<link rel="stylesheet" href="/public/assets/css/ionicons.min.css">
+		<link rel="stylesheet" href="/public/assets/dist/css/AdminLTE.min.css">
+		<link rel="stylesheet" href="/public/assets/dist/css/skins/_all-skins.min.css">
+		<link rel="stylesheet" href="/public/assets/plugins/datatables/jquery.dataTables.min.css">
+		<script src="/public/ckeditor/ckeditor.js"></script>
+	</head>
+	
+<body class="hold-transition skin-purple sidebar-mini">
+<div class="wrapper">
+
+  <!-- Main Header -->
+  <header class="main-header">
+  
+    <!-- Logo -->
+    <a href="#" class="logo">
+      <!-- mini logo for sidebar mini 50x50 pixels -->
+      <span class="logo-mini"><b>A</b>En</span>
+      <!-- logo for regular state and mobile devices -->
+      <span class="logo-lg"><b>Admin</b>Enterpreunership</span>
+    </a>
+
+    <!-- Header Navbar -->
+    <nav class="navbar navbar-static-top" role="navigation">
+      <!-- Sidebar toggle button-->
+      <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+        <span class="sr-only">Toggle navigation</span>
+      </a>
+      <!-- Navbar Right Menu -->
+      <div class="navbar-custom-menu">
+        <ul class="nav navbar-nav">
+          <!-- Control Sidebar Toggle Button -->
+          <li>
+            <a href="/" data-toggle="control-sidebar"><i class="fa fa-sign-out"></i></a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </header>
+  
+  <!-- Left side column. contains the logo and sidebar -->
+  <aside class="main-sidebar">
+    <!-- sidebar: style can be found in sidebar.less -->
+    <section class="sidebar">
+      <!-- Sidebar Menu -->
+      <ul class="sidebar-menu">
+        <li class="header">MENU</li>
+        <!-- Optionally, you can add icons to the links -->
+        <li class="active"><a href="/News/List"><i class="fa fa-newspaper-o"></i> <span>News</span></a></li>
+        <li class="treeview">
+          <a href="#">
+            <i class="fa fa-users"></i> <span>User Management</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li><a href="/Users/List"><i class="fa fa-circle-o"></i> List of Users</a></li>
+            <li><a href="/Users/Bundles"><i class="fa fa-circle-o"></i> List of Bundles</a></li>
+          </ul>
+        </li>
+        <li><a href="/Events/List"><i class="fa fa-calendar"></i> <span>Event</span></a></li>
+      </ul>
+      <!-- /.sidebar-menu -->
+    </section>
+    <!-- /.sidebar -->
+  </aside>
+ 
+ <!-- Content -->
+ 
+	<div class="content-wrapper">
+		<section class="content">
+			<div class="box box-primary">
+				<div class="box-header">
+					<i class="fa fa-newspaper-o"></i>
+
+					<h3 class="box-title">Edit News</h3>
+				</div>
+			<div class="box-body">
+				<form action="/News/EditSubmit" method="POST">
+					<div class="form-group">
+						<Strong>Title:</strong><br>
+						<input type="hidden" name="newsid" value="{{.news.NewsId}}"/><br/>
+						<input type="hidden" name="newscreated" value="{{.news.CreatedAt}}">
+						<input type="text" class="form-control" name="newstitle" value="{{.news.NewsTitle}}" /><br/>
 					</div>
-				</section>
-		</div>
+					
+					<div class="form-group">
+						<strong>Content:</strong><br>
+						<textarea class="textarea" name="newscontent" id="newscontent" placeholder="News Content" style="width: 100%; height: 125px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
+					</div>
+					<script>
+						CKEDITOR.replace('newscontent');
+						CKEDITOR.instances['newscontent'].setData("{{.news.Content}}");
+					</script>
+					<div align="right">
+						<input class="btn btn-default pull-right" type="submit" value="Edit" />
+					</div>
+				
+				</form>
+			</div>
+		</section>
 	</div>
-<!-- Footer -->
-{{template "footer.html" .}}
+</div>
+<!-- ./wrapper -->
+
+<!-- REQUIRED JS SCRIPTS -->
+<script src="/public/assets/plugins/jQuery/jquery-2.2.3.min.js"></script>
+<script src="/public/assets/js/bootstrap.min.js"></script>
+<script src="/public/assets/dist/js/app.min.js"></script>
+<script src="/public/assets/plugins/slimScroll/jquery.slimscroll.min.js"></script>
+<script src="/public/assets/plugins/datatables/jquery.dataTables.min.js"></script>
+
+</body>
+</html>
 

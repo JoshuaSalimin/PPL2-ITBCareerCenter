@@ -1,46 +1,178 @@
-<!-- Header -->
-{{template "header.html" .}}
-<!-- Content -->
-	<div id="page-wrapper">
-	{{template "nav.html" .}}
-		<!-- Main -->
-		<div id="page-wrapper">
-			<!-- Main -->
-				<section class="wrapper style1">
-					<div class="container">
-					<header class="major">
-						<h2>List of Posted News</h2>
-					</header>
-						<p align="right"><a href="/News/Form" class="button back">Add News</a></p>
-						<table id="content">
-							<tr>
-								<td width="10%">Id</td>
-								<td width="40%">Title</td>
-								<td width="20%">Created At</td>
-								<td width="20%">Updated At</td>
-								<td width="5%"></td>
-								<td width="5%"></td>
-							</tr>
-							{{range .news}}
-							<tr>
-								<td>{{.NewsId}}</td>
-								<td>{{.NewsTitle}}</td>
-								<td>{{convert_unix_time .CreatedAt}}</td>
-								<td>{{convert_unix_time .UpdatedAt}}</td>
-								<td><a href="/News/EditForm/{{.NewsId}}"><i class="material-icons">mode_edit</i></a></td>
-								<form action="/News/Delete/" method="POST">
-									<input type="hidden" name="id" id="id" value="{{.NewsId}}">
-									<td><button type="submit" id="submit" class="fabutton">
-										<i class="fa fa-trash-o" style="color:red" aria-hidden="true"></i>
-									</button></td>
-								</form>								
-							</tr>
-							{{end}}
-						</table>
-					</div>
-				</section>
-		</div>
-	</div>
-<!-- Footer -->
-{{template "footer.html" .}}
+{{set . "AdminNews" "true"}}
 
+<!DOCTYPE html>
+
+<html>
+	<head>
+		<title>Admin Enterpreuner</title>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+		<link rel="stylesheet" href="/public/assets/css/bootstrap.min.css">
+		<link rel="stylesheet" href="/public/assets/css/font-awesome.min.css">
+		<link rel="stylesheet" href="/public/assets/css/ionicons.min.css">
+		<link rel="stylesheet" href="/public/assets/dist/css/AdminLTE.min.css">
+		<link rel="stylesheet" href="/public/assets/dist/css/skins/_all-skins.min.css">
+		<link rel="stylesheet" href="/public/assets/plugins/datatables/jquery.dataTables.min.css">
+		<script src="/public/assets/plugins/datatables/jquery.dataTables.min.js"></script>
+	</head>
+	
+<body class="hold-transition skin-purple sidebar-mini">
+<div class="wrapper">
+
+  <!-- Main Header -->
+  <header class="main-header">
+
+    <!-- Logo -->
+    <a href="#" class="logo">
+      <!-- mini logo for sidebar mini 50x50 pixels -->
+      <span class="logo-mini"><b>A</b>En</span>
+      <!-- logo for regular state and mobile devices -->
+      <span class="logo-lg"><b>Admin</b>Enterpreunership</span>
+    </a>
+
+    <!-- Header Navbar -->
+    <nav class="navbar navbar-static-top" role="navigation">
+      <!-- Sidebar toggle button-->
+      <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+        <span class="sr-only">Toggle navigation</span>
+      </a>
+      <!-- Navbar Right Menu -->
+      <div class="navbar-custom-menu">
+        <ul class="nav navbar-nav">
+          <!-- Control Sidebar Toggle Button -->
+          <li>
+            <a href="/" data-toggle="control-sidebar"><i class="fa fa-sign-out"></i></a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </header>
+  <!-- Left side column. contains the logo and sidebar -->
+  <aside class="main-sidebar">
+
+    <!-- sidebar: style can be found in sidebar.less -->
+    <section class="sidebar">
+      <!-- Sidebar Menu -->
+      <ul class="sidebar-menu">
+        <li class="header">MENU</li>
+        <!-- Optionally, you can add icons to the links -->
+        <li class="active"><a href="/News/List"><i class="fa fa-newspaper-o"></i> <span>News</span></a></li>
+        <li class="treeview">
+          <a href="#">
+            <i class="fa fa-users"></i> <span>User Management</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li><a href="/Users/List"><i class="fa fa-circle-o"></i> List of Users</a></li>
+            <li><a href="/Users/Bundles"><i class="fa fa-circle-o"></i> List of Bundles</a></li>
+          </ul>
+        </li>
+        <li><a href="/Events/List"><i class="fa fa-calendar"></i> <span>Event</span></a></li>
+      </ul>
+      <!-- /.sidebar-menu -->
+    </section>
+    <!-- /.sidebar -->
+  </aside>
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <h1>
+        News
+      </h1>
+      <!-- <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> Level</a></li>
+        <li class="active">Here</li>
+      </ol> -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+
+      <div class="box box-primary">
+		<div class="box-header">
+		  <i class="ion ion-clipboard"></i>
+
+		  <h3 class="box-title">List of News</h3>
+
+		  <!--<div class="box-tools pull-right">
+			<ul class="pagination pagination-sm inline">
+			  <li><a href="#">&laquo;</a></li>
+			  <li><a href="#">1</a></li>
+			  <li><a href="#">2</a></li>
+			  <li><a href="#">3</a></li>
+			  <li><a href="#">&raquo;</a></li>
+			</ul>
+		  </div>-->
+		</div>
+
+		<div class="box-body dataTables_wrapper">
+		  <div class="table-responsive">
+			<table class="table no-margin table-hover">
+			  <thead>
+			  <tr>
+				<th class="sorting" width="10%" ><center>ID</center></th>
+				<th class="sorting" width="40%"><center>Title</center></th>
+				<th class="sorting" width="20%"><center>Created At</center></th>
+				<th class="sorting" width="20%"><center>Updated At</center></th>
+				<th width="5%"></th>
+				<th width="5%"></th>
+			  </tr>
+			  </thead>
+			  <tbody>
+			  {{range .news}}
+			  <tr>
+				<td><center>{{.NewsId}}</center></td>
+				<td><center><a href="/News/Detail/{{.NewsId}}" target="_blank">{{.NewsTitle}}</a></center></td>
+				<td><center>{{convert_unix_time .CreatedAt}}</center></td>
+				<td><center>{{convert_unix_time .UpdatedAt}}</center></td>
+				<td><a href="/News/EditForm/{{.NewsId}}"><button><i class="fa fa-edit" style="color:blue"></i></button></a></td>
+				<form action="/News/Delete/" method="POST">
+					<input type="hidden" name="id" id="id" value="{{.NewsId}}">
+					<td><button type="submit" id="submit" class="fabutton">
+						<i class="fa fa-trash-o" style="color:red" aria-hidden="true"></i>
+					</button></td>
+				</form>	
+			  </tr>
+			  {{end}}
+			  </tbody>
+			</table>
+		  </div>
+		</div>
+    <a href="/News/Form">
+  		<div class="box-footer clearfix no-border">
+  		  <button type="button" class="btn btn-default pull-right"><i class="fa fa-plus"></i> Add News</button>
+  		</div>
+    </a>
+	  </div>
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+
+  <!-- Main Footer -->
+  <!-- <footer class="main-footer">
+    <!-- To the right -->
+    <!--<div class="pull-right hidden-xs">
+      Anything you want
+    </div>
+    <!-- Default to the left -->
+    <!--<strong>Copyright &copy; 2016 <a href="#">Company</a>.</strong> All rights reserved.
+  </footer>-->
+  
+</div>
+<!-- ./wrapper -->
+
+<!-- REQUIRED JS SCRIPTS -->
+
+<script src="/public/assets/plugins/jQuery/jquery-2.2.3.min.js"></script>
+<script src="/public/assets/js/bootstrap.min.js"></script>
+<script src="/public/assets/dist/js/app.min.js"></script>
+<script src="/public/assets/plugins/slimScroll/jquery.slimscroll.min.js"></script>
+
+</body>
+</html>

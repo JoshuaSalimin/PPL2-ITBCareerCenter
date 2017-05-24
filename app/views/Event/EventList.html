@@ -1,53 +1,125 @@
-<head>
-	<link rel="stylesheet" type="text/css" href="/public/assets/css/EventDetailStyle.css">
-	<script src="/public/js/EventDetail.js"></script>
-</head>
+<!DOCTYPE html>
 
-<!-- Header -->
-{{template "header.html" .}}
-<!-- Content -->
-	<div id="page-wrapper">
-	{{template "nav.html" .}}
+<html>
+	<head>
+		<title>Admin Enterpreuner</title>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+		<link rel="stylesheet" href="/public/assets/css/bootstrap.min.css">
+		<link rel="stylesheet" href="/public/assets/css/font-awesome.min.css">
+		<link rel="stylesheet" href="/public/assets/css/ionicons.min.css">
+		<link rel="stylesheet" href="/public/assets/dist/css/AdminLTE.min.css">
+		<link rel="stylesheet" href="/public/assets/dist/css/skins/_all-skins.min.css">
+		<link rel="stylesheet" href="/public/assets/plugins/datatables/jquery.dataTables.min.css">
+		<script src="/public/js/EventDetail.js"></script>
+	</head>
+	
+<body class="hold-transition skin-purple sidebar-mini">
+<div class="wrapper">
+
+  <!-- Main Header -->
+  <header class="main-header">
+
+    <!-- Logo -->
+    <a href="#" class="logo">
+      <!-- mini logo for sidebar mini 50x50 pixels -->
+      <span class="logo-mini"><b>A</b>En</span>
+      <!-- logo for regular state and mobile devices -->
+      <span class="logo-lg"><b>Admin</b>Enterpreunership</span>
+    </a>
+
+    <!-- Header Navbar -->
+    <nav class="navbar navbar-static-top" role="navigation">
+      <!-- Sidebar toggle button-->
+      <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+        <span class="sr-only">Toggle navigation</span>
+      </a>
+      <!-- Navbar Right Menu -->
+      <div class="navbar-custom-menu">
+        <ul class="nav navbar-nav">
+          <!-- Control Sidebar Toggle Button -->
+          <li>
+            <a href="/" data-toggle="control-sidebar"><i class="fa fa-sign-out"></i></a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </header>
+  <!-- Left side column. contains the logo and sidebar -->
+  <aside class="main-sidebar">
+
+    <!-- sidebar: style can be found in sidebar.less -->
+    <section class="sidebar">
+      <!-- Sidebar Menu -->
+      <ul class="sidebar-menu">
+        <li class="header">MENU</li>
+        <!-- Optionally, you can add icons to the links -->
+        <li><a href="/News/List"><i class="fa fa-newspaper-o"></i> <span>News</span></a></li>
+        <li class="treeview">
+          <a href="#">
+            <i class="fa fa-users"></i> <span>User Management</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li><a href="/Users/List"><i class="fa fa-circle-o"></i> List of Users</a></li>
+            <li><a href="/Users/Bundles"><i class="fa fa-circle-o"></i> List of Bundles</a></li>
+          </ul>
+        </li>
+        <li class="active"><a href="/Events/List"><i class="fa fa-calendar"></i> <span>Event</span></a></li>
+      </ul>
+      <!-- /.sidebar-menu -->
+    </section>
+    <!-- /.sidebar -->
+  </aside>
+
+  <!-- Content -->
+<div class="content-wrapper">
+	{{if .isAuthorizedAsAdmin}}
+	<section class="content-header">
+      <h1>
+        List of Posted Event
+      </h1>
+	</section>
+	
+	
 		<!-- Main -->
-		<div id="page-wrapper">
-			<!-- Main -->
-				{{if .isAuthorizedAsAdmin}}
-				<section class="wrapper style1">
-					<div class="container">
-					<header class="major">
-						<h2>List of Posted Event</h2>
-					</header>
-					<div id="divedit">
-						<form action="/AddEvent" method=get>
-						    <input type="submit" id="AddEventButton" value="Add New Event" />
-						</form>
-					</div>		
-					<div id="divedit">
-						<form action="/Events" method=get>
-						    <input type="submit" id="transeventbutton" value="Go To The Main Event Page" />
-						</form>
-					</div>
-					<br>
-						<table id="content">
+		<section class="content">
+			<div class="box box-primary">
+				<div class="box-body dataTables_wrapper">
+					<div class="table-responsive">
+						<div class="box-header ui-sortable-handle">
+							<a href="/AddEvent"><button><b>Add New Event</b></button></a>
+							<a href="/Events"><button><b>Go to the Main Event Page</b></button></a>
+						</div>
+						<br>
+						
+						<table class="table no-margin table-hover">
+							<thead>
 							<tr>
-								<td width="10%">Id</td>
-								<td width="40%">Title</td>
-								<td width="20%">Created At</td>
-								<td width="20%">Updated At</td>
-								<td width="5%"></td>
-								<td width="5%"></td>
+								<th width="10%">Id</th>
+								<th width="40%">Title</th>
+								<th width="20%">Created At</th>
+								<th width="20%">Updated At</th>
+								<th width="5%"></th>
+								<th width="5%"></th>
 							</tr>
+							</thead>
+							
+							<tbody>
 							{{range .list}}
 							<tr>
 								<td>{{.EventId}}</td>
-								<td><a href="/Event/{{.EventId}}">{{.EventTitle}}</a></td>
+								<td><a href="/Event/{{.EventId}}" target="_blank">{{.EventTitle}}</a></td>
 								<td>{{convert_unix_time .CreatedAt}}</td>
 								<td>
 								{{if .UpdatedAt}}
 								{{convert_unix_time .UpdatedAt}}
 								{{end}}
 								</td>
-								<td><a href="/EditEvent/{{.EventId}}"><i class="material-icons">mode_edit</i></a></td>
+								<td><a href="/EditEvent/{{.EventId}}"><button><i class="fa fa-edit"></i></button></a></td>
 								<form action="/DeleteEvent/{{.EventId}}" method="GET">
 									<!-- <input type="hidden" name="toEventList" id="toEventList" value="1"> -->
 									<td><button type="submit" id="submit" class="fabutton">
@@ -56,12 +128,22 @@
 								</form>								
 							</tr>
 							{{end}}
+							</tbody>
 						</table>
 					</div>
-				</section>
-				{{end}}
-		</div>
-	</div>
-<!-- Footer -->
-{{template "footer.html" .}}
+				</div>
+			</div>
+		</section>
+	{{end}}
+</div>
+<!-- ./wrapper -->
 
+<!-- REQUIRED JS SCRIPTS -->
+
+<script src="/public/assets/plugins/jQuery/jquery-2.2.3.min.js"></script>
+<script src="/public/assets/js/bootstrap.min.js"></script>
+<script src="/public/assets/dist/js/app.min.js"></script>
+<script src="/public/assets/plugins/slimScroll/jquery.slimscroll.min.js"></script>
+
+</body>
+</html>

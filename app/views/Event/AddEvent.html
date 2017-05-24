@@ -1,68 +1,160 @@
-<head>
-	<link rel="stylesheet" type="text/css" href="/public/assets/css/EventDetailStyle.css">
-	<!-- <link rel="stylesheet" href="/public/assets/css/fileinput.min.css" /> -->
-	<script src="/public/js/EventDetail.js"></script>
-	<script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
-</head>
+<!DOCTYPE html>
 
-<!-- Header -->
-{{template "header.html" .}}
-<!-- Content -->
-	<div id="page-wrapper">
-	<!-- Nav -->
-		{{template "nav.html" .}}
+<html>
+	<head>
+		<title>Admin Enterpreuner</title>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+		<link rel="stylesheet" href="/public/assets/css/bootstrap.min.css">
+		<link rel="stylesheet" href="/public/assets/css/font-awesome.min.css">
+		<link rel="stylesheet" href="/public/assets/css/ionicons.min.css">
+		<link rel="stylesheet" href="/public/assets/dist/css/AdminLTE.min.css">
+		<link rel="stylesheet" href="/public/assets/dist/css/skins/_all-skins.min.css">
+		<link rel="stylesheet" href="/public/assets/plugins/datatables/jquery.dataTables.min.css">
+		<script src="/public/ckeditor/ckeditor.js"></script>
+		<script src="/public/js/EventDetail.js"></script>
+		<script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+	</head>
+	
+<body class="hold-transition skin-purple sidebar-mini">
+<div class="wrapper">
+
+  <!-- Main Header -->
+  <header class="main-header">
+
+    <!-- Logo -->
+    <a href="#" class="logo">
+      <!-- mini logo for sidebar mini 50x50 pixels -->
+      <span class="logo-mini"><b>A</b>En</span>
+      <!-- logo for regular state and mobile devices -->
+      <span class="logo-lg"><b>Admin</b>Enterpreunership</span>
+    </a>
+
+    <!-- Header Navbar -->
+    <nav class="navbar navbar-static-top" role="navigation">
+      <!-- Sidebar toggle button-->
+      <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+        <span class="sr-only">Toggle navigation</span>
+      </a>
+      <!-- Navbar Right Menu -->
+      <div class="navbar-custom-menu">
+        <ul class="nav navbar-nav">
+          <!-- Control Sidebar Toggle Button -->
+          <li>
+            <a href="/" data-toggle="control-sidebar"><i class="fa fa-sign-out"></i></a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </header>
+  <!-- Left side column. contains the logo and sidebar -->
+  <aside class="main-sidebar">
+
+    <!-- sidebar: style can be found in sidebar.less -->
+    <section class="sidebar">
+      <!-- Sidebar Menu -->
+      <ul class="sidebar-menu">
+        <li class="header">MENU</li>
+        <!-- Optionally, you can add icons to the links -->
+        <li><a href="/News/List"><i class="fa fa-newspaper-o"></i> <span>News</span></a></li>
+        <li class="treeview">
+          <a href="#">
+            <i class="fa fa-users"></i> <span>User Management</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li><a href="/Users/List"><i class="fa fa-circle-o"></i> List of Users</a></li>
+            <li><a href="/Users/Bundles"><i class="fa fa-circle-o"></i> List of Bundles</a></li>
+          </ul>
+        </li>
+        <li class="active"><a href="/Events/List"><i class="fa fa-calendar"></i> <span>Event</span></a></li>
+      </ul>
+      <!-- /.sidebar-menu -->
+    </section>
+    <!-- /.sidebar -->
+  </aside>
 	<!-- Main -->
-		
-		<div id="page-wrapper">
-			<!-- Main -->
-			{{if .isAuthorizedAsAdmin}}
-				<section class="wrapper style1">
-					<div class="container">
-						<div id="content">					
-							<article>
-								<header style="text-align: center;">
-									<h2>Add New Event</h2>
-								</header>
-								<form action="/AddEvent" method="POST" enctype="multipart/form-data">
-									
-									<h5>Event Title</h5>
-									<input type="text" name="EventTitle" placeholder="Event Title">
-
-									<h5>Event Start Time</h5>
-										<div class="eventform">
-											<input type="datetime-local" name="EventStart_RFC3339" value=2017-01-01T00:00>
-										</div>
-
-									<h5>Event End Time</h5>
-										<div class="eventform">
-											<input type="datetime-local" name="EventEnd_RFC3339" value=2017-01-01T00:00>
-										</div>
-
-									<h5>Event Location</h5>
-									<input type="text" name="EventLocation" placeholder="Event Location">
-
-									<h5>Event Banner</h5>
-										<div class="eventform">
-										      	<input id="EventBanner" name="EventBanner" type="file">
-									    </div>
-									    <div class="container">
-									
-									<h5>Event Description</h5>
-										<div class="eventform">
-											<textarea name="EventDescription" id="eventdescription" ></textarea>
-								            <script>
-								            	CKEDITOR.replace('eventdescription');
-								            </script>
-										</div>
-									<input type="submit" id="applychanges" value="Add Event" />
-								</form>
-							</article>
+<div class="content-wrapper">
+	{{if .isAuthorizedAsAdmin}}
+	<section class="content-header">
+		<h1>
+        Add New Event
+		</h1>
+	</section>
+	
+	<section class="content">
+		<div class="box box-primary">
+			<div class="box-body">
+				<form action="/AddEvent" method="POST" enctype="multipart/form-data">
+					
+					<div class="from-group">
+						<div class="col-xs-5">
+							<label>Event Title</label>
+							<input type="text" class="form-control" name="EventTitle" placeholder="Event Title">
 						</div>
 					</div>
-				</section>
-		{{end}}		
-		</div>
+					<br><br><br><br>
+					
+					<div class="from-group">
+						<div class="col-xs-5">
+							<label>Event Start Time</label>
+							<input type="datetime-local" class="form-control" name="EventStart_RFC3339" value=2017-01-01T00:00>
+						</div>
+					</div>
+					<br><br><br><br>
+					
+					<div class="from-group">
+						<div class="col-xs-5">
+							<label>Event End Time</label>
+							<input type="datetime-local" class="form-control" name="EventEnd_RFC3339" value=2017-01-01T00:00>
+						</div>
+					</div>
+					<br><br><br><br>
+					
+					<div class="from-group">
+						<div class="col-xs-5">
+							<label>Event Location</label>
+							<input type="text" class="form-control" name="EventLocation" placeholder="Event Location">
+						</div>
+					</div>
+					<br><br><br><br>
+					
+					<div class="from-group">
+						<div class="col-xs-5">
+							<label>Event Banner</label>
+							<input type="file" class="form-control" id="EventBanner" name="EventBanner" placeholder="Event Banner">
+						</div>
+					</div>
+					<br><br><br><br>
+					
+					<div class="from-group">
+						<label>Event Description</label>
+						<textarea type="file" class="form-control" id="eventdescription" name="EventDescription" placeholder="Event Description"></textarea>
+						<script>
+							CKEDITOR.replace('eventdescription');
+						</script>
+					</div>
+					<br>
 
-	</div>
-<!-- Footer -->
-{{template "footer.html" .}}
+					<input type="submit" class="btn btn-primary" id="applychanges" value="Add Event" />
+				</form>
+			</div>
+		</div>
+	</section>
+	{{end}}		
+
+</div>
+<!-- ./wrapper -->
+
+<!-- REQUIRED JS SCRIPTS -->
+
+<script src="/public/assets/plugins/jQuery/jquery-2.2.3.min.js"></script>
+<script src="/public/assets/js/bootstrap.min.js"></script>
+<script src="/public/assets/dist/js/app.min.js"></script>
+<script src="/public/assets/plugins/slimScroll/jquery.slimscroll.min.js"></script>
+
+</body>
+</html>

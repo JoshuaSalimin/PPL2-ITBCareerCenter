@@ -37,8 +37,13 @@ func (c News) Form() revel.Result {
 }
 
 func (c News) List() revel.Result {
-    news := SelectAllNews(Dbm);
-    return c.Render(news);
+    if (c.Session["cUserRole"] == "1") {
+        news := SelectAllNews(Dbm);
+        return c.Render(news);
+    } else {
+        c.Flash.Error("You are not authorized!")
+        return c.Redirect("/Login")            
+    }
 }
 
 func (c News) Add() revel.Result {

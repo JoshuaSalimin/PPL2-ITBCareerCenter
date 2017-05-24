@@ -37,8 +37,13 @@ func (e Event) Event() revel.Result {
 }
 
 func (e Event) AddEvent() revel.Result {
-    isAuthorizedAsAdmin := true
-    return e.Render(isAuthorizedAsAdmin)
+    if (e.Session["cUserId"] == "1") {
+        isAuthorizedAsAdmin := true
+        return e.Render(isAuthorizedAsAdmin)
+    }else{
+        e.Flash.Error("You are not authorized!")
+        return e.Redirect("/Login")                           
+    }
 }
 
 
@@ -77,7 +82,7 @@ func (e Event) AddEventToDB(EventTitle string,
     InsertEvent(Dbm, ev)
 
 
-    return e.Redirect("/Events")
+    return e.Redirect("/Events/List")
 }
 
 func (e Event) EventDetail(id int) revel.Result {
@@ -110,11 +115,16 @@ func (e Event) EventDetail(id int) revel.Result {
 }
 
 func (e Event) DeleteEvent(id int, toEventList int) revel.Result {
-    DeleteEventByEventId(Dbm, id)
-    if (toEventList == 1) {
-        return e.Redirect("/Events/List")        
+    if (e.Session["cUserId"] == "1") {
+        DeleteEventByEventId(Dbm, id)
+        if (toEventList == 1) {
+            return e.Redirect("/Events/List")        
+        }
+        return e.Redirect("/Events/List")
+    }else{
+        e.Flash.Error("You are not authorized!")
+        return e.Redirect("/Login")           
     }
-    return e.Redirect("/Events")
 }
 
 func (e Event) EventList() revel.Result {
@@ -130,35 +140,37 @@ func (e Event) EventList() revel.Result {
             isAuthorizedAsAdmin = false
         }
     }
-    return e.Render(events, list, isAuthorizedAsAdmin)
+    if(isAuthorizedAsAdmin){
+        return e.Render(events, list, isAuthorizedAsAdmin)
+    }else{
+        e.Flash.Error("You are not authorized!")
+        return e.Redirect("/Login")                        
+    }
 }
 
 
 func (e Event) EditEvent(id int) revel.Result {
-    ev := SelectEventByEventId(Dbm, id)
-    EventTitle := ev.EventTitle
-    EventBannerPath := ev.BannerPath
-    EventStart_ := time.Unix(ev.EventStart, 0)
-    EventStart := TimeToStringHTML(EventStart_)
-    EventEnd_ := time.Unix(ev.EventEnd, 0)
-    EventEnd := TimeToStringHTML(EventEnd_)
-    EventLocation := ev.EventLocation
-    EventDescription := ev.EventDescription
-    EventCreatedAt := time.Unix(0, ev.CreatedAt)
-    EventUpdatedAt := time.Unix(0, ev.UpdatedAt)
-    var isAuthorizedAsAdmin bool
-    if (e.Session["cUserId"] == "") {
-        isAuthorizedAsAdmin = false
+    if (e.Session["cUserId"] == "1") {
+        ev := SelectEventByEventId(Dbm, id)
+        EventTitle := ev.EventTitle
+        EventBannerPath := ev.BannerPath
+        EventStart_ := time.Unix(ev.EventStart, 0)
+        EventStart := TimeToStringHTML(EventStart_)
+        EventEnd_ := time.Unix(ev.EventEnd, 0)
+        EventEnd := TimeToStringHTML(EventEnd_)
+        EventLocation := ev.EventLocation
+        EventDescription := ev.EventDescription
+        EventCreatedAt := time.Unix(0, ev.CreatedAt)
+        EventUpdatedAt := time.Unix(0, ev.UpdatedAt)
+        var isAuthorizedAsAdmin bool
+        isAuthorizedAsAdmin = true
+        events := true
+        return e.Render(events, id, EventTitle, EventBannerPath, EventStart, EventEnd, 
+            EventLocation, EventDescription, EventCreatedAt, EventUpdatedAt, isAuthorizedAsAdmin)
     } else {
-        if (e.Session["cUserRole"] == "1") {
-            isAuthorizedAsAdmin = true
-        } else {
-            isAuthorizedAsAdmin = false
-        }
+        e.Flash.Error("You are not authorized!")
+        return e.Redirect("/Login")                                
     }
-    events := true
-    return e.Render(events, id, EventTitle, EventBannerPath, EventStart, EventEnd, 
-        EventLocation, EventDescription, EventCreatedAt, EventUpdatedAt, isAuthorizedAsAdmin)
 }
 
 func (e Event) UpdateEvent(EventBanner []byte,) revel.Result{
@@ -200,7 +212,7 @@ func (e Event) UpdateEvent(EventBanner []byte,) revel.Result{
 
     UpdateEventDB(Dbm, ev)
 
-    return e.Redirect("/Events")
+    return e.Redirect("/Events/List")
 }
 
 
